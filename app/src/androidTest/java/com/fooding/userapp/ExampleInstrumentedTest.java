@@ -1,4 +1,4 @@
-package com.fooding.myapp;
+package com.fooding.userapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.fooding.myapp", appContext.getPackageName());
+        assertEquals("com.fooding.userapp", appContext.getPackageName());
     }
 }

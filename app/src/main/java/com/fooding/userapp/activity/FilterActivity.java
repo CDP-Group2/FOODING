@@ -1,12 +1,12 @@
-package com.fooding.myapp.activity;
+package com.fooding.userapp.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.fooding.myapp.FoodingApplication;
-import com.fooding.myapp.R;
-import com.fooding.myapp.data.Food;
+import com.fooding.userapp.FoodingApplication;
+import com.fooding.userapp.R;
+import com.fooding.userapp.data.Food;
 
 public class FilterActivity extends AppCompatActivity {
 

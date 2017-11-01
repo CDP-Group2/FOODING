@@ -1,10 +1,9 @@
-package com.fooding.myapp;
+package com.fooding.userapp;
 
 import android.app.Application;
 
-import com.fooding.myapp.data.Food;
-import com.fooding.myapp.data.User;
-
+import com.fooding.userapp.data.Food;
+import com.fooding.userapp.data.User;
 
 
 public class FoodingApplication extends Application {

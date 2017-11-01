@@ -1,4 +1,4 @@
-package com.fooding.myapp.activity;
+package com.fooding.userapp.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.fooding.myapp.FoodingApplication;
-import com.fooding.myapp.R;
-import com.fooding.myapp.data.Food;
+import com.fooding.userapp.FoodingApplication;
+import com.fooding.userapp.R;
+import com.fooding.userapp.data.Food;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

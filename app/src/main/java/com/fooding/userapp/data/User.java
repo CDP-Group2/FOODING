@@ -1,4 +1,4 @@
-package com.fooding.myapp.data;
+package com.fooding.userapp.data;
 
 
 

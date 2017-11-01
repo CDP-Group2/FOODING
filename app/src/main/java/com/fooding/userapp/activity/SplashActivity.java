@@ -1,11 +1,11 @@
-package com.fooding.myapp.activity;
+package com.fooding.userapp.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.fooding.myapp.R;
+import com.fooding.userapp.R;
 
 
 

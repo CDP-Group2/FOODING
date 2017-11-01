@@ -1,9 +1,9 @@
-package com.fooding.myapp.activity;
+package com.fooding.userapp.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.fooding.myapp.R;
+import com.fooding.userapp.R;
 
 import butterknife.ButterKnife;
 

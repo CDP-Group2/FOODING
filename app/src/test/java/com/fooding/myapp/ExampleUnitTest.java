@@ -1,4 +1,4 @@
-package com.fooding.myapp;
+package com.fooding.userapp;
 
 import org.junit.Test;
 

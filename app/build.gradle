@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId 'com.fooding.myapp'
+        applicationId 'com.fooding.userapp'
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
