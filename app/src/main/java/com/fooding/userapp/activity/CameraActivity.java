@@ -27,7 +27,9 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
         ButterKnife.bind(this);
 
-
+        /****************
+        *******************************
+        ********************/
         //camera 찍어서 아래처럼 Food 저장 data-Food dir 참고
 
         FoodingApplication app = FoodingApplication.getInstance();

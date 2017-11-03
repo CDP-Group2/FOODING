@@ -12,4 +12,6 @@ public class Food {
     public void setName(String name) {
         this.name = name;
     }
+
+    //여따가 서버연결 코드
 }
