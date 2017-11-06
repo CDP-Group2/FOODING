@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CameraActivity">
+    tools:context=".activity.NFCActivity">
 
     <Button
         android:id="@+id/my_page"
@@ -49,15 +49,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="QR CAMERA" />
+        android:text="NFC reader" />
 
     <Button
-        android:id="@+id/NFC"
+        android:id="@+id/Camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:text="NFC" />
+        android:text="Camera" />
 
     <Button
         android:id="@+id/viewrecipe"

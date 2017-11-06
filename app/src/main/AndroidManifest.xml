@@ -24,7 +24,10 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CameraActivity" />
         <activity android:name=".activity.MyPageActivity" />
-        <activity android:name=".activity.FilterActivity"></activity>
+        <activity android:name=".activity.FilterActivity" />
+        <activity android:name=".activity.NFCActivity" />
+        <activity android:name=".activity.ViewRecipeActivity" />
+        <activity android:name=".activity.SendOutActivity"></activity>
     </application>
 
 </manifest>
