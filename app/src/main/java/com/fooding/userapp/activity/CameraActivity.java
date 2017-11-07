@@ -78,9 +78,11 @@ public class CameraActivity extends AppCompatActivity {
                     // Prevent duplicate scans
                     return;
                 }
-
                 lastText = result.getText();
-                barcodeView.setStatusText(result.getText());
+                Intent intent=new Intent(CameraActivity.this, SendOutQRActivity.class);
+                intent.putExtra("Code",result.getText());
+                startActivity(intent);
+                //barcodeView.setStatusText(result.getText());
             }
 
             @Override
