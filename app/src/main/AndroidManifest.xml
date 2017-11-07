@@ -31,7 +31,7 @@
         <activity android:name=".activity.FilterActivity" />
         <activity android:name=".activity.NFCActivity" />
         <activity android:name=".activity.ViewRecipeActivity" />
-        <activity android:name=".activity.SendOutActivity"></activity>
+        <activity android:name=".activity.SendOutQRActivity"></activity>
     </application>
 
 </manifest>

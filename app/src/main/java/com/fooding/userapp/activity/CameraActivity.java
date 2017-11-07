@@ -20,7 +20,11 @@ import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,6 +94,11 @@ public class CameraActivity extends AppCompatActivity {
         Food food=new Food();
         String temp="오뚜기 케챱";
         food.setName(temp);
+        Map<String, String> ttt=new LinkedHashMap<String, String>();
+        ttt.put("a123","ketchap1");
+        ttt.put("b123","ketchap2");
+        ttt.put("c123","ketchap3");
+        food.setIngredient(ttt);
         app.setCurrentFood(food);
 
         //위처럼 food 정보 저장한다음 서버로 ㄲ 하는 작업 시

@@ -8,12 +8,12 @@ import com.fooding.userapp.FoodingApplication;
 import com.fooding.userapp.R;
 import com.fooding.userapp.data.Food;
 
-public class SendOutActivity extends AppCompatActivity {
+public class SendOutQRActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send_out);
+        setContentView(R.layout.activity_send_out_qr);
 
         Food food = FoodingApplication.getInstance().getCurrentFood();
         Toast.makeText(this, food.getName().toString(), Toast.LENGTH_SHORT).show();

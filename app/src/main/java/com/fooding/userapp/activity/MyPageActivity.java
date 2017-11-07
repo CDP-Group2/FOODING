@@ -8,6 +8,10 @@ import com.fooding.userapp.FoodingApplication;
 import com.fooding.userapp.R;
 import com.fooding.userapp.data.Food;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Vector;
+
 public class MyPageActivity extends AppCompatActivity {
 
     @Override
@@ -16,7 +20,14 @@ public class MyPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_page);
 
         Food food = FoodingApplication.getInstance().getCurrentFood();
-        Toast.makeText(this, food.getName().toString(), Toast.LENGTH_SHORT).show();
+        Map<String, String> ttt=food.getIngredient();
+        String temp="";
+        Iterator<String> iterator = ttt.keySet().iterator();
+        while(iterator.hasNext()){
+            String key=iterator.next();
+            temp+=ttt.get(key);
+        }
+        Toast.makeText(this, food.getName().toString() + temp, Toast.LENGTH_SHORT).show();
         //사용방법은 카메라 액티비티 참고
     }
 }

@@ -3,8 +3,8 @@ package com.fooding.userapp.data;
 
 
 public class User {
-    private int type;
-    private String name;
+    static private int type;
+    static private String name;
 
     public String getName() {
         return name;
@@ -13,7 +13,6 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public int getType() {
         return type;
