@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activity.CameraActivity">
 
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/my_page"
+        android:layout_below="@+id/title">
+
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
     <Button
         android:id="@+id/my_page"
         android:layout_width="236dp"
