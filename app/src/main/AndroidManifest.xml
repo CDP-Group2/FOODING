@@ -3,10 +3,22 @@
     package="com.fooding.userapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
-    <uses-permission android:name="android.permission.CAMERA"  android:required="true"/>
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
-    <uses-permission android:name="android.hardware.camera.autofocus" android:required="false"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission
+        android:name="android.permission.CAMERA"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
     <application
         android:name=".FoodingApplication"
@@ -31,7 +43,8 @@
         <activity android:name=".activity.FilterActivity" />
         <activity android:name=".activity.NFCActivity" />
         <activity android:name=".activity.ViewRecipeActivity" />
-        <activity android:name=".activity.SendOutQRActivity"></activity>
+        <activity android:name=".activity.SendOutQRActivity" />
+        <activity android:name=".activity.HttpGetAndroidExample"></activity>
     </application>
 
 </manifest>

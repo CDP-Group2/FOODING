@@ -24,8 +24,8 @@ public class Food {
         this.ingredient.putAll(nIngredient);
     }
 
-    public void addIngredient(String key, String name){
-        this.ingredient.put(key,name);
+    public void addIngredient(String key, String name) {
+        this.ingredient.put(key, name);
     }
 
     //여따가 서버연결 코드
