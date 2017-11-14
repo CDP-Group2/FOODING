@@ -5,6 +5,7 @@
     <color name="colorAccent">#5072ff</color>
     <color name="extra1">#E849E3</color>
     <color name="extra2">#C05DFF</color>
+    <color name="Red">#FF0000</color>
     <color name="backgroundColor">#995072ff</color>
     <color name="button_pressed">@color/colorAccent</color>
     <color name="button_focused">@color/colorAccent</color>

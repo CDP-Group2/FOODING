@@ -10,11 +10,55 @@
         android:id="@+id/title"
         android:layout_margin="8dp"
         android:textSize="23dp"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="Filter" />
+
+    <EditText
+        android:id="@+id/searchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/searchText"
+        android:layout_alignParentBottom="true"
+        android:text="add" />
+
+    <TextView
+        android:id="@+id/JsonTextview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:gravity="center"
+        android:text="No match" />
+
+    <ListView
+        android:id="@+id/resultList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/JsonTextview"
+        android:layout_above="@+id/addButton"
+        android:layout_marginTop="60dp" />
+
+    <Button
+        android:id="@+id/MylistBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/searchText"
+        android:layout_below="@+id/resultList"
+        android:text="My list" />
 
 </RelativeLayout>
