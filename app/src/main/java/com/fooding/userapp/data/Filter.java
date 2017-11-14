@@ -22,30 +22,46 @@ public class Filter {
     /////////////////////////
 
 
-    /////for arraylist//////////////
-    private static ArrayList<String> userList = new ArrayList<String>();
+    /////for arraylist of id and name//////////////
+    private static ArrayList<String> userListName = new ArrayList<String>();
+    private static ArrayList<String> userListId = new ArrayList<String>();
 
-    public void setUserList(ArrayList<String> userList) {
-        Filter.userList = userList;
+    /////ingredient array list name functions//////////////////
+    public void setUserListName(ArrayList<String> userListName) {
+        Filter.userListName = userListName;
     }
 
-    public ArrayList<String> getUserList() {
-        return userList;
+    public ArrayList<String> getUserListName() {
+        return userListName;
     }
 
-    public void addItem2UserList(String temp){
-        userList.add(temp);
+    public void addItem2UserListName(String temp){
+        if(userListName.contains(temp)!=true){
+            userListName.add(temp);
+        }
     }
 
-    public void removeItemOnUserList(String temp){
-        userList.remove(temp);
+    public void removeItemOnUserListName(String temp){
+        userListName.remove(temp);
     }
-    //////////////////////////////
 
-    /////for getting preference/////////
-    //function to add and remove from pref
-    /////////////////////////////////////
+    ///////ingredient array list id functions//////////////////////
+    public void setUserListId(ArrayList<String> userListId) {
+        Filter.userListId = userListId;
+    }
 
-    /////for filtering preference with normal data/////////
-    ///////////////////////////////////////////////////////
+    public ArrayList<String> getUserListId() {
+        return userListId;
+    }
+
+    public void addItem2UserListId(String temp){
+        if(userListId.contains(temp)!=true){
+            userListId.add(temp);
+        }
+    }
+
+    public void removeItemOnUserListId(String temp){
+        userListId.remove(temp);
+    }
+    /////////////////////////////////////////////////////////////
 }

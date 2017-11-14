@@ -15,7 +15,10 @@ import com.fooding.userapp.R;
 import com.fooding.userapp.data.Filter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -29,7 +32,7 @@ public class PopUpFilter extends AppCompatActivity {
 
     public ArrayAdapter adapter; //adapter intialize
     public Set<String> set; //set for preference
-    public ArrayList<String> myFilterList; //user filter list
+    Map<String, String> Filtermap = new HashMap<String, String>();
 
     Filter filter = new Filter(); //calling filter class
 
@@ -38,9 +41,15 @@ public class PopUpFilter extends AppCompatActivity {
         setContentView(R.layout.activity_popupfilter);
         ButterKnife.bind(this);
 
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, filter.getUserList()) ;
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, filter.getUserListName()) ;
         userList.setAdapter(adapter);
-        /////////////////////////////////////////////////////////////////////////////
+
+        for(int i = 0; i< filter.getUserListId().size();i++){
+            Filtermap.put(filter.getUserListName().get(i),filter.getUserListId().get(i));
+        }
+        //Toast.makeText(getApplicationContext(),"You selected "+Filtermap.toString(),Toast.LENGTH_SHORT).show();
+
+
         ///////////////////////////Removing item/////////////////////////////////////
         userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,13 +60,18 @@ public class PopUpFilter extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if(tempStr!=null){
-                            filter.removeItemOnUserList(tempStr);
-                            //myFilterList = filter.getUserList();
-                            Toast.makeText(getApplicationContext(),"You selected "+filter.getUserList().toString(),Toast.LENGTH_SHORT).show();
-                            Set<String> set = new HashSet<String>(filter.getUserList());
+                            String Idremove = Filtermap.get(tempStr);
+                            filter.removeItemOnUserListId(Idremove);
+                            //Toast.makeText(getApplicationContext(),"You selected "+filter.getUserListId().toString(),Toast.LENGTH_SHORT).show();
+                            filter.removeItemOnUserListName(tempStr);
+                            Filtermap.remove(tempStr); //remove id and name
+                            Toast.makeText(getApplicationContext(),"You selected "+filter.getUserListName().toString()+"\n"+filter.getUserListId().toString(),Toast.LENGTH_SHORT).show();
+                            Set<String> set1 = new HashSet<String>(filter.getUserListName());
+                            Set<String> set2 = new HashSet<String>(filter.getUserListId());
                             SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
                             SharedPreferences.Editor editor = myPref.edit();
-                            editor.putStringSet("userList",set);
+                            editor.putStringSet("userList",set1);
+                            editor.putStringSet("userListkey",set2);
                             editor.apply();
                             adapter.notifyDataSetChanged();
                         }
@@ -77,13 +91,14 @@ public class PopUpFilter extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 // clear your SharedPreferences
-                if(filter.getUserList().isEmpty()){
-                    Set<String> set = new HashSet<String>(filter.getUserList());
+                if(filter.getUserListName().isEmpty()){
+                    //Set<String> set = new HashSet<String>(filter.getUserListName());
                     SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = myPref.edit();
-                    ArrayList<String> tempnew = new ArrayList<>();
-                    Set<String> set1 = new HashSet<String>(tempnew);
-                    editor.putStringSet("userList",set1);
+                    ArrayList<String> tempArray = new ArrayList<>();
+                    Set<String> setTemp = new HashSet<String>(tempArray);
+                    editor.putStringSet("userList",setTemp);
+                    editor.putStringSet("userListkey",setTemp);
                     editor.apply();
                 }
                 startActivity(intent);
@@ -104,13 +119,13 @@ public class PopUpFilter extends AppCompatActivity {
         // super.onBackPressed(); calls finish(); for you
 
         // clear your SharedPreferences
-        if(filter.getUserList().isEmpty()){
-            Set<String> set = new HashSet<String>(filter.getUserList());
+        if(filter.getUserListName().isEmpty()){
             SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
             SharedPreferences.Editor editor = myPref.edit();
-            ArrayList<String> tempnew = new ArrayList<>();
-            Set<String> set1 = new HashSet<String>(tempnew);
-            editor.putStringSet("userList",set1);
+            ArrayList<String> tempArray = new ArrayList<>();
+            Set<String> setTemp = new HashSet<String>(tempArray);
+            editor.putStringSet("userList",setTemp);
+            editor.putStringSet("userListkey",setTemp);
             editor.apply();
         }
 

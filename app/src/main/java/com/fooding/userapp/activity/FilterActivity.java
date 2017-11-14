@@ -54,8 +54,6 @@ public class FilterActivity extends AppCompatActivity {
     public ArrayList<String> resultList; //list of ingridient name on user filter list .. user preferences
     public ArrayAdapter<String> adapter;
 
-    //Map x = HashMap;
-
     Filter filter = new Filter(); //user filter
     private Map<String, String> dbIngridient = new LinkedHashMap<String, String>();
 
@@ -67,12 +65,6 @@ public class FilterActivity extends AppCompatActivity {
 
         IngridientId = new ArrayList<String>(); //initialization of ingridient id list
         IngridientName = new ArrayList<String>(); //initialization of ingridient name list
-
-        /*
-        dbIngridient.put("1","one");
-        dbIngridient.put("2","two");
-        */
-
         resultList =  new ArrayList<String>(); //result list to show in listview
 
         resultList.addAll(dbIngridient.values());
@@ -131,11 +123,6 @@ public class FilterActivity extends AppCompatActivity {
 
                             resultList.addAll(dbIngridient.keySet());
 
-
-                            ///debugging view////
-                            //debuggingView.setText("Id matched: " + (Integer.toString(resultList.size())));
-
-
                             for (int counter = 0; counter < IngridientName.size(); counter++) {
                                 String temp = IngridientName.get(counter);
                                 //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
@@ -157,29 +144,22 @@ public class FilterActivity extends AppCompatActivity {
                                     final String chosenID = dbIngridient.get(chosenName);
 
                                     Toast.makeText(getApplicationContext(),chosenName+"\n"+chosenID,Toast.LENGTH_SHORT).show();
-                                    //final String chosenId = (String)
-                                    // dbIngridient.get(chosenName).toString();
-
-                                    //final int chosenId = 823;
-                                    //if(IngridientName.contains(temp)){
-
-                                    //}
-                                    //Toast.makeText(getApplicationContext(),"You selected: id["+String.valueOf(ChosenId)+"]"+"["+chosenName+"]",Toast.LENGTH_SHORT).show();
-
 
                                     View.OnClickListener Listen2Btn = new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            filter.addItem2UserList(chosenName); //add string to userList
+                                            filter.addItem2UserListName(chosenName); //add string to userList
+                                            filter.addItem2UserListId(chosenID);
                                             SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
                                             SharedPreferences.Editor editor = myPref.edit();
-                                            ArrayList<String> temp1 = new ArrayList<String>(filter.getUserList());
-                                            //ArrayList<String> temp2 = new ArrayList<String>(filter.getUserList());
-                                            Set<String> set = new HashSet<String>(temp1);
-                                            Set<String> set1 = new HashSet<String>(Integer.parseInt(chosenID));
-                                            editor.putStringSet("userList",set);
-                                            editor.putStringSet("userListkey",set1);
+                                            ArrayList<String> temp1 = new ArrayList<String>(filter.getUserListName());
+                                            ArrayList<String> temp2 = new ArrayList<String>(filter.getUserListId());
+                                            Set<String> set1 = new HashSet<String>(temp1);
+                                            Set<String> set2 = new HashSet<String>(temp2);
+                                            editor.putStringSet("userList",set1);
+                                            editor.putStringSet("userListkey",set2);
                                             editor.apply();
+                                            //adapter.notifyDataSetChanged(); //prevent same data
                                             startActivity(new Intent(FilterActivity.this, PopUpFilter.class));
                                         }
 
@@ -222,11 +202,13 @@ public class FilterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences mypref = getSharedPreferences("Mypref",MODE_PRIVATE);
                 SharedPreferences.Editor editor = mypref.edit();
-                ArrayList<String> temp = new ArrayList<>(mypref.getStringSet("userList",null));
-                if(temp == null){
-                    ArrayList<String> tempnew = new ArrayList<>();
-                    Set<String> set = new HashSet<String>(tempnew);
+                ArrayList<String> temp1 = new ArrayList<>(mypref.getStringSet("userList",null));
+                ArrayList<String> temp2 = new ArrayList<>(mypref.getStringSet("userListkey",null));
+                if(temp1 == null && temp2 == null){
+                    ArrayList<String> tempReset = new ArrayList<>();
+                    Set<String> set = new HashSet<String>(tempReset);
                     editor.putStringSet("userList",set);
+                    editor.putStringSet("userListkey",set);
                     editor.apply();
                     startActivity(new Intent(FilterActivity.this, PopUpFilter.class));
                 }
@@ -249,6 +231,4 @@ public class FilterActivity extends AppCompatActivity {
         startActivity(intent);
         // super.onBackPressed(); calls finish(); for you
     }
-
-
 }
