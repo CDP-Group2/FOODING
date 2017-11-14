@@ -81,6 +81,8 @@ public class CameraActivity extends AppCompatActivity {
 
                 lastText = result.getText();
                 barcodeView.setStatusText(result.getText());
+
+                // QR코드에 담긴 일련번호 ViewRecipeActivity로 보내줘야 함
             }
 
             @Override

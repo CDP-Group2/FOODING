@@ -44,7 +44,6 @@
         <activity android:name=".activity.NFCActivity" />
         <activity android:name=".activity.ViewRecipeActivity" />
         <activity android:name=".activity.SendOutQRActivity" />
-        <activity android:name=".activity.HttpGetAndroidExample"></activity>
     </application>
 
 </manifest>

@@ -29,5 +29,7 @@ public class MyPageActivity extends AppCompatActivity {
         }
         Toast.makeText(this, food.getName().toString() + temp, Toast.LENGTH_SHORT).show();
         //사용방법은 카메라 액티비티 참고
+
+
     }
 }
