@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ingredient {
 
-    @SerializedName("ID")
+    @SerializedName("IID")
     @Expose
     private String id;
     @SerializedName("NAME")

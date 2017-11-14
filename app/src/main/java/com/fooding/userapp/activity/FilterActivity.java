@@ -124,6 +124,7 @@ public class FilterActivity extends AppCompatActivity {
                                 IngridientId.add(response.body().get(i).getId()); //get id list of ingridient
                                 IngridientName.add(response.body().get(i).getName()); //get name list of the ingridient
                                 String id = response.body().get(i).getId();
+                                //Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
                                 String name = response.body().get(i).getName().toString();
                                 dbIngridient.put(name,id); //adding all to map
                             }
@@ -152,9 +153,13 @@ public class FilterActivity extends AppCompatActivity {
                             resultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                                    final String chosenName = (String) resultListView.getItemAtPosition(i).toString();
-                                    //final String chosenId = (String) dbIngridient.get(chosenName).toString();
-                                    Toast.makeText(getApplicationContext(),chosenName+"\n",Toast.LENGTH_SHORT).show();
+                                    final String chosenName = resultList.get(i);
+                                    final String chosenID = dbIngridient.get(chosenName);
+
+                                    Toast.makeText(getApplicationContext(),chosenName+"\n"+chosenID,Toast.LENGTH_SHORT).show();
+                                    //final String chosenId = (String)
+                                    // dbIngridient.get(chosenName).toString();
+
                                     //final int chosenId = 823;
                                     //if(IngridientName.contains(temp)){
 
@@ -169,10 +174,11 @@ public class FilterActivity extends AppCompatActivity {
                                             SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
                                             SharedPreferences.Editor editor = myPref.edit();
                                             ArrayList<String> temp1 = new ArrayList<String>(filter.getUserList());
+                                            //ArrayList<String> temp2 = new ArrayList<String>(filter.getUserList());
                                             Set<String> set = new HashSet<String>(temp1);
-                                           ///Set<String> set1 = new HashSet<String>(new ArrString.valueOf(chosenId));
+                                            Set<String> set1 = new HashSet<String>(Integer.parseInt(chosenID));
                                             editor.putStringSet("userList",set);
-                                           // editor.putStringSet("userListkey",set1);
+                                            editor.putStringSet("userListkey",set1);
                                             editor.apply();
                                             startActivity(new Intent(FilterActivity.this, PopUpFilter.class));
                                         }

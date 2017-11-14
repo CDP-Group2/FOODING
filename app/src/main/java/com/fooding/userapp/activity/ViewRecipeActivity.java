@@ -1,6 +1,7 @@
 package com.fooding.userapp.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,9 +16,11 @@ import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.model.Ingredient;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,9 +34,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
     @BindView(R.id.sendout) Button sendoutbutton;
     @BindView(R.id.title)
     TextView title;
+    @BindView(R.id.myFilteredList) TextView filterList;
 
     String serialNumber;
     public ArrayList<String> results;
+    Set<String> set;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/
+
+        SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
+        set = myPref.getStringSet("userList",null);
+        ArrayList<String> temp1 = new ArrayList<String>(set);
+        filterList.setText(temp1.toString());
 
         Call<List<Ingredient>> comment = apiService.getIngredient(serialNumber);
         comment.enqueue(new Callback<List<Ingredient>>() {
