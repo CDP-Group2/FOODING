@@ -148,9 +148,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
         filterList.setText(all);
 
         String text = filterList.getText().toString();
-        SpannableString spannableString = new SpannableString(text);
-        spannableString.setSpan(new ForegroundColorSpan(Color.RED), 1 , higlightedSize+(filteredList.size()*2), 0);
-        filterList.setText(spannableString);
+        if(filteredList.size() != 0){
+            SpannableString spannableString = new SpannableString(text);
+            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 1 , higlightedSize+(filteredList.size()*2), 0);
+            filterList.setText(spannableString);
+        }
         ////////////////////////////////////////////////////////////////////////
 
         sendoutbutton.setOnClickListener(new View.OnClickListener() {
