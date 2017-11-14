@@ -38,19 +38,7 @@ public class PopUpFilter extends AppCompatActivity {
         setContentView(R.layout.activity_popupfilter);
         ButterKnife.bind(this);
 
-        ///////////////////checking if there is a user list/////////////////////////
-        SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
-        set = myPref.getStringSet("userList",null);
-
-        if(set == null){
-            myFilterList = new ArrayList<String>();
-
-        }
-        else{
-            myFilterList = new ArrayList<String>(set);
-        }
-
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, myFilterList) ;
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, filter.getUserList()) ;
         userList.setAdapter(adapter);
         /////////////////////////////////////////////////////////////////////////////
         ///////////////////////////Removing item/////////////////////////////////////
@@ -64,14 +52,14 @@ public class PopUpFilter extends AppCompatActivity {
                     public void onClick(View view) {
                         if(tempStr!=null){
                             filter.removeItemOnUserList(tempStr);
-                            adapter.notifyDataSetChanged();
-                            filter.setUserList(myFilterList);
-                            //Toast.makeText(getApplicationContext(),"You selected "+filter.getUserList().toString(),Toast.LENGTH_SHORT).show();
+                            //myFilterList = filter.getUserList();
+                            Toast.makeText(getApplicationContext(),"You selected "+filter.getUserList().toString(),Toast.LENGTH_SHORT).show();
                             Set<String> set = new HashSet<String>(filter.getUserList());
                             SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
                             SharedPreferences.Editor editor = myPref.edit();
                             editor.putStringSet("userList",set);
                             editor.apply();
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 };
@@ -89,7 +77,7 @@ public class PopUpFilter extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 // clear your SharedPreferences
-                if(myFilterList.isEmpty()){
+                if(filter.getUserList().isEmpty()){
                     Set<String> set = new HashSet<String>(filter.getUserList());
                     SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = myPref.edit();
@@ -116,7 +104,7 @@ public class PopUpFilter extends AppCompatActivity {
         // super.onBackPressed(); calls finish(); for you
 
         // clear your SharedPreferences
-        if(myFilterList.isEmpty()){
+        if(filter.getUserList().isEmpty()){
             Set<String> set = new HashSet<String>(filter.getUserList());
             SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
             SharedPreferences.Editor editor = myPref.edit();
