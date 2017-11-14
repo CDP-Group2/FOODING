@@ -52,6 +52,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         final Map<String, String> ingredients = new LinkedHashMap<String, String>();
         // serialNumber를 CameraActivity로부터 전달받거나 food에 일련번호를 저장하는 변수 추가
         serialNumber = getIntent().getStringExtra("code");
+        results = new ArrayList<String>();
 
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/
@@ -63,6 +64,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     results.clear();
                     ingredients.clear();
+
                     for(int i = 0; i < response.body().size(); i++) {
                         results.add(response.body().get(i).getName());
                         ingredients.put(response.body().get(i).getId(), response.body().get(i).getName());
