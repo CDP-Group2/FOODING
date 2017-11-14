@@ -35,14 +35,4 @@
         android:layout_centerHorizontal="true"
         android:text="Recipe" />
 
-    <Button
-        android:id="@+id/viewOtherRecipe"
-        android:backgroundTint="@color/button_default"
-        android:layout_width="236dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/sendout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
-        android:text="Button" />
-
 </RelativeLayout>

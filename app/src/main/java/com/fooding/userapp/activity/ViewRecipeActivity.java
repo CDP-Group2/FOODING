@@ -13,6 +13,7 @@ import com.fooding.userapp.FoodingApplication;
 import com.fooding.userapp.R;
 import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.model.Ingredient;
+import com.fooding.userapp.data.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -29,11 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewRecipeActivity extends AppCompatActivity {
     @BindView(R.id.sendout) Button sendoutbutton;
-    @BindView(R.id.title)
-    TextView title;
+    @BindView(R.id.title) TextView title;
 
     String serialNumber;
     public ArrayList<String> results;
+    public ArrayList<String> otherRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         // serialNumber를 CameraActivity로부터 전달받거나 food에 일련번호를 저장하는 변수 추가
         serialNumber = getIntent().getStringExtra("code");
         results = new ArrayList<String>();
+        otherRecipes = new ArrayList<String>();
 
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/
@@ -81,6 +83,28 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Ingredient>> call, Throwable t) {
                 Log.i("Get Ingredient", "Fail");
+                t.printStackTrace();
+            }
+        });
+
+        Call<List<Recipe>> viewOthers = apiService.getRecipe(serialNumber);
+        viewOthers.enqueue(new Callback<List<Recipe>>() {
+            @Override
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+                if(response.isSuccessful()) {
+                    otherRecipes.clear();
+
+                    for(int i = 0; i < response.body().size(); i++) {
+                        otherRecipes.add(response.body().get(i).getName());
+                    }
+                } else {
+                    Log.i("Call other recipes", "Fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.i("Call other recipes", "Fail");
                 t.printStackTrace();
             }
         });
