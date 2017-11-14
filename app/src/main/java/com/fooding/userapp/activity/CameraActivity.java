@@ -83,6 +83,9 @@ public class CameraActivity extends AppCompatActivity {
                 barcodeView.setStatusText(result.getText());
 
                 // QR코드에 담긴 일련번호 ViewRecipeActivity로 보내줘야 함
+                Intent intent = new Intent(CameraActivity.this,ViewRecipeActivity.class);
+                intent.putExtra("code", lastText);
+                startActivity(intent);
             }
 
             @Override

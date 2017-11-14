@@ -51,7 +51,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         final Food food = new Food();
         final Map<String, String> ingredients = new LinkedHashMap<String, String>();
         // serialNumber를 CameraActivity로부터 전달받거나 food에 일련번호를 저장하는 변수 추가
-        // serialNumber = ...;
+        serialNumber = getIntent().getStringExtra("code");
 
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/

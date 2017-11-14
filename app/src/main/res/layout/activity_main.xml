@@ -8,11 +8,12 @@
 
     <Button
         android:id="@+id/tomy_page"
+        android:backgroundTint="@color/button_default"
         android:layout_width="236dp"
         android:layout_height="50dp"
         android:layout_above="@+id/tofilter"
         android:layout_alignStart="@+id/tofilter"
-        android:text="mypage"
+        android:text="my page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -25,6 +26,7 @@
 
     <Button
         android:id="@+id/tofilter"
+        android:backgroundTint="@color/button_default"
         android:layout_width="236dp"
         android:layout_height="50dp"
         android:layout_above="@+id/tocamera"
@@ -42,6 +44,7 @@
 
     <Button
         android:id="@+id/tocamera"
+        android:backgroundTint="@color/button_default"
         android:layout_width="236dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
