@@ -1,6 +1,7 @@
 package com.fooding.userapp;
 
 import com.fooding.userapp.data.model.Ingredient;
+import com.fooding.userapp.data.model.Recipe;
 
 import org.json.JSONArray;
 
@@ -26,9 +27,9 @@ public interface APIService {
     @GET("getIngredientInfo.php")
     Call<Ingredient>getIngredientInfo(@Query("recipeID") String key);
 
-    // 사업자번호로 해당 사업자 레시 리스트 가져오기
+    // 사업자번호로 해당 사업자 레시피 리스트 가져오기
     @GET("getRecipe.php")
-    Call<ResponseBody>getRecipe(@Query("companyID") String companyID);
+    Call<List<Recipe>>getRecipe(@Query("companyID") String companyID);
 
     //auto complete search
     @GET("searchIngredient.php")
