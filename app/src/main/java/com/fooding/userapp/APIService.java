@@ -29,4 +29,8 @@ public interface APIService {
     // 사업자번호로 해당 사업자 레시 리스트 가져오기
     @GET("getRecipe.php")
     Call<ResponseBody>getRecipe(@Query("companyID") String companyID);
+
+    //auto complete search
+    @GET("searchIngredient.php")
+    Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText);
 }
