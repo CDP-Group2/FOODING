@@ -21,7 +21,7 @@ public interface APIService {
 
     // 음식 key 가지고 해당 음식 재료 정보 가져오기
     @GET("getIngredient.php")
-    Call<List<Ingredient>>getIngredient(@Query("recipeID") String key);
+    Call<List<Ingredient>>getIngredient(@Query("key") String key);
 
     // 음식 key로 해당 음식 재료의 이름 가져오기
     @GET("getIngredientInfo.php")

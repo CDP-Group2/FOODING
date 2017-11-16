@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +41,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewRecipeActivity extends AppCompatActivity {
     @BindView(R.id.sendout) Button sendoutbutton;
-    @BindView(R.id.title)
-    TextView title;
-    @BindView(R.id.myFilteredList) TextView filterList;
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.otherRecipes) ListView viewOtherRecipe;
+    @BindView(R.id.ingredients) ListView ingredientList;
 
-    String serialNumber;
     public ArrayList<String> results;
+    public ArrayAdapter adapterI;
+    public ArrayAdapter adapterO;
+    public String serialNumber;
 
 
     @Override
@@ -66,11 +69,13 @@ public class ViewRecipeActivity extends AppCompatActivity {
         // serialNumber를 CameraActivity로부터 전달받거나 food에 일련번호를 저장하는 변수 추가
         serialNumber = getIntent().getStringExtra("code");
         results = new ArrayList<String>();
+        adapterI = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, results);
+        ingredientList.setAdapter(adapterI);
 
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/
 
-        /////////////get id and name array list from preference//////////////////
+       /* /////////////get id and name array list from preference//////////////////
         SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
         ArrayList<String> idSet = new ArrayList<>(myPref.getStringSet("userListkey",null));
         ArrayList<String> nameSet = new ArrayList<>(myPref.getStringSet("userList",null));
@@ -92,9 +97,10 @@ public class ViewRecipeActivity extends AppCompatActivity {
         dbMap.put("10","ketchap1");
         dbMap.put("2","ketchap1");
         dbMap.put("3","ketchap1");
-        ///////////////////////////////////////////////
+        ///////////////////////////////////////////////*/
 
         Call<List<Ingredient>> comment = apiService.getIngredient(serialNumber);
+        Log.i("serial", serialNumber);
         comment.enqueue(new Callback<List<Ingredient>>() {
             @Override
             public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {
@@ -103,12 +109,16 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     ingredients.clear();
 
                     for(int i = 0; i < response.body().size(); i++) {
-                        results.add(response.body().get(i).getName());
+                        String temp = response.body().get(i).getName();
+                        Log.i("oname", temp);
+                        results.add(temp);
                         ingredients.put(response.body().get(i).getId(), response.body().get(i).getName());
                         /*when data can be parse from server add this:
                         dbMap.put(response.body().get(i).getId(),response.body().get(i).getName());
                         */
                     }
+
+                    if(response.body().size()!=0) adapterI.notifyDataSetChanged();
 
                     food.setIngredient(ingredients);
                     app.setCurrentFood(food);
@@ -126,7 +136,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         });
 
         //////////filtering&compare userfilterList with dbList////////////
-        Map<String,String> tempMap = new LinkedHashMap<String, String>();
+        /*Map<String,String> tempMap = new LinkedHashMap<String, String>();
         Set<String> dbIdSet = dbMap.keySet(); //get id set on db
         Set<String> userIdSet = userfilterMap.keySet();
         Set<String> resultSet = new HashSet<>(dbIdSet);
@@ -152,7 +162,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             SpannableString spannableString = new SpannableString(text);
             spannableString.setSpan(new ForegroundColorSpan(Color.RED), 1 , higlightedSize+(filteredList.size()*2), 0);
             filterList.setText(spannableString);
-        }
+        }*/
         ////////////////////////////////////////////////////////////////////////
 
         sendoutbutton.setOnClickListener(new View.OnClickListener() {
