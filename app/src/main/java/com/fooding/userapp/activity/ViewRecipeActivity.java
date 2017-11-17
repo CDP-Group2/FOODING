@@ -11,6 +11,8 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.fooding.userapp.APIService;
 import com.fooding.userapp.FoodingApplication;
 import com.fooding.userapp.R;
+import com.fooding.userapp.data.Filter;
 import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.model.Ingredient;
 
@@ -69,35 +72,22 @@ public class ViewRecipeActivity extends AppCompatActivity {
         // serialNumber를 CameraActivity로부터 전달받거나 food에 일련번호를 저장하는 변수 추가
         serialNumber = getIntent().getStringExtra("code");
         results = new ArrayList<String>();
-        adapterI = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, results);
+        adapterI = new ArrayAdapter(this, android.R.layout.simple_list_item_1, results);
         ingredientList.setAdapter(adapterI);
-
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/
 
-       /* /////////////get id and name array list from preference//////////////////
+        final Map<String,String> tempMap = new LinkedHashMap<String, String>();
+
+
+        /////////////get id and name array list from preference//////////////////
         SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
         ArrayList<String> idSet = new ArrayList<>(myPref.getStringSet("userListkey",null));
         ArrayList<String> nameSet = new ArrayList<>(myPref.getStringSet("userList",null));
-
-        Map<String, String> userfilterMap = new LinkedHashMap<String, String>();
+        final Map<String, String> userfilterMap = new LinkedHashMap<String, String>();
         for(int i = 0; i< idSet.size();i++){
             userfilterMap.put(idSet.get(i),nameSet.get(i));
         }
-        ////////////////////////////////////////////////////////////////////////////
-
-        ////////////temporary db map from QRcode//////////////////
-        final Map<String, String> dbMap=new HashMap<String, String>();
-        dbMap.put("40","ketchap2");
-        dbMap.put("30","ketchap3");
-        dbMap.put("1","ketchap1");
-        dbMap.put("6","ketchap1");
-        dbMap.put("4","ketchap1");
-        dbMap.put("7","ketchap1");
-        dbMap.put("10","ketchap1");
-        dbMap.put("2","ketchap1");
-        dbMap.put("3","ketchap1");
-        ///////////////////////////////////////////////*/
 
         Call<List<Ingredient>> comment = apiService.getIngredient(serialNumber);
         Log.i("serial", serialNumber);
@@ -113,13 +103,37 @@ public class ViewRecipeActivity extends AppCompatActivity {
                         Log.i("oname", temp);
                         results.add(temp);
                         ingredients.put(response.body().get(i).getId(), response.body().get(i).getName());
-                        /*when data can be parse from server add this:
-                        dbMap.put(response.body().get(i).getId(),response.body().get(i).getName());
-                        */
                     }
 
                     if(response.body().size()!=0) adapterI.notifyDataSetChanged();
 
+                    //////////filtering&compare userfilterList with dbList////////////
+                    Set<String> dbIdSet = ingredients.keySet(); //get id set on db
+                    //Toast.makeText(getApplicationContext(),""+dbIdSet.toString(),Toast.LENGTH_SHORT).show();
+                    Set<String> userIdSet = userfilterMap.keySet();
+                    Set<String> resultSet = new HashSet<>(dbIdSet);
+                    resultSet.retainAll(userIdSet);
+                    ArrayList<String> otherList = new ArrayList<>(dbIdSet);
+                    ArrayList<String> filteredList = new ArrayList<>(resultSet);
+
+                    //int filteredCount = 0;
+                    for(int i = 0; i< filteredList.size();i++){
+                        tempMap.put(filteredList.get(i),ingredients.get(filteredList.get(i)));
+                        //filteredCount = filteredCount + i;
+                    }
+                    for(int i = 0; i< otherList.size();i++){
+                        tempMap.put(otherList.get(i),ingredients.get(otherList.get(i)));
+                    }
+                    //Toast.makeText(getApplicationContext(),""+tempMap.toString(),Toast.LENGTH_SHORT).show();
+                    results.clear();
+                    results.addAll(tempMap.values());
+                    ingredients.clear();
+                    ingredients.putAll(tempMap);
+                    //text.setTextColor(getResources().getColor(R.color.Red));
+
+                    //View nn = ingredientList.getChildAt(1);
+                    //Toast.makeText(getApplicationContext(),""+ingredientList..toString(),Toast.LENGTH_SHORT).show();
+                    ///////////////////////////////////////////////////////////////////////
                     food.setIngredient(ingredients);
                     app.setCurrentFood(food);
 
@@ -134,36 +148,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-
-        //////////filtering&compare userfilterList with dbList////////////
-        /*Map<String,String> tempMap = new LinkedHashMap<String, String>();
-        Set<String> dbIdSet = dbMap.keySet(); //get id set on db
-        Set<String> userIdSet = userfilterMap.keySet();
-        Set<String> resultSet = new HashSet<>(dbIdSet);
-        resultSet.retainAll(userIdSet);
-        ArrayList<String> otherList = new ArrayList<>(dbIdSet);
-        ArrayList<String> filteredList = new ArrayList<>(resultSet);
-
-        int higlightedSize = 0;
-        for(int i = 0; i< filteredList.size();i++){
-            tempMap.put(filteredList.get(i),dbMap.get(filteredList.get(i)));
-            higlightedSize = higlightedSize + dbMap.get(filteredList.get(i)).length();
-        }
-        Toast.makeText(getApplicationContext(),""+higlightedSize,Toast.LENGTH_SHORT).show();
-        for(int i = 0; i< otherList.size();i++){
-            tempMap.put(otherList.get(i),dbMap.get(otherList.get(i)));
-        }
-
-        String all = String.valueOf(tempMap.values());
-        filterList.setText(all);
-
-        String text = filterList.getText().toString();
-        if(filteredList.size() != 0){
-            SpannableString spannableString = new SpannableString(text);
-            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 1 , higlightedSize+(filteredList.size()*2), 0);
-            filterList.setText(spannableString);
-        }*/
-        ////////////////////////////////////////////////////////////////////////
 
         sendoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
