@@ -25,6 +25,7 @@ import com.fooding.userapp.R;
 import com.fooding.userapp.data.Filter;
 import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.model.Ingredient;
+import com.fooding.userapp.data.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,9 +50,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
     @BindView(R.id.ingredients) ListView ingredientList;
 
     public ArrayList<String> results;
+    public ArrayList<String> results1;
     public ArrayAdapter adapterI;
     public ArrayAdapter adapterO;
     public String serialNumber;
+    public String serialNumber1;
 
 
     @Override
@@ -72,8 +75,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
         // serialNumber를 CameraActivity로부터 전달받거나 food에 일련번호를 저장하는 변수 추가
         serialNumber = getIntent().getStringExtra("code");
         results = new ArrayList<String>();
-        adapterI = new ArrayAdapter(this, android.R.layout.simple_list_item_1, results);
-        ingredientList.setAdapter(adapterI);
+        results1 = new ArrayList<String>();
+
+        //adapterI.setsize(2);
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/
 
@@ -105,8 +109,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
                         ingredients.put(response.body().get(i).getId(), response.body().get(i).getName());
                     }
 
-                    if(response.body().size()!=0) adapterI.notifyDataSetChanged();
-
                     //////////filtering&compare userfilterList with dbList////////////
                     Set<String> dbIdSet = ingredients.keySet(); //get id set on db
                     //Toast.makeText(getApplicationContext(),""+dbIdSet.toString(),Toast.LENGTH_SHORT).show();
@@ -116,10 +118,10 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     ArrayList<String> otherList = new ArrayList<>(dbIdSet);
                     ArrayList<String> filteredList = new ArrayList<>(resultSet);
 
-                    //int filteredCount = 0;
+                    int size = 0;
                     for(int i = 0; i< filteredList.size();i++){
                         tempMap.put(filteredList.get(i),ingredients.get(filteredList.get(i)));
-                        //filteredCount = filteredCount + i;
+                        size = size + 1;
                     }
                     for(int i = 0; i< otherList.size();i++){
                         tempMap.put(otherList.get(i),ingredients.get(otherList.get(i)));
@@ -137,6 +139,23 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     food.setIngredient(ingredients);
                     app.setCurrentFood(food);
 
+                    final int sizetemp = size;
+                    adapterI = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, results){
+                        @Override
+                        public View getView(int position,View convertView, ViewGroup parent) {
+                            View row = super.getView(position,convertView,parent);
+                            if(position<sizetemp)row.setBackgroundColor(getResources().getColor(R.color.Red));
+                            else{
+                                row.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                            }
+                            return row;
+                        }
+                    };
+                    ingredientList.setAdapter(adapterI);
+
+                    if(response.body().size()!=0) adapterI.notifyDataSetChanged();
+
+
                 } else {
                     Log.i("Get Ingredient", "Fail");
                 }
@@ -145,6 +164,45 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Ingredient>> call, Throwable t) {
                 Log.i("Get Ingredient", "Fail");
+                t.printStackTrace();
+            }
+        });
+
+        adapterO = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, results1){
+            @Override
+            public View getView(int position,View convertView, ViewGroup parent) {
+                View row = super.getView(position,convertView,parent);
+                row.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                return row;
+            }
+        };
+        viewOtherRecipe.setAdapter(adapterO);
+
+        Call<List<Recipe>> comment1 = apiService.getRecipe(serialNumber);
+        Log.i("serial", serialNumber);
+        comment1.enqueue(new Callback<List<Recipe>>() {
+            @Override
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+                if(response.isSuccessful()) {
+                    results1.clear();
+
+                    for(int i = 0; i < response.body().size(); i++) {
+                        String temp = response.body().get(i).getName();
+                        //Log.i("rname", temp);
+                        results1.add(temp);
+                    }
+
+                    if(response.body().size()!=0) adapterO.notifyDataSetChanged();
+
+
+                } else {
+                    Log.i("Get Recipe", "Fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.i("Get Recipe", "Fail");
                 t.printStackTrace();
             }
         });
