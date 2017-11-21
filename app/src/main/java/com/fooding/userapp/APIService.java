@@ -23,13 +23,18 @@ public interface APIService {
     @GET("getIngredient.php")
     Call<List<Ingredient>>getIngredient(@Query("key") String key);
 
-    // 음식 key로 해당 음식 재료의 이름 가져오기
-    @GET("getIngredientInfo.php")
-    Call<Ingredient>getIngredientInfo(@Query("recipeID") String key);
+    // ingredient key로 ingredient 정보 가져오기
+    @GET("Ingredientsid.php")
+    Call<Ingredient>getIngredientInfo(@Query("key") String key);
 
-    // 사업자번호로 해당 사업자 레시피 리스트 가져오기
+    // 레시피 이름 받아오기
+    @GET("getRecipeName.php")
+    Call<Recipe>getRecipeInfo(@Query("recipeID") String recipeID);
+
+    // 사업자번호로 해당 사업자 레시피 리스트 가져오기 (사업자용 어플리케이션)
+    // 레시피번호를 전송하면, 해당 레시피번호의 사업자번호와 같은 사업자번호를 갖는 모든 레시피 리스트 가져오기 (사용자용 어플리케이션)
     @GET("getRecipe.php")
-    Call<List<Recipe>>getRecipe(@Query("companyID") String companyID);
+    Call<List<Recipe>>getRecipe(@Query("recipeID") String recipeID);
 
     //auto complete search
     @GET("searchIngredient.php")

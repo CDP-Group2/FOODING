@@ -8,7 +8,7 @@ public class Recipe {
     @SerializedName("RID")
     @Expose
     private String id;
-    @SerializedName("NAME")
+    @SerializedName("RNAME")
     @Expose
     private String name;
 

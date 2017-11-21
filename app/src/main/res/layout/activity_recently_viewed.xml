@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PopUpFilter">
-
+    tools:context="com.fooding.userapp.activity.recentlyViewedActivity">
 
     <TextView
         android:id="@+id/title"
@@ -17,52 +16,11 @@
         android:textColor="#111"
         android:textAllCaps="true"
         android:textSize="30dp"
-        android:text="My Filters" />
+        android:text="recently viewed" />
 
     <View
         android:id="@+id/title_bar"
         style="@style/title_bar" />
-
-    <ListView
-        android:id="@+id/userListview"
-        android:choiceMode="multipleChoice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_below="@id/title_bar"
-        android:layout_above="@id/filterMenu"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="30dp" />
-
-    <LinearLayout
-        android:id="@+id/filterMenu"
-        android:orientation="horizontal"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_above="@id/menu_bar"
-        android:layout_height="wrap_content">
-
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/filter_menu_icon_size"
-            android:id="@+id/Searchagain"
-            android:src="@mipmap/search" />
-
-        <!--<ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/filter_menu_icon_size"
-            android:id="@+id/addBtn"
-            android:src="@mipmap/plus" />-->
-
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/filter_menu_icon_size"
-            android:id="@+id/removeBtn"
-            android:src="@mipmap/dustbin2"  />
-    </LinearLayout>
 
     <View
         android:id="@+id/menu_bar"
@@ -88,7 +46,7 @@
             style="@style/icons"
             android:layout_height="@dimen/menu_icon_size"
             android:id="@+id/filter"
-            android:src="@mipmap/filter_color" />
+            android:src="@mipmap/filter" />
 
         <ImageButton
             style="@style/icons"
@@ -100,7 +58,19 @@
             style="@style/icons"
             android:layout_height="@dimen/menu_icon_size"
             android:id="@+id/recentlyViewed"
-            android:src="@mipmap/list" />
+            android:src="@mipmap/list_color" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/recipeList"
+        android:choiceMode="multipleChoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_below="@id/title_bar"
+        android:layout_above="@id/menu_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

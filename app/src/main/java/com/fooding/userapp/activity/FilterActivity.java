@@ -1,17 +1,25 @@
 package com.fooding.userapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -44,8 +52,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class FilterActivity extends AppCompatActivity {
     @BindView(R.id.resultList) ListView resultListView;
     @BindView(R.id.searchText) EditText searchText;
-    @BindView(R.id.addButton) Button addBtn;
-    @BindView(R.id.MylistBtn) Button MylistBtn;
+    @BindView(R.id.addButton) ImageButton addBtn;
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.filter) ImageButton filterBtn;
+    @BindView(R.id.camera) ImageButton cameraBtn;
+//    @BindView(R.id.MylistBtn) Button MylistBtn;
 
     @BindView(R.id.JsonTextview) TextView debuggingView; //debugging purpose
 
@@ -63,14 +75,46 @@ public class FilterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filter);
         ButterKnife.bind(this);
 
+        // font setting
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/BukhariScript-Regular.otf");
+        title.setTypeface(font);
+        debuggingView.setTypeface(font);
+        Typeface fontK = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundOTFR.otf");
+        searchText.setTypeface(fontK);
+
         IngridientId = new ArrayList<String>(); //initialization of ingridient id list
         IngridientName = new ArrayList<String>(); //initialization of ingridient name list
         resultList =  new ArrayList<String>(); //result list to show in listview
 
         resultList.addAll(dbIngridient.values());
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, resultList) ;
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_single_choice, resultList) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                Typeface font = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundOTFR.otf");
+                textView.setTypeface(font);
+
+                return view;
+            }
+        };
         resultListView.setAdapter(adapter);
 
+        searchText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                // 엔터키 눌렀을 시 감지
+                if((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(searchText.getWindowToken(), 0);   // hide keyboard
+
+                    return true;
+                }
+                return false;
+            }
+        });
 
         TextWatcher watcher = new TextWatcher()
         {
@@ -92,8 +136,6 @@ public class FilterActivity extends AppCompatActivity {
                 APIService apiService;
 
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
-
-
                 apiService = retrofit.create(APIService.class);
 
                 final String text = searchText.getText().toString();
@@ -127,15 +169,17 @@ public class FilterActivity extends AppCompatActivity {
                                 String temp = IngridientName.get(counter);
                                 //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
                                 if(temp.contains(text)){
-                                    searchText.setTextColor(getResources().getColor(R.color.Red));
+//                                    searchText.setTextColor(getResources().getColor(R.color.Red));
+                                    debuggingView.setVisibility(View.INVISIBLE);
                                 }
                                 else{
-                                    searchText.setTextColor(getResources().getColor(R.color.colorPrimary));
+//                                    searchText.setTextColor(getResources().getColor(R.color.colorPrimary));
                                     resultListView.setVisibility(View.INVISIBLE);
+                                    debuggingView.setVisibility(View.VISIBLE);
                                 }
                             }
 
-                            adapter.notifyDataSetChanged();
+                            /*adapter.notifyDataSetChanged();
 
                             resultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
@@ -168,11 +212,11 @@ public class FilterActivity extends AppCompatActivity {
                                     resultListView.clearChoices();
                                     adapter.notifyDataSetChanged();
                                 }
-                            });
+                            });*/
 
-                            if(response.body().size()!=0); adapter.notifyDataSetChanged();
-                        }
-                        else{
+                            if(response.body().size()!=0)
+                                adapter.notifyDataSetChanged();
+                        } else {
                             Log.i("Test1", "fail");
                         }
                     }
@@ -196,8 +240,66 @@ public class FilterActivity extends AppCompatActivity {
 
         searchText.addTextChangedListener(watcher);
 
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int count, checked;
 
-        View.OnClickListener Listen2Btn1 = new View.OnClickListener() {
+                count = adapter.getCount();
+
+                if(count > 0) {
+                    checked = resultListView.getCheckedItemPosition();
+
+                    if(checked > -1 && checked < count) {
+                        final String Name = resultList.get(checked).toString();
+                        final String ID = dbIngridient.get(Name);
+
+                        filter.addItem2UserListName(Name);
+                        filter.addItem2UserListId(ID);
+
+                        SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = myPref.edit();
+                        ArrayList<String> temp1 = new ArrayList<String>(filter.getUserListName());
+                        ArrayList<String> temp2 = new ArrayList<String>(filter.getUserListId());
+                        Set<String> set1 = new HashSet<String>(temp1);
+                        Set<String> set2 = new HashSet<String>(temp2);
+                        editor.putStringSet("userList",set1);
+                        editor.putStringSet("userListkey",set2);
+                        editor.apply();
+
+                        startActivity(new Intent(FilterActivity.this, PopUpFilter.class));
+                        finish();
+                    }
+                }
+            }
+        });
+
+        recentlyViewedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FilterActivity.this, recentlyViewedActivity.class));
+                finish();
+            }
+        });
+
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FilterActivity.this, PopUpFilter.class));
+                finish();
+            }
+        });
+
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FilterActivity.this, CameraActivity.class));
+                finish();
+            }
+        });
+
+
+        /*View.OnClickListener Listen2Btn1 = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences mypref = getSharedPreferences("Mypref",MODE_PRIVATE);
@@ -216,10 +318,10 @@ public class FilterActivity extends AppCompatActivity {
                 startActivity(new Intent(FilterActivity.this, PopUpFilter.class));
             }
         };
-        MylistBtn.setOnClickListener(Listen2Btn1);
+        MylistBtn.setOnClickListener(Listen2Btn1);*/
     }
 
-    @Override
+    /*@Override
     public void onBackPressed()
     {
         super.onBackPressed(); // this can go before or after your stuff below
@@ -230,5 +332,5 @@ public class FilterActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         // super.onBackPressed(); calls finish(); for you
-    }
+    }*/
 }

@@ -1,14 +1,18 @@
 package com.fooding.userapp.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.fooding.userapp.FoodingApplication;
@@ -30,25 +34,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CameraActivity extends AppCompatActivity {
-    @BindView(R.id.my_page)
-    Button my_pagebutton;
     private DecoratedBarcodeView barcodeView;
-    @BindView(R.id.filter) Button filterbutton;
-    @BindView(R.id.NFC) Button nfcbutton;
-    @BindView(R.id.viewrecipe) Button viewrecipebutton;
-    @BindView(R.id.title)
-    TextView title;
+    @BindView(R.id.filter) ImageButton filterbutton;
+    @BindView(R.id.NFC) ImageButton nfcbutton;
+    @BindView(R.id.fooding) TextView title;
+    @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
 
     private String lastText;
 
     //callback when barcode scanned
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         ButterKnife.bind(this);
+
+        // font setting
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/BukhariScript-Regular.otf");
+        title.setTypeface(font);
 
         //set barcode instant****************
         // camera permission for marshmellow
@@ -71,6 +75,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         }
         barcodeView = (DecoratedBarcodeView) findViewById(R.id.barcode_scanner);
+        barcodeView.setStatusText("");
         barcodeView.decodeContinuous(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult result) {
@@ -86,6 +91,7 @@ public class CameraActivity extends AppCompatActivity {
                 Intent intent = new Intent(CameraActivity.this,ViewRecipeActivity.class);
                 intent.putExtra("code", lastText);
                 startActivity(intent);
+                finish();
             }
 
             @Override
@@ -110,18 +116,11 @@ public class CameraActivity extends AppCompatActivity {
         //Food food = FoodingApplication.getInstance().getCurrentFood();
         //처럼 food 정보 가져올 수 있다
 
-        my_pagebutton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent=new Intent(CameraActivity.this, MyPageActivity.class);
-                //intent.putExtra("date",Integer.parseInt(date.getText().toString().replaceAll("[^0-9]", "")));
-                startActivity(intent);
-            }
-        });
-
         filterbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CameraActivity.this, FilterActivity.class));
+                startActivity(new Intent(CameraActivity.this, PopUpFilter.class));
+                finish();
             }
         });
 
@@ -133,10 +132,10 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
-        viewrecipebutton.setOnClickListener(new View.OnClickListener() {
+        recentlyViewedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CameraActivity.this, ViewRecipeActivity.class));
+                startActivity(new Intent(CameraActivity.this, recentlyViewedActivity.class));
                 finish();
             }
         });

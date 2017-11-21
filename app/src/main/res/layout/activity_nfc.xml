@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.NFCActivity">
 
-    <Button
+    <!--<Button
         android:id="@+id/my_page"
         android:layout_width="236dp"
         android:layout_height="50dp"
@@ -21,9 +21,9 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1" />-->
 
-    <Button
+    <!--<Button
         android:id="@+id/filter"
         android:layout_width="236dp"
         android:layout_height="50dp"
@@ -38,10 +38,10 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1" />-->
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/title"
         android:layout_margin="8dp"
         android:textSize="23dp"
@@ -49,23 +49,87 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="NFC reader" />
+        android:text="NFC reader" />-->
 
-    <Button
+    <!--<Button
         android:id="@+id/Camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:text="Camera" />
+        android:text="Camera" />-->
 
-    <Button
+    <!--<Button
         android:id="@+id/viewrecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/my_page"
         android:layout_alignEnd="@+id/my_page"
         android:layout_alignStart="@+id/my_page"
-        android:text="viewrecipe" />
+        android:text="viewrecipe" />-->
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:textColor="#111"
+        android:textAllCaps="true"
+        android:textSize="30dp"
+        android:text="fooding" />
+
+    <View
+        android:id="@+id/title_bar"
+        style="@style/title_bar" />
+
+    <ImageView
+        android:id="@+id/nfc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
+        android:layout_above="@id/menu_bar"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/noun_58069_cc" />
+
+    <View
+        android:id="@+id/menu_bar"
+        style="@style/menu_bar" />
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="@dimen/menu_bar_margin"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/setting"
+            android:src="@mipmap/settings" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/filter"
+            android:src="@mipmap/filter" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/camera"
+            android:src="@mipmap/camera" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/recentlyViewed"
+            android:src="@mipmap/list" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -30,7 +30,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/AppTheme">
+
+            <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,11 +42,15 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CameraActivity" />
         <activity android:name=".activity.MyPageActivity" />
-        <activity android:name=".activity.FilterActivity" />
+        <activity
+            android:name=".activity.FilterActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.NFCActivity" />
         <activity android:name=".activity.PopUpFilter" />
         <activity android:name=".activity.ViewRecipeActivity" />
         <activity android:name=".activity.SendOutQRActivity" />
+        \
+        <activity android:name=".activity.recentlyViewedActivity"></activity>
     </application>
 
 </manifest>
