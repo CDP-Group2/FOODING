@@ -55,6 +55,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
     public ArrayAdapter adapterO;
     public String serialNumber;
     public String serialNumber1;
+    private Map<String,String> results1map;
 
 
     @Override
@@ -168,6 +169,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         });
 
+        results1map = new LinkedHashMap<String,String>();
         adapterO = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, results1){
             @Override
             public View getView(int position,View convertView, ViewGroup parent) {
@@ -187,10 +189,23 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     results1.clear();
 
                     for(int i = 0; i < response.body().size(); i++) {
-                        String temp = response.body().get(i).getName();
+                        Recipe temp = response.body().get(i);
                         //Log.i("rname", temp);
-                        results1.add(temp);
+                        results1.add(temp.getName());
+                        results1map.put(temp.getName(),temp.getId());
                     }
+
+                    viewOtherRecipe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            final String chosenName = results1.get(position);
+                            //Toast.makeText(getApplicationContext(),chosenName,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ViewRecipeActivity.this,ViewRecipeActivity.class);
+                            intent.putExtra("code", results1map.get(chosenName));
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
 
                     if(response.body().size()!=0) adapterO.notifyDataSetChanged();
 
