@@ -3,6 +3,7 @@ package com.fooding.userapp.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fooding.userapp.FoodingApplication;
 import com.fooding.userapp.R;
@@ -50,9 +52,17 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
         ButterKnife.bind(this);
 
+        /*************************************************************************************************************/
         // font setting
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/BukhariScript-Regular.otf");
+        final FoodingApplication app = FoodingApplication.getInstance();
+        SharedPreferences fontSP = app.getMyPref();
+        // Toast.makeText(getApplicationContext(), fontSP.getString("titleFont", "none"), Toast.LENGTH_SHORT).show();
+        final String path = fontSP.getString("titleFont", "none");
+        // Toast.makeText(getApplicationContext(), path, Toast.LENGTH_SHORT).show();
+
+        Typeface font = Typeface.createFromAsset(getAssets(), path);
         title.setTypeface(font);
+        /*************************************************************************************************************/
 
         //set barcode instant****************
         // camera permission for marshmellow
@@ -101,7 +111,7 @@ public class CameraActivity extends AppCompatActivity {
         //****************
         //camera 찍어서 아래처럼 Food 저장 data-Food dir 참고
 
-        FoodingApplication app = FoodingApplication.getInstance();
+//        FoodingApplication app = FoodingApplication.getInstance();
         Food food=new Food();
         String temp="오뚜기 케챱";
         food.setName(temp);

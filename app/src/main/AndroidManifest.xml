@@ -50,7 +50,10 @@
         <activity android:name=".activity.ViewRecipeActivity" />
         <activity android:name=".activity.SendOutQRActivity" />
         \
-        <activity android:name=".activity.recentlyViewedActivity"></activity>
+        <activity android:name=".activity.recentlyViewedActivity" />
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

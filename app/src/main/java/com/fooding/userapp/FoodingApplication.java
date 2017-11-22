@@ -1,6 +1,8 @@
 package com.fooding.userapp;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 
 import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.User;
@@ -18,6 +20,8 @@ public class FoodingApplication extends Application {
     private User user;
     private Food currentFood;
     private HashMap<String, String> recentSearch = new HashMap<String, String>();
+
+    private SharedPreferences myPref;
 
     @Override
     public void onCreate() {
@@ -57,6 +61,14 @@ public class FoodingApplication extends Application {
 
         return foodName;
     }*/
+
+    public void setMyPref(SharedPreferences myPref) {
+        this.myPref = myPref;
+    }
+
+    public SharedPreferences getMyPref() {
+        return myPref;
+    }
 
     public HashMap<String, String> getRecentSearch() {
         return recentSearch;

@@ -1,6 +1,7 @@
 package com.fooding.userapp.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,11 +44,17 @@ public class recentlyViewedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recently_viewed);
         ButterKnife.bind(this);
 
+        /*************************************************************************************************************/
         // font setting
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/BukhariScript-Regular.otf");
-        title.setTypeface(font);
-
         final FoodingApplication app = FoodingApplication.getInstance();
+        SharedPreferences fontSP = app.getMyPref();
+        final String pathT = fontSP.getString("titleFont", "none");
+
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        title.setTypeface(font);
+        /*************************************************************************************************************/
+
+//        final FoodingApplication app = FoodingApplication.getInstance();
         recentlyViewed = new ArrayList<String>();
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, recentlyViewed) {
             @NonNull
@@ -56,7 +63,11 @@ public class recentlyViewedActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
-                Typeface font = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundOTFR.otf");
+                final FoodingApplication app = FoodingApplication.getInstance();
+                SharedPreferences fontSP = app.getMyPref();
+
+                final String pathT = fontSP.getString("listViewFont", "none");
+                Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
 
                 return view;

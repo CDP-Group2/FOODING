@@ -71,10 +71,16 @@ public class ViewRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_recipe);
         ButterKnife.bind(this);
 
+        /*************************************************************************************************************/
         // font setting
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/BukhariScript-Regular.otf");
+        final FoodingApplication app = FoodingApplication.getInstance();
+        SharedPreferences fontSP = app.getMyPref();
+
+        final String pathT = fontSP.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
         otherRecipesTitle.setTypeface(font);
+        /*************************************************************************************************************/
 
         Retrofit retrofit;
         APIService apiService;
@@ -82,7 +88,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
         apiService = retrofit.create(APIService.class);
 
-        final FoodingApplication app = FoodingApplication.getInstance();
+//        final FoodingApplication app = FoodingApplication.getInstance();
         final Food food = new Food();
         final Map<String, String> ingredients = new LinkedHashMap<String, String>();
 
@@ -96,7 +102,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
-                Typeface font = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundOTFR.otf");
+                final FoodingApplication app = FoodingApplication.getInstance();
+                SharedPreferences fontSP = app.getMyPref();
+
+                final String pathT = fontSP.getString("listViewFont", "none");
+                Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
 
                 return view;

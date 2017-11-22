@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fooding.userapp.APIService;
+import com.fooding.userapp.FoodingApplication;
 import com.fooding.userapp.R;
 import com.fooding.userapp.data.Filter;
 import com.fooding.userapp.data.model.Ingredient;
@@ -75,12 +76,20 @@ public class FilterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filter);
         ButterKnife.bind(this);
 
+        /*************************************************************************************************************/
         // font setting
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/BukhariScript-Regular.otf");
+        final FoodingApplication app = FoodingApplication.getInstance();
+        SharedPreferences fontSP = app.getMyPref();
+
+        final String pathT = fontSP.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
         debuggingView.setTypeface(font);
-        Typeface fontK = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundOTFR.otf");
+
+        final String pathK = fontSP.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
         searchText.setTypeface(fontK);
+        /*************************************************************************************************************/
 
         IngridientId = new ArrayList<String>(); //initialization of ingridient id list
         IngridientName = new ArrayList<String>(); //initialization of ingridient name list
@@ -94,7 +103,11 @@ public class FilterActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
-                Typeface font = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundOTFR.otf");
+                final FoodingApplication app = FoodingApplication.getInstance();
+                SharedPreferences fontSP = app.getMyPref();
+
+                final String pathT = fontSP.getString("listViewFont", "none");
+                Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
 
                 return view;

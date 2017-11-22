@@ -1,6 +1,7 @@
 package com.fooding.userapp.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,9 +40,15 @@ public class NFCActivity extends AppCompatActivity {
          ********************/
         //camera 찍어서 아래처럼 Food 저장 data-Food dir 참고
 
+        /*************************************************************************************************************/
         // font setting
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/BukhariScript-Regular.otf");
+        final FoodingApplication app = FoodingApplication.getInstance();
+        SharedPreferences fontSP = app.getMyPref();
+
+        final String pathT = fontSP.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
+        /*************************************************************************************************************/
 
         final ImageView nfc_iv = (ImageView)findViewById(R.id.nfc);
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha_anim);
@@ -49,7 +56,7 @@ public class NFCActivity extends AppCompatActivity {
         anim.setRepeatCount(Animation.INFINITE);
         nfc_iv.startAnimation(anim);
 
-        FoodingApplication app = FoodingApplication.getInstance();
+//        FoodingApplication app = FoodingApplication.getInstance();
         Food food=new Food();
         String temp="오뚜기 케챱";
         food.setName(temp);

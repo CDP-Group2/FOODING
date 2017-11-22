@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fooding.userapp.FoodingApplication;
 import com.fooding.userapp.R;
 import com.fooding.userapp.data.Filter;
 
@@ -53,9 +54,15 @@ public class PopUpFilter extends AppCompatActivity {
         setContentView(R.layout.activity_popupfilter);
         ButterKnife.bind(this);
 
+        /*************************************************************************************************************/
         // font setting
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/BukhariScript-Regular.otf");
+        final FoodingApplication app = FoodingApplication.getInstance();
+        SharedPreferences fontSP = app.getMyPref();
+
+        final String pathT = fontSP.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
+        /*************************************************************************************************************/
 
 //        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, filter.getUserListName()) ;
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, filter.getUserListName()) {
@@ -65,7 +72,11 @@ public class PopUpFilter extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
-                Typeface font = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundOTFR.otf");
+                final FoodingApplication app = FoodingApplication.getInstance();
+                SharedPreferences fontSP = app.getMyPref();
+
+                final String pathT = fontSP.getString("listViewFont", "none");
+                Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
 
                 return view;
