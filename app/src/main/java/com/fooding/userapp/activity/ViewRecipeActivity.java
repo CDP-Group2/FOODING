@@ -63,7 +63,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
     public ArrayAdapter adapterI;
     public ArrayAdapter adapterO;
     public String serialNumber;
-
+    private int filtersize = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +108,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 final String pathT = fontSP.getString("listViewFont", "none");
                 Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
+
+                if(position < filtersize) view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
 
                 return view;
             }
@@ -182,6 +184,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                         tempMap.put(filteredList.get(i),ingredients.get(filteredList.get(i)));
                         //filteredCount = filteredCount + i;
                     }
+                    filtersize = filteredList.size();
                     for(int i = 0; i< otherList.size();i++){
                         tempMap.put(otherList.get(i),ingredients.get(otherList.get(i)));
                     }
