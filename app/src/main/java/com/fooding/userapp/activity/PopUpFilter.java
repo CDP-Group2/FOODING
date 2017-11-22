@@ -64,6 +64,11 @@ public class PopUpFilter extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
         /*************************************************************************************************************/
+        SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
+        ArrayList<String> idSet = new ArrayList<>(myPref.getStringSet("userListkey",null));
+        ArrayList<String> nameSet = new ArrayList<>(myPref.getStringSet("userList",null));
+        filter.setUserListId(idSet);
+        filter.setUserListName(nameSet);
 
 //        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, filter.getUserListName()) ;
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, filter.getUserListName()) {
