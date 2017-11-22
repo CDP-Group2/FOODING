@@ -61,6 +61,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
     public ArrayList<String> results;
     public ArrayAdapter adapterI;
+    public ArrayList<String> resultsO;
     public ArrayAdapter adapterO;
     public String serialNumber;
     private int filtersize = 0;
@@ -91,6 +92,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
 //        final FoodingApplication app = FoodingApplication.getInstance();
         final Food food = new Food();
         final Map<String, String> ingredients = new LinkedHashMap<String, String>();
+        final Map<String, String> resultsO_map = new LinkedHashMap<String, String>();
 
         // serialNumber를 CameraActivity로부터 전달받거나 food에 일련번호를 저장하는 변수 추가
         serialNumber = getIntent().getStringExtra("code");
@@ -109,12 +111,33 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
 
-                if(position < filtersize) view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                if(position < filtersize){
+                    //view.setBackgroundColor(getResources().getColor(R.color.transparent_Red));
+                    textView.setTextColor(getResources().getColor(R.color.Red));
+                }
 
                 return view;
             }
         };
+        resultsO = new ArrayList<String>();
+        adapterO = new ArrayAdapter(this, android.R.layout.simple_list_item_1, resultsO) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                final FoodingApplication app = FoodingApplication.getInstance();
+                SharedPreferences fontSP = app.getMyPref();
+
+                final String pathT = fontSP.getString("listViewFont", "none");
+                Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+                textView.setTypeface(font);
+                return view;
+            }
+        };
         ingredientList.setAdapter(adapterI);
+        viewOtherRecipe.setAdapter(adapterO);
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/
 
@@ -153,6 +176,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         });
 
+
+        //server call for ingredient
         Call<List<Ingredient>> comment = apiService.getIngredient(serialNumber);
         comment.enqueue(new Callback<List<Ingredient>>() {
             @Override
@@ -212,7 +237,47 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+        //*******************************
+        //server call for other recipes
+        Call<List<Recipe>> comment1 = apiService.getRecipeEatable(idSet,serialNumber);
+        if(!(idSet.isEmpty())){
+            Log.i("idset", idSet.get(0));
+        }
+        comment1.enqueue(new Callback<List<Recipe>>() {
+            @Override
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+                if(response.isSuccessful()) {
+                    resultsO.clear();
+                    resultsO_map.clear();
 
+                    for(int i = 0; i < response.body().size(); i++) {
+                        Recipe temp = response.body().get(i);
+                        resultsO.add(temp.getName());
+                        resultsO_map.put(temp.getName(),temp.getId());
+                    }
+
+                    viewOtherRecipe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            final String chosenName = resultsO.get(position);
+                            //Toast.makeText(getApplicationContext(),chosenName,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ViewRecipeActivity.this,ViewRecipeActivity.class);
+                            intent.putExtra("code", resultsO_map.get(chosenName));
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    if(response.body().size()!=0) adapterO.notifyDataSetChanged();
+                } else {
+                    Log.i("Get Recipe", "Fail");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.i("Get Recipe", "Fail");
+                t.printStackTrace();
+            }
+        });
         /*sendoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -39,4 +39,8 @@ public interface APIService {
     //auto complete search
     @GET("searchIngredient.php")
     Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText);
+
+    //필터와 레시피아이디로 해당 사업자 음식중 먹을 수 있는것 가져오기
+    @GET("getRecipeEatable.php")
+    Call<List<Recipe>>getRecipeEatable(@Query("filterList[]") ArrayList<String> filterList ,@Query("recipeID") String recipeID);
 }

@@ -6,9 +6,11 @@
     <color name="extra1">#E849E3</color>
     <color name="extra2">#C05DFF</color>
     <color name="Red">#FF0000</color>
+    <color name="transparent_Red">#99FF0000</color>
     <color name="backgroundColor">#995072ff</color>
     <color name="button_pressed">@color/colorAccent</color>
     <color name="button_focused">@color/colorAccent</color>
     <color name="button_default">@color/colorPrimary</color>
     <color name="transparent">#00000000</color>
+
 </resources>
