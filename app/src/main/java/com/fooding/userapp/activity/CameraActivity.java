@@ -2,6 +2,7 @@ package com.fooding.userapp.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -20,10 +21,13 @@ import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import butterknife.BindView;
@@ -49,6 +53,18 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         ButterKnife.bind(this);
+
+        SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = myPref.edit();
+        Set checkid = myPref.getStringSet("userListkey",null);
+        Set checkname = myPref.getStringSet("userList",null);
+        if(checkid == null && checkname == null){
+            ArrayList<String> tempReset = new ArrayList<>();
+            Set<String> set = new HashSet<String>(tempReset);
+            editor.putStringSet("userList",set);
+            editor.putStringSet("userListkey",set);
+            editor.apply();
+        }
 
         //set barcode instant****************
         // camera permission for marshmellow

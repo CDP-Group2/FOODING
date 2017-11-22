@@ -84,7 +84,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         final Map<String,String> tempMap = new LinkedHashMap<String, String>();
 
-
         /////////////get id and name array list from preference//////////////////
         SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
         ArrayList<String> idSet = new ArrayList<>(myPref.getStringSet("userListkey",null));
@@ -180,8 +179,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
         };
         viewOtherRecipe.setAdapter(adapterO);
 
-        Call<List<Recipe>> comment1 = apiService.getRecipe(serialNumber);
-        Log.i("serial", serialNumber);
+
+        Call<List<Recipe>> comment1 = apiService.getRecipeEatable(idSet,serialNumber);
+        if(!(idSet.isEmpty())){
+            Log.i("idset", idSet.get(0));
+        }
         comment1.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {

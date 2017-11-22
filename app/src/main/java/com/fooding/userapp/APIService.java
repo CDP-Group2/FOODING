@@ -31,6 +31,9 @@ public interface APIService {
     @GET("getRecipe.php")
     Call<List<Recipe>>getRecipe(@Query("recipeID") String recipeID);
 
+    @GET("getRecipeEatable.php")
+    Call<List<Recipe>>getRecipeEatable(@Query("filterList[]") ArrayList<String> filterList ,@Query("recipeID") String recipeID);
+
     //auto complete search
     @GET("searchIngredient.php")
     Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText);
