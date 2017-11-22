@@ -41,6 +41,7 @@ public class CameraActivity extends AppCompatActivity {
     @BindView(R.id.NFC) ImageButton nfcbutton;
     @BindView(R.id.fooding) TextView title;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.setting) ImageButton settingBtn;
 
     private String lastText;
 
@@ -146,6 +147,14 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(CameraActivity.this, recentlyViewedActivity.class));
+                finish();
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CameraActivity.this, SettingsActivity.class));
                 finish();
             }
         });

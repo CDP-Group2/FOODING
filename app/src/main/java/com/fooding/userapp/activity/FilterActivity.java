@@ -58,6 +58,7 @@ public class FilterActivity extends AppCompatActivity {
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
     @BindView(R.id.filter) ImageButton filterBtn;
     @BindView(R.id.camera) ImageButton cameraBtn;
+    @BindView(R.id.setting) ImageButton settingBtn;
 //    @BindView(R.id.MylistBtn) Button MylistBtn;
 
     @BindView(R.id.JsonTextview) TextView debuggingView; //debugging purpose
@@ -307,6 +308,14 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(FilterActivity.this, CameraActivity.class));
+                finish();
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FilterActivity.this, SettingsActivity.class));
                 finish();
             }
         });

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fooding.userapp.activity.SettingsActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:textColor="#111"
+        android:textAllCaps="true"
+        android:textSize="30dp"
+        android:text="settings" />
+
+    <View
+        android:id="@+id/title_bar"
+        style="@style/title_bar" />
+
+    <View
+        android:id="@+id/menu_bar"
+        style="@style/menu_bar" />
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="@dimen/menu_bar_margin"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/setting"
+            android:src="@mipmap/settings_color" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/filter"
+            android:src="@mipmap/filter" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/camera"
+            android:src="@mipmap/camera" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/recentlyViewed"
+            android:src="@mipmap/list" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/settingMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/title_bar"
+        android:layout_marginTop="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textBoldnessTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#111"
+                android:textAllCaps="true"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
+                android:text="text boldness"/>
+
+            <!--<SeekBar
+                android:id="@+id/textBoldness"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:thumb="@drawable/seekbar_thumb"
+                android:progressDrawable="@drawable/seekbar_progress"
+                android:max="100"
+                android:progress="25" />-->
+
+            <com.github.channguyen.rsv.RangeSliderView
+                android:id="@+id/textBoldness"
+                android:layout_width="match_parent"
+                app:rangeCount="4"
+                app:slotRadiusPercent="0.2"
+                android:layout_height="50dp"
+                app:filledColor="#f2b035" />
+
+            <LinearLayout
+                android:id="@+id/textBoldnessCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="light"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="extra\nbold"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

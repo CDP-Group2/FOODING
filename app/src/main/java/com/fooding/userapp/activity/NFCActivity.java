@@ -28,6 +28,7 @@ public class NFCActivity extends AppCompatActivity {
     @BindView(R.id.title) TextView title;
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.setting) ImageButton settingBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +111,14 @@ public class NFCActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(NFCActivity.this, recentlyViewedActivity.class));
+                finish();
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NFCActivity.this, SettingsActivity.class));
                 finish();
             }
         });

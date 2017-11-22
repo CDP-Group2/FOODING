@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -71,6 +72,9 @@ public class PopUpFilter extends AppCompatActivity {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10.0f);
+                Toast.makeText(getApplicationContext(), Float.toString(textView.getTextSize()), Toast.LENGTH_SHORT).show();
 
                 final FoodingApplication app = FoodingApplication.getInstance();
                 SharedPreferences fontSP = app.getMyPref();
@@ -198,6 +202,14 @@ public class PopUpFilter extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(PopUpFilter.this, recentlyViewedActivity.class));
+                finish();
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PopUpFilter.this, SettingsActivity.class));
                 finish();
             }
         });

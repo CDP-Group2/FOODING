@@ -51,9 +51,7 @@
         <activity android:name=".activity.SendOutQRActivity" />
         \
         <activity android:name=".activity.recentlyViewedActivity" />
-        <activity
-            android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+        <activity android:name=".activity.SettingsActivity"></activity>
     </application>
 
 </manifest>

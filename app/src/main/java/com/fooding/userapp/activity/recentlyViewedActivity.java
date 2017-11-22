@@ -34,6 +34,7 @@ public class recentlyViewedActivity extends AppCompatActivity {
     @BindView(R.id.filter) ImageButton filterBtn;
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.recipeList) ListView recipeList;
+    @BindView(R.id.setting) ImageButton settingBtn;
 
     public ArrayList<String> recentlyViewed;
     public ArrayAdapter adapter;
@@ -100,6 +101,14 @@ public class recentlyViewedActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(recentlyViewedActivity.this, CameraActivity.class));
+                finish();
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(recentlyViewedActivity.this, SettingsActivity.class));
                 finish();
             }
         });
