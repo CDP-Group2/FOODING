@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Range;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
@@ -30,9 +31,12 @@ import butterknife.ButterKnife;
 
 public class SettingsActivity extends AppCompatActivity {
     private RangeSliderView textBoldness;
+    private RangeSliderView textSize;
     private LinearLayout textBoldnessCaption;
+    private LinearLayout textSizeCaption;
     @BindView(R.id.title) TextView title;
     @BindView(R.id.textBoldnessTitle) TextView textBoldnessTitle;
+    @BindView(R.id.textSizeTitle) TextView textSizeTitle;
     @BindView(R.id.filter) ImageButton filterBtn;
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
@@ -44,6 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         textBoldnessCaption = (LinearLayout)findViewById(R.id.textBoldnessCaption);
+        textSizeCaption = (LinearLayout)findViewById(R.id.textSizeCaption);
 
         /*************************************************************************************************************/
         // font setting
@@ -66,10 +71,18 @@ public class SettingsActivity extends AppCompatActivity {
                 tv.setTypeface(fontK);
             }
         }
+        for(int i = 0; i < textSizeCaption.getChildCount(); i++) {
+            View view = textSizeCaption.getChildAt(i);
+            if(view instanceof TextView) {
+                tv = (TextView)view;
+                tv.setTypeface(fontK);
+            }
+        }
 
         final String pathKB = myPref.getString("boldKoreanFont", "none");
         Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
         textBoldnessTitle.setTypeface(fontKB);
+        textSizeTitle.setTypeface(fontKB);
         /*************************************************************************************************************/
 
         textBoldness = (RangeSliderView)findViewById(R.id.textBoldness);
@@ -79,7 +92,7 @@ public class SettingsActivity extends AppCompatActivity {
         textBoldness.setOnSlideListener(new RangeSliderView.OnSlideListener() {
             @Override
             public void onSlide(int index) {
-                Log.i("On Slide Listener", Integer.toString(index));
+                Log.i("Font Boldness", Integer.toString(index));
 
                 SharedPreferences.Editor editor = myPref.edit();
                 editor.putInt("fontBoldness", index);
@@ -101,6 +114,24 @@ public class SettingsActivity extends AppCompatActivity {
 
                 editor.apply();
                 /*final int temp = myPref.getInt("fontBoldness", 5);
+                Toast.makeText(getApplicationContext(), Integer.toString(temp), Toast.LENGTH_SHORT).show();*/
+            }
+        });
+
+        textSize = (RangeSliderView)findViewById(R.id.textSize);
+        final int userSize = myPref.getInt("fontSize", 16);
+        textSize.setInitialIndex((userSize - 12) / 2);
+
+        textSize.setOnSlideListener(new RangeSliderView.OnSlideListener() {
+            @Override
+            public void onSlide(int index) {
+                Log.i("Text Size", Integer.toString(index));
+
+                SharedPreferences.Editor editor = myPref.edit();
+                editor.putInt("fontSize", index * 2 + 12);
+                editor.apply();
+
+                /*final int temp = myPref.getInt("fontSize", 5);
                 Toast.makeText(getApplicationContext(), Integer.toString(temp), Toast.LENGTH_SHORT).show();*/
             }
         });

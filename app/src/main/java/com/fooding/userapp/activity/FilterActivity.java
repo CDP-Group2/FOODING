@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,11 +106,14 @@ public class FilterActivity extends AppCompatActivity {
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
                 final FoodingApplication app = FoodingApplication.getInstance();
-                SharedPreferences fontSP = app.getMyPref();
+                SharedPreferences myPref = app.getMyPref();
 
-                final String pathT = fontSP.getString("listViewFont", "none");
+                final String pathT = myPref.getString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");
                 Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
+
+                final Integer fontSize = myPref.getInt("fontSize", 16);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
 
                 return view;
             }

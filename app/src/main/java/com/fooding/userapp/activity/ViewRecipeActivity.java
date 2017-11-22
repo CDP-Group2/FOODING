@@ -13,6 +13,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -106,11 +107,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
                 final FoodingApplication app = FoodingApplication.getInstance();
-                SharedPreferences fontSP = app.getMyPref();
+                SharedPreferences myPref = app.getMyPref();
 
-                final String pathT = fontSP.getString("listViewFont", "none");
+                final String pathT = myPref.getString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");
                 Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
+
+                final Integer fontSize = myPref.getInt("fontSize", 16);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
 
                 if(position < filtersize){
                     //view.setBackgroundColor(getResources().getColor(R.color.transparent_Red));
@@ -129,11 +133,15 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
                 final FoodingApplication app = FoodingApplication.getInstance();
-                SharedPreferences fontSP = app.getMyPref();
+                SharedPreferences myPref = app.getMyPref();
 
-                final String pathT = fontSP.getString("listViewFont", "none");
+                final String pathT = myPref.getString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");
                 Typeface font = Typeface.createFromAsset(getAssets(), pathT);
                 textView.setTypeface(font);
+
+                final Integer fontSize = myPref.getInt("fontSize", 16);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
+
                 return view;
             }
         };

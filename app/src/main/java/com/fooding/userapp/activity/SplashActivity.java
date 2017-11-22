@@ -40,6 +40,7 @@ public class SplashActivity extends Activity {
             editor.putString("boldKoreanFont", "fonts/NanumSquareRoundOTFB.otf");
             editor.putString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");
             editor.putInt("fontBoldness", 1);
+            editor.putInt("fontSize", 16);
             editor.apply();
 
         } else {

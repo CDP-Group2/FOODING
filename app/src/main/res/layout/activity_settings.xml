@@ -86,15 +86,6 @@
                 android:textSize="20dp"
                 android:text="text boldness"/>
 
-            <!--<SeekBar
-                android:id="@+id/textBoldness"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:thumb="@drawable/seekbar_thumb"
-                android:progressDrawable="@drawable/seekbar_progress"
-                android:max="100"
-                android:progress="25" />-->
-
             <com.github.channguyen.rsv.RangeSliderView
                 android:id="@+id/textBoldness"
                 android:layout_width="match_parent"
@@ -150,6 +141,93 @@
                     android:textColor="#111"
                     android:textSize="13dp"
                     android:text="extra\nbold"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textSizeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#111"
+                android:textAllCaps="true"
+                android:layout_marginBottom="5dp"
+                android:textSize="20dp"
+                android:text="text boldness"/>
+
+            <com.github.channguyen.rsv.RangeSliderView
+                android:id="@+id/textSize"
+                android:layout_width="match_parent"
+                app:rangeCount="5"
+                app:slotRadiusPercent="0.2"
+                android:layout_height="50dp"
+                app:filledColor="#f2b035" />
+
+            <LinearLayout
+                android:id="@+id/textSizeCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="very\nsmall"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="small"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="normal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="big"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="13dp"
+                    android:text="very\nbig"/>
 
 
             </LinearLayout>
