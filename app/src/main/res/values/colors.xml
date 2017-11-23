@@ -12,5 +12,6 @@
     <color name="button_focused">@color/colorAccent</color>
     <color name="button_default">@color/colorPrimary</color>
     <color name="transparent">#00000000</color>
+    <color name="yellowAccent">#f2b035</color>
 
 </resources>

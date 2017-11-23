@@ -2,7 +2,9 @@ package com.fooding.userapp.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -64,6 +66,37 @@ public class PopUpFilter extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
         /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(fontSP.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.PopUpFilterActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+
+            // change buttons
+            cameraBtn.setImageResource(R.mipmap.camera_white);
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            recentlyViewedBtn.setImageResource(R.mipmap.list_white);
+            Searchagain.setImageResource(R.mipmap.search_white);
+            removeBtn.setImageResource(R.mipmap.dustbin_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            // listview divider/separator
+            /*userList.setDivider(new ColorDrawable(0xF0ECECEC));
+            userList.setDividerHeight(1);*/
+        }
+        /*************************************************************************************************************/
+
         SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
         ArrayList<String> idSet;
         ArrayList<String> nameSet;
@@ -93,6 +126,19 @@ public class PopUpFilter extends AppCompatActivity {
 
                 final Integer fontSize = myPref.getInt("fontSize", 16);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+
+                    // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
+                    SparseBooleanArray checked = userList.getCheckedItemPositions();
+                    for(int i = 0; i < checked.size(); i++) {
+                        int key = checked.keyAt(i);
+                        boolean value = checked.get(key);
+                        if(value && position == key)
+                            textView.setTextColor(getResources().getColor(R.color.yellowAccent));
+                    }
+                }
 
                 return view;
             }
@@ -155,6 +201,8 @@ public class PopUpFilter extends AppCompatActivity {
                 }
 
                 Log.i("# of Selected Items", Integer.toString(selectedCount));
+
+                adapter.notifyDataSetChanged();
             }
         });
 

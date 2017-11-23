@@ -2,7 +2,9 @@ package com.fooding.userapp.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +31,7 @@ public class NFCActivity extends AppCompatActivity {
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
     @BindView(R.id.setting) ImageButton settingBtn;
+    @BindView(R.id.nfc) ImageView nfc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,34 @@ public class NFCActivity extends AppCompatActivity {
         final String pathT = fontSP.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
+        /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(fontSP.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.NFCActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+
+            // change buttons
+            filterbutton.setImageResource(R.mipmap.filter_white);
+            cameraBtn.setImageResource(R.mipmap.camera_white);
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            recentlyViewedBtn.setImageResource(R.mipmap.list_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            // change image
+            nfc.setImageResource(R.mipmap.noun_white);
+        }
         /*************************************************************************************************************/
 
         final ImageView nfc_iv = (ImageView)findViewById(R.id.nfc);

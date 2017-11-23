@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -63,6 +64,25 @@ public class CameraActivity extends AppCompatActivity {
 
         Typeface font = Typeface.createFromAsset(getAssets(), path);
         title.setTypeface(font);
+        /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(fontSP.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.cameraActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+
+            // change buttons
+            filterbutton.setImageResource(R.mipmap.filter_white);
+            nfcbutton.setImageResource(R.mipmap.nfc_white);
+            recentlyViewedBtn.setImageResource(R.mipmap.list_white);
+            settingBtn.setImageResource(R.mipmap.settings_white);
+        }
         /*************************************************************************************************************/
 
         //set barcode instant****************

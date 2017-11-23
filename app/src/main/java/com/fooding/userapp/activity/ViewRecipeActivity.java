@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -85,6 +86,40 @@ public class ViewRecipeActivity extends AppCompatActivity {
         otherRecipesTitle.setTypeface(font);
         /*************************************************************************************************************/
 
+        /*************************************************************************************************************/
+        // theme setting
+        if(fontSP.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.ViewRecipeActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+            otherRecipesTitle.setTextColor(Color.parseColor("#ffffff"));
+
+            // change buttons
+            filterBtn.setImageResource(R.mipmap.filter_white);
+            cameraBtn.setImageResource(R.mipmap.camera_white);
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            recentlyViewedBtn.setImageResource(R.mipmap.list_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.divide);
+            tmp.setBackgroundColor(Color.parseColor("#ececec"));
+
+            // listview divider/separator
+            /*viewOtherRecipe.setDivider(new ColorDrawable(0xF0ECECEC));
+            viewOtherRecipe.setDividerHeight(1);
+            ingredientList.setDivider(new ColorDrawable(0xF0ECECEC));
+            ingredientList.setDividerHeight(1);*/
+        }
+        /*************************************************************************************************************/
+
         Retrofit retrofit;
         APIService apiService;
 
@@ -116,7 +151,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 final Integer fontSize = myPref.getInt("fontSize", 16);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
 
-                if(position < filtersize){
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+                }
+
+                if(position < filtersize){  // change text color of filtered ingredient
                     //view.setBackgroundColor(getResources().getColor(R.color.transparent_Red));
                     textView.setTextColor(getResources().getColor(R.color.Red));
                 }
@@ -141,6 +180,10 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
                 final Integer fontSize = myPref.getInt("fontSize", 16);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+                }
 
                 return view;
             }
@@ -322,7 +365,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(ViewRecipeActivity.this, SettingsActivity.class));
+                finish();
             }
         });
     }

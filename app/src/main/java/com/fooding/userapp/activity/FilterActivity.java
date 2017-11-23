@@ -3,12 +3,15 @@ package com.fooding.userapp.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
@@ -22,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +97,40 @@ public class FilterActivity extends AppCompatActivity {
         searchText.setTypeface(fontK);
         /*************************************************************************************************************/
 
+        /*************************************************************************************************************/
+        // theme setting
+        if(fontSP.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.filterActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+            searchText.setBackgroundResource(R.drawable.edit_text_border_white);
+            searchText.setHintTextColor(Color.parseColor("#ececec"));
+            searchText.setTextColor(Color.parseColor("#ffffff"));
+            debuggingView.setTextColor(Color.parseColor("#ffffff"));
+
+            // change buttons
+            filterBtn.setImageResource(R.mipmap.filter_white);
+            cameraBtn.setImageResource(R.mipmap.camera_white);
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            recentlyViewedBtn.setImageResource(R.mipmap.list_white);
+            addBtn.setImageResource(R.mipmap.add_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            // listview divider/separator
+            /*resultListView.setDivider(new ColorDrawable(0xF0ECECEC));
+            resultListView.setDividerHeight(1);*/
+        }
+        /*************************************************************************************************************/
+
         IngridientId = new ArrayList<String>(); //initialization of ingridient id list
         IngridientName = new ArrayList<String>(); //initialization of ingridient name list
         resultList =  new ArrayList<String>(); //result list to show in listview
@@ -115,10 +153,26 @@ public class FilterActivity extends AppCompatActivity {
                 final Integer fontSize = myPref.getInt("fontSize", 16);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
 
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+
+                    // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
+//                    Toast.makeText(getApplicationContext(), Integer.toString(position) + " / " + Integer.toString(mSelectedItem), Toast.LENGTH_SHORT).show();
+                    if(position == resultListView.getCheckedItemPosition())
+                        textView.setTextColor(getResources().getColor(R.color.yellowAccent));
+                }
+
                 return view;
             }
         };
         resultListView.setAdapter(adapter);
+
+        resultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         searchText.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -158,6 +212,8 @@ public class FilterActivity extends AppCompatActivity {
 
                 final String text = searchText.getText().toString();
                 final Call<List<Ingredient>> comment = apiService.searchIngredient(text);
+
+                resultListView.clearChoices();
 
                 comment.enqueue(new Callback<List<Ingredient>>() {
                     @Override

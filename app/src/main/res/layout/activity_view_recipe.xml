@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/ViewRecipeActivity"
     tools:context=".activity.ViewRecipeActivity">
 
     <!--<Button
@@ -86,10 +87,20 @@
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="23dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/title_bar"
         android:scrollbars="vertical" />
+
+    <View
+        android:id="@+id/divide"
+        android:layout_width="match_parent"
+        android:layout_below="@id/ingredients"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="48dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="#3111" />
 
     <ListView
         android:id="@+id/otherRecipes"
@@ -100,17 +111,18 @@
         android:layout_marginLeft="60dp"
         android:layout_marginBottom="15dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
         android:scrollbars="vertical" />
 
     <TextView
         android:id="@+id/otherRecipesTitle"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ingredients"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
         android:textColor="#111"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="6dp"
         android:text="Other Recipes / Menus" />
 
 </RelativeLayout>

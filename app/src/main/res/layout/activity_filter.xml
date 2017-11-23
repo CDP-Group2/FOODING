@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/filterActivity"
     tools:context=".activity.FilterActivity">
 
     <TextView
@@ -79,7 +80,7 @@
             android:layout_weight="2"
             android:layout_below="@+id/title_bar"
             android:layout_centerHorizontal="true"
-            android:hint="Ingredient Name"
+            android:hint="재료명"
             android:textColor="#111"
             android:ems="5"
             android:inputType="textPersonName|textNoSuggestions"
@@ -109,6 +110,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:textSize="25dp"
+        android:textColor="#111"
         android:text="No match" />
 
     <ListView

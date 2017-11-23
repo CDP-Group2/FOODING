@@ -2,7 +2,9 @@ package com.fooding.userapp.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +58,34 @@ public class recentlyViewedActivity extends AppCompatActivity {
         title.setTypeface(font);
         /*************************************************************************************************************/
 
+        /*************************************************************************************************************/
+        // theme setting
+        if(fontSP.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.RecentlyViewedActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+
+            // change buttons
+            filterBtn.setImageResource(R.mipmap.filter_white);
+            cameraBtn.setImageResource(R.mipmap.camera_white);
+            settingBtn.setImageResource(R.mipmap.settings_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            // listview divider/separator
+            /*recipeList.setDivider(new ColorDrawable(0xF0ECECEC));
+            recipeList.setDividerHeight(1);*/
+        }
+        /*************************************************************************************************************/
+
 //        final FoodingApplication app = FoodingApplication.getInstance();
         recentlyViewed = new ArrayList<String>();
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, recentlyViewed) {
@@ -74,6 +104,10 @@ public class recentlyViewedActivity extends AppCompatActivity {
 
                 final Integer fontSize = myPref.getInt("fontSize", 16);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+                }
 
                 return view;
             }
