@@ -19,7 +19,7 @@ public class FoodingApplication extends Application {
     private static FoodingApplication instance;
     private User user;
     private Food currentFood;
-    private HashMap<String, String> recentSearch = new HashMap<String, String>();
+    private Map<String, String> recentSearch = new HashMap<String, String>();
 
     private SharedPreferences myPref;
 
@@ -70,7 +70,11 @@ public class FoodingApplication extends Application {
         return myPref;
     }
 
-    public HashMap<String, String> getRecentSearch() {
+    public void setRecentSearch(Map<String, String> recentSearch) {
+        this.recentSearch = recentSearch;
+    }
+
+    public Map<String, String> getRecentSearch() {
         return recentSearch;
     }
 

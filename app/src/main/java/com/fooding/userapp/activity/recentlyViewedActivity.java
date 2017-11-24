@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,7 +117,28 @@ public class recentlyViewedActivity extends AppCompatActivity {
         recipeList.setAdapter(adapter);
         recipeList.setOnItemClickListener(mItemClickListener);
 
-        final HashMap<String, String> recentMap = app.getRecentSearch();
+//        final HashMap<String, String> recentMap = app.getRecentSearch();
+        Map<String, String> recentMap = new HashMap<String, String>();
+
+        SharedPreferences myPref = getSharedPreferences("recentlyViewed", MODE_PRIVATE);
+        ArrayList<String> idSet = new ArrayList<String>();
+        ArrayList<String> nameSet = new ArrayList<String>();
+        if(myPref.getStringSet("idSet", null) != null) {
+            idSet.addAll(myPref.getStringSet("idSet", null));
+        }
+        if(myPref.getStringSet("nameSet", null) != null) {
+            nameSet.addAll(myPref.getStringSet("nameSet", null));
+        }
+
+        if(idSet.size() > 0 && nameSet.size() > 0) {
+            for(int i = 0; i < idSet.size(); i++) {
+                Log.i("id / name", idSet.get(i) + " / " + nameSet.get(i));
+                recentMap.put(idSet.get(i), nameSet.get(i));
+            }
+
+            app.setRecentSearch(recentMap);
+        }
+
         final Set<String> keySet = recentMap.keySet();
         final Iterator<String> iterator = keySet.iterator();
 
@@ -160,8 +182,8 @@ public class recentlyViewedActivity extends AppCompatActivity {
 
 //            Toast.makeText(getApplicationContext(), recipeName, Toast.LENGTH_SHORT).show();
 
-            final FoodingApplication app = FoodingApplication.getInstance();
-            final HashMap<String, String> recentMap = app.getRecentSearch();
+            /*final FoodingApplication app = FoodingApplication.getInstance();
+            final Map<String, String> recentMap = app.getRecentSearch();
             final Set<String> keySet = recentMap.keySet();
             final Iterator<String> iterator = keySet.iterator();
 
@@ -171,6 +193,28 @@ public class recentlyViewedActivity extends AppCompatActivity {
                     recipeId = key;
                     break;
                 }
+            }*/
+
+            SharedPreferences myPref = getSharedPreferences("recentlyViewed", MODE_PRIVATE);
+            ArrayList<String> idSet = new ArrayList<String>();
+            ArrayList<String> nameSet = new ArrayList<String>();
+            if(myPref.getStringSet("idSet", null) != null) {
+                idSet.addAll(myPref.getStringSet("idSet", null));
+            }
+            if(myPref.getStringSet("nameSet", null) != null) {
+                nameSet.addAll(myPref.getStringSet("nameSet", null));
+            }
+
+            Log.i("idSet.size()", Integer.toString(idSet.size()));
+
+            if(idSet.size() > 0 && nameSet.size() > 0) {
+                /*for(int i = 0; i < idSet.size(); i++) {
+                    Log.i("id / name", idSet.get(i) + " / " + nameSet.get(i));
+                }*/
+                recipeId = idSet.get(position);
+                recipeName = nameSet.get(position);
+                Log.i("clicked recipe name", recipeName);
+                Log.i("clicked recipe ID", recipeId);
             }
 
             if(recipeId.length() > 0) {
