@@ -2,6 +2,7 @@ package com.fooding.userapp.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.util.Range;
 import android.view.View;
@@ -192,8 +194,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        Switch themeSwitch = (Switch)findViewById(R.id.themeSwitch);
+        SwitchCompat themeSwitch = (SwitchCompat)findViewById(R.id.themeSwitch);
         themeSwitch.setChecked(myPref.getBoolean("theme", false));
+        int[][] states = new int[][] {
+                new int[] {-android.R.attr.state_checked},
+                new int[] {android.R.attr.state_checked},
+        };
+        int[] trackColors = new int[] {
+                getResources().getColor(R.color.gray),
+                getResources().getColor(R.color.yellowAccentAlpha),
+        };
+        themeSwitch.setTrackTintList(new ColorStateList(states, trackColors));
 
         themeSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
@@ -212,8 +223,9 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        Switch translationSwitch = (Switch) findViewById(R.id.translationSwitch);
+        final SwitchCompat translationSwitch = (SwitchCompat) findViewById(R.id.translationSwitch);
         translationSwitch.setChecked(myPref.getBoolean("translation", false));
+        translationSwitch.setTrackTintList(new ColorStateList(states, trackColors));
 
         translationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override

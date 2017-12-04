@@ -13,5 +13,7 @@
     <color name="button_default">@color/colorPrimary</color>
     <color name="transparent">#00000000</color>
     <color name="yellowAccent">#f2b035</color>
+    <color name="yellowAccentAlpha">#ECC67F</color>
+    <color name="gray">#b9b9b9</color>
 
 </resources>
