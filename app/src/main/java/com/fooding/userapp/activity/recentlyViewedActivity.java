@@ -25,6 +25,7 @@ import com.fooding.userapp.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -121,33 +122,23 @@ public class recentlyViewedActivity extends AppCompatActivity {
         Map<String, String> recentMap = new HashMap<String, String>();
 
         SharedPreferences myPref = getSharedPreferences("recentlyViewed", MODE_PRIVATE);
-        ArrayList<String> idSet = new ArrayList<String>();
-        ArrayList<String> nameSet = new ArrayList<String>();
-        if(myPref.getStringSet("idSet", null) != null) {
-            idSet.addAll(myPref.getStringSet("idSet", null));
-        }
-        if(myPref.getStringSet("nameSet", null) != null) {
-            nameSet.addAll(myPref.getStringSet("nameSet", null));
-        }
+        ArrayList<String> recipe = new ArrayList<String>();
+        if(myPref.getStringSet("recipeList", null) != null)
+            recipe.addAll(myPref.getStringSet("recipeList", null));
 
-        if(idSet.size() > 0 && nameSet.size() > 0) {
-            for(int i = 0; i < idSet.size(); i++) {
-                Log.i("id / name", idSet.get(i) + " / " + nameSet.get(i));
-                recentMap.put(idSet.get(i), nameSet.get(i));
+        Log.i("recipe size", Integer.toString(recipe.size()));
+
+        if(recipe.size() > 0) {
+            for(int i = 0; i < recipe.size(); i++) {
+                String[] str = recipe.get(i).split("@");
+                recentMap.put(str[0], str[1]);
+                Log.i("id / name", str[0] + " / " + str[1]);
+                recentlyViewed.add(str[1]);
             }
 
+            adapter.notifyDataSetChanged();
             app.setRecentSearch(recentMap);
         }
-
-        final Set<String> keySet = recentMap.keySet();
-        final Iterator<String> iterator = keySet.iterator();
-
-        while(iterator.hasNext()) {
-            String key = iterator.next();
-            recentlyViewed.add(recentMap.get(key));
-        }
-
-        adapter.notifyDataSetChanged();
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,48 +168,23 @@ public class recentlyViewedActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l_position) {
-            String recipeName = (String)adapterView.getAdapter().getItem(position);
+//            String recipeName = (String)adapterView.getAdapter().getItem(position);
             String recipeId = "";
 
-//            Toast.makeText(getApplicationContext(), recipeName, Toast.LENGTH_SHORT).show();
-
-            /*final FoodingApplication app = FoodingApplication.getInstance();
-            final Map<String, String> recentMap = app.getRecentSearch();
-            final Set<String> keySet = recentMap.keySet();
-            final Iterator<String> iterator = keySet.iterator();
-
-            while(iterator.hasNext()) {
-                String key = iterator.next();
-                if(recentMap.get(key) == recipeName) {
-                    recipeId = key;
-                    break;
-                }
-            }*/
-
             SharedPreferences myPref = getSharedPreferences("recentlyViewed", MODE_PRIVATE);
-            ArrayList<String> idSet = new ArrayList<String>();
-            ArrayList<String> nameSet = new ArrayList<String>();
-            if(myPref.getStringSet("idSet", null) != null) {
-                idSet.addAll(myPref.getStringSet("idSet", null));
-            }
-            if(myPref.getStringSet("nameSet", null) != null) {
-                nameSet.addAll(myPref.getStringSet("nameSet", null));
-            }
+            ArrayList<String> recipe = new ArrayList<String>();
+            if(myPref.getStringSet("recipeList", null) != null)
+                recipe.addAll(myPref.getStringSet("recipeList", null));
 
-            Log.i("idSet.size()", Integer.toString(idSet.size()));
-
-            if(idSet.size() > 0 && nameSet.size() > 0) {
-                /*for(int i = 0; i < idSet.size(); i++) {
-                    Log.i("id / name", idSet.get(i) + " / " + nameSet.get(i));
-                }*/
-                recipeId = idSet.get(position);
-                recipeName = nameSet.get(position);
-                Log.i("clicked recipe name", recipeName);
-                Log.i("clicked recipe ID", recipeId);
+            if(recipe.size() > 0) {
+                String[] str = recipe.get(position).split("@");
+                Log.i("clicked recipe ID", str[0]);
+                Log.i("clicked recipe name", str[1]);
+                recipeId = str[0];
             }
 
             if(recipeId.length() > 0) {
-//                Toast.makeText(getApplicationContext(), recipeId, Toast.LENGTH_SHORT).show();
+                Log.i("ViewRecipeId로 전달하는 ID", recipeId);
                 Intent intent = new Intent(recentlyViewedActivity.this, ViewRecipeActivity.class);
                 intent.putExtra("code", recipeId);
                 startActivity(intent);
