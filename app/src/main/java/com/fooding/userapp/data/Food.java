@@ -21,8 +21,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 public class Food {
-    private String name="";
-    private Map<String, String> ingredient=new LinkedHashMap<String, String>();
+    private String name = "";
+    private Map<String, String> ingredient = new LinkedHashMap<String, String>();
 
     public String getName() {
         return name;
@@ -32,16 +32,18 @@ public class Food {
         this.name = name;
     }
 
-    public Map<String, String> getIngredient(){ return ingredient; }
+    public Map<String, String> getIngredient() {
+        return ingredient;
+    }
 
-    public void setIngredient(Map<String, String> nIngredient){
+    public void setIngredient(Map<String, String> nIngredient) {
         this.ingredient.putAll(nIngredient);
     }
 
     public void addIngredient(String key, String name) {
         this.ingredient.put(key, name);
     }
-
+}
     //여따가 서버연결 코드
 
     /*public String request(String key) {
@@ -79,4 +81,3 @@ public class Food {
 
         return response;
     }*/
-}

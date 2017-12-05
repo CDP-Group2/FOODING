@@ -31,6 +31,7 @@ import com.fooding.userapp.R;
 import com.fooding.userapp.data.Filter;
 import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.model.Ingredient;
+import com.fooding.userapp.data.model.Nutrient;
 import com.fooding.userapp.data.model.Recipe;
 
 import java.io.IOException;
@@ -361,6 +362,38 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
+        //////////// get nutrient here ///////////////
+        //we will recieve nutrient info as {담백질, 몇gram}, the last one {calorie, 몇}
+        final ArrayList<String> NutrientName = new ArrayList<String>();
+        final ArrayList<String> NutrientGram = new ArrayList<String>();
+        String calorie;
+        Call<List<Nutrient>> comment2 = apiService.getNutrient(title.getText().toString());
+        comment2.enqueue(new Callback<List<Nutrient>>() {
+            @Override
+            public void onResponse(Call<List<Nutrient>> call, Response<List<Nutrient>> response) {
+                if(response.isSuccessful()) {
+                    resultsO.clear();
+
+                    for(int i = 0; i < response.body().size(); i++) {
+                        //add nutrient here
+                        NutrientName.add(response.body().get(i).getId());
+                        NutrientGram.add(response.body().get(i).getName());
+                    }
+
+                } else {
+                    Log.i("Get Nutrient", "Fail");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Nutrient>> call, Throwable t) {
+                Log.i("Get Nutrient", "Fail");
+                t.printStackTrace();
+            }
+        });
+
+        /////////////////////////////////////////////
+
         /*sendoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

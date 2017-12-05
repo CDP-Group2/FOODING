@@ -1,6 +1,7 @@
 package com.fooding.userapp;
 
 import com.fooding.userapp.data.model.Ingredient;
+import com.fooding.userapp.data.model.Nutrient;
 import com.fooding.userapp.data.model.Recipe;
 
 import org.json.JSONArray;
@@ -43,4 +44,8 @@ public interface APIService {
     //필터와 레시피아이디로 해당 사업자 음식중 먹을 수 있는것 가져오기
     @GET("getRecipeEatable.php")
     Call<List<Recipe>>getRecipeEatable(@Query("filterList[]") ArrayList<String> filterList ,@Query("recipeID") String recipeID);
+
+    //영양정보 id, 영양수.. input is 레스피 id
+    @GET("getNutrient.php")
+    Call<List<Nutrient>>getNutrient(@Query("searchText") String searchText);
 }
