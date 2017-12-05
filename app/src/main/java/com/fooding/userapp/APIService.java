@@ -3,6 +3,7 @@ package com.fooding.userapp;
 import com.fooding.userapp.data.model.Ingredient;
 import com.fooding.userapp.data.model.Nutrient;
 import com.fooding.userapp.data.model.Recipe;
+import com.fooding.userapp.data.model.SikdangReview;
 
 import org.json.JSONArray;
 
@@ -47,5 +48,9 @@ public interface APIService {
 
     //영양정보 id, 영양수.. input is 레스피 id
     @GET("getNutrient.php")
-    Call<List<Nutrient>>getNutrient(@Query("searchText") String searchText);
+    Call<List<Nutrient>>getNutrient(@Query("RID") String searchText);
+
+    ///get review of the recipe from server
+    @GET("getRecipeReview.php")
+    Call<List<SikdangReview>>getReview(@Query("searchText") String searchText);
 }

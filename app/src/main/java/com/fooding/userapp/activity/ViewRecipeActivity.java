@@ -33,6 +33,7 @@ import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.model.Ingredient;
 import com.fooding.userapp.data.model.Nutrient;
 import com.fooding.userapp.data.model.Recipe;
+import com.fooding.userapp.data.model.SikdangReview;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.setting) ImageButton settingBtn;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.viewNutrient) Button viewNutrient;
 
     public ArrayList<String> results;
     public ArrayAdapter adapterI;
@@ -222,6 +224,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     String recipeName = response.body().getName();
                     title.setText(recipeName);
+                    food.setIdOfRecipe(response.body().getId());
 
                     SharedPreferences recentlyViewed = getSharedPreferences("recentlyViewed", MODE_PRIVATE);
                     ArrayList<String> recipe = new ArrayList<String>();
@@ -363,21 +366,36 @@ public class ViewRecipeActivity extends AppCompatActivity {
         //////////// get nutrient here ///////////////
         //we will recieve nutrient info as {담백질, 몇gram}, the last one {calorie, 몇}
         final ArrayList<String> NutrientName = new ArrayList<String>();
+        NutrientName.add(0, "Calorie"); //calorie
+        NutrientName.add(1, "Carbohydrate"); //carb
+        NutrientName.add(2, "Protein"); //
+        NutrientName.add(3, "Fat"); //
+        NutrientName.add(4, "Sugar"); //
+        NutrientName.add(5, "Na"); //
+        NutrientName.add(6,"Cholesterol" );
+        NutrientName.add(7, "FattyAcid");
+        NutrientName.add(8, "TransFattyAcid");
+        food.setNutrientName(NutrientName);
+
+
         final ArrayList<String> NutrientGram = new ArrayList<String>();
-        String calorie;
-        Call<List<Nutrient>> comment2 = apiService.getNutrient(title.getText().toString());
+        Call<List<Nutrient>> comment2 = apiService.getNutrient(serialNumber);
         comment2.enqueue(new Callback<List<Nutrient>>() {
             @Override
             public void onResponse(Call<List<Nutrient>> call, Response<List<Nutrient>> response) {
                 if(response.isSuccessful()) {
-                    resultsO.clear();
-
-                    for(int i = 0; i < response.body().size(); i++) {
-                        //add nutrient here
-                        NutrientName.add(response.body().get(i).getId());
-                        NutrientGram.add(response.body().get(i).getName());
-                    }
-
+                    NutrientGram.clear();
+                    NutrientName.clear();
+                    NutrientGram.add(0,response.body().get(0).getCal());
+                    NutrientGram.add(1,response.body().get(0).getCarb());
+                    NutrientGram.add(2,response.body().get(0).getProtein());
+                    NutrientGram.add(3,response.body().get(0).getFat());
+                    NutrientGram.add(4,response.body().get(0).getSugar());
+                    NutrientGram.add(5,response.body().get(0).getNa());
+                    NutrientGram.add(6,response.body().get(0).getCholesterol());
+                    NutrientGram.add(7,response.body().get(0).getFat());
+                    NutrientGram.add(8,response.body().get(0).getTransFattyAcide());
+                    food.setNutrientGram(NutrientGram);
                 } else {
                     Log.i("Get Nutrient", "Fail");
                 }
@@ -389,7 +407,43 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         });
 
+        viewNutrient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //put activity here
+            }
+        });
         /////////////////////////////////////////////
+
+        /*
+        //////////////////get review////////////////////////
+        final ArrayList<String> Review = new ArrayList<String>();
+        Call<List<SikdangReview>> comment3 = apiService.getReview(food.getIdOfRecipe());
+        comment3.enqueue(new Callback<List<SikdangReview>>() {
+            @Override
+            public void onResponse(Call<List<SikdangReview>> call, Response<List<SikdangReview>> response) {
+                if(response.isSuccessful()) {
+                    //clear all array list here
+
+                    for(int i = 0; i < response.body().size(); i++) {
+                        //add nutrient here
+                        Review.add(response.body().get(i).getName());
+                    }
+
+                } else {
+                    Log.i("Get review", "Fail");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<SikdangReview>> call, Throwable t) {
+                Log.i("Get review", "Fail");
+                t.printStackTrace();
+            }
+        });
+        ////////////////////////////////////////////////////
+        */
+
+
 
         /*sendoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -397,7 +451,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 startActivity(new Intent(ViewRecipeActivity.this, SendOutQRActivity.class));
                 finish();
             }
-        });*/
+        });
+        */
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override

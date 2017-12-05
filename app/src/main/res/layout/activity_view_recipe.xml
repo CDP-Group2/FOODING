@@ -125,4 +125,12 @@
         android:layout_marginBottom="6dp"
         android:text="Other Recipes / Menus" />
 
+    <Button
+        android:id="@+id/viewNutrient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/title"
+        android:layout_alignParentStart="true"
+        android:text="nutrient" />
+
 </RelativeLayout>
