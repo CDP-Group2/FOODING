@@ -94,7 +94,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         }
 
         Call<List<Ingredient>> comment = apiService.getIngredient(serialNumber);
-        Log.i("serial", serialNumber);
         comment.enqueue(new Callback<List<Ingredient>>() {
             @Override
             public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {

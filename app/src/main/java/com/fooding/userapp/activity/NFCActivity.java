@@ -110,11 +110,10 @@ public class NFCActivity extends AppCompatActivity {
             return;
         Parcelable msg[] = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
         if (msg != null) {
-            Log.d("d", "hi");
             String dMsg = setReadTagData((NdefMessage) msg[0]);
             Toast.makeText(this, dMsg, Toast.LENGTH_SHORT).show();
             Intent rintent = new Intent(NFCActivity.this,ViewRecipeActivity.class);
-            intent.putExtra("code", dMsg);
+            rintent.putExtra("code", dMsg);
             startActivity(rintent);
             finish();
         }
