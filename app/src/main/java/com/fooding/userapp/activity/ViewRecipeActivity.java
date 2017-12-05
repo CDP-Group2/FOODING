@@ -200,8 +200,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         /////////////get id and name array list from preference//////////////////
         final SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
-        final ArrayList<String> idSet = new ArrayList<>(myPref.getStringSet("userListkey",null));
-        final ArrayList<String> nameSet = new ArrayList<>(myPref.getStringSet("userList",null));
+        ArrayList<String> idSet = new ArrayList<String>();
+        final ArrayList<String> nameSet = new ArrayList<String>();
+        if(myPref.getStringSet("userListkey", null) != null) {
+            idSet.addAll(myPref.getStringSet("userListkey",null));
+        }
+        if(myPref.getStringSet("userList", null) != null) {
+            nameSet.addAll(myPref.getStringSet("userList",null));
+        }
         final Map<String, String> userfilterMap = new LinkedHashMap<String, String>();
         for(int i = 0; i< idSet.size();i++){
             userfilterMap.put(idSet.get(i),nameSet.get(i));
@@ -218,35 +224,26 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     title.setText(recipeName);
 
                     SharedPreferences recentlyViewed = getSharedPreferences("recentlyViewed", MODE_PRIVATE);
-                    ArrayList<String> tmp1 = new ArrayList<String>();
-                    ArrayList<String> tmp2 = new ArrayList<String>();
-                    if(recentlyViewed.getStringSet("idSet", null) != null)
-                        tmp1.addAll(recentlyViewed.getStringSet("idSet", null));
-                    if(recentlyViewed.getStringSet("nameSet", null) != null)
-                        tmp2.addAll(recentlyViewed.getStringSet("nameSet", null));
-                    Set<String> set1 = new HashSet<String>(tmp1);
-                    Set<String> set2 = new HashSet<String>(tmp2);
+                    ArrayList<String> recipe = new ArrayList<String>();
+                    if(recentlyViewed.getStringSet("recipeList", null) != null)
+                        recipe.addAll(recentlyViewed.getStringSet("recipeList", null));
+                    Set<String> recipeSet = new HashSet<String>(recipe);
 
-                    if(set1.size() >= 10) {
-                        Iterator<String> iterator1 = set1.iterator();
-                        Iterator<String> iterator2 = set2.iterator();
+                    if(recipeSet.size() >= 10) {
+                        Iterator<String> iterator = recipeSet.iterator();
+                        iterator.next();
+                        iterator.remove();
+                    }
+                    recipeSet.add(serialNumber+"@"+recipeName);
 
-                        iterator1.next();
-                        iterator2.next();
-
-                        iterator1.remove();
-                        iterator2.remove();
+                    for(String str : recipeSet) {
+                        Log.i("recipe", str);
                     }
 
-                    set1.add(serialNumber);
-                    set2.add(recipeName);
-
                     SharedPreferences.Editor editor = recentlyViewed.edit();
-                    editor.putStringSet("idSet", set1);
-                    editor.putStringSet("nameSet", set2);
+                    editor.putStringSet("recipeList", recipeSet);
                     editor.apply();
 
-//                    app.addRecentFood(serialNumber, recipeName);
                     Log.i("Get Recipe Info", recipeName);
                 } else {
                     Log.i("Get Recipe Info", "Fail");
