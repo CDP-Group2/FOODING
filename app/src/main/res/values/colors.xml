@@ -14,6 +14,7 @@
     <color name="transparent">#00000000</color>
     <color name="yellowAccent">#f2b035</color>
     <color name="yellowAccentAlpha">#ECC67F</color>
+    <color name="myBlack">#111</color>
     <color name="gray">#b9b9b9</color>
-
+    <color name="myWhite">#ffffff</color>
 </resources>

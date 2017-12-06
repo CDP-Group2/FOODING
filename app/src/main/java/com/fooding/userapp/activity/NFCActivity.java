@@ -32,6 +32,7 @@ public class NFCActivity extends AppCompatActivity {
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
     @BindView(R.id.setting) ImageButton settingBtn;
     @BindView(R.id.nfc) ImageView nfc;
+    @BindView(R.id.msg) TextView msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,9 @@ public class NFCActivity extends AppCompatActivity {
         final String pathT = fontSP.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
+        final String pathK = fontSP.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        msg.setTypeface(fontK);
         /*************************************************************************************************************/
 
         /*************************************************************************************************************/
@@ -64,6 +68,7 @@ public class NFCActivity extends AppCompatActivity {
 
             // change text color
             title.setTextColor(Color.parseColor("#ffffff"));
+            msg.setTextColor(getResources().getColor(R.color.myWhite));
 
             // change buttons
             filterbutton.setImageResource(R.mipmap.filter_white);

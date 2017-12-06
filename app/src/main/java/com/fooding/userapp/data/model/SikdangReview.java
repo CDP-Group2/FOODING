@@ -3,11 +3,15 @@ package com.fooding.userapp.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Recipe {
-    @SerializedName("RID")
+/**
+ * Created by ajidmasterz on 12/5/2017.
+ */
+
+public class SikdangReview {
+    @SerializedName("..")
     @Expose
     private String id;
-    @SerializedName("RNAME")
+    @SerializedName("...")
     @Expose
     private String name;
 
@@ -24,5 +28,4 @@ public class Recipe {
     public void setName(String name) {
         this.name = name;
     }
-
 }

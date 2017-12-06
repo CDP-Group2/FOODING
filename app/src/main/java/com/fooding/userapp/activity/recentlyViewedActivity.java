@@ -97,6 +97,8 @@ public class recentlyViewedActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
+                textView.setTextColor(getResources().getColor(R.color.myBlack));
+
                 final FoodingApplication app = FoodingApplication.getInstance();
                 SharedPreferences myPref = app.getMyPref();
 

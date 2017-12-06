@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,8 +22,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 public class Food {
-    private String name="";
-    private Map<String, String> ingredient=new LinkedHashMap<String, String>();
+    private String name = "";
+    private Map<String, String> ingredient = new LinkedHashMap<String, String>();
 
     public String getName() {
         return name;
@@ -32,14 +33,44 @@ public class Food {
         this.name = name;
     }
 
-    public Map<String, String> getIngredient(){ return ingredient; }
+    public Map<String, String> getIngredient() {
+        return ingredient;
+    }
 
-    public void setIngredient(Map<String, String> nIngredient){
+    public void setIngredient(Map<String, String> nIngredient) {
         this.ingredient.putAll(nIngredient);
     }
 
     public void addIngredient(String key, String name) {
         this.ingredient.put(key, name);
+    }
+
+    private String recipeid = "";
+
+    public String getIdOfRecipe() {
+        return recipeid;
+    }
+
+    public void setIdOfRecipe(String recipeid) {
+        this.recipeid = recipeid;
+    }
+
+
+    private ArrayList<String> NutrientName = new ArrayList<String>();
+    private ArrayList<String> NutrientGram = new ArrayList<String>();
+
+    public ArrayList<String> getNutrientName() {
+        return NutrientName;
+    }
+    public ArrayList<String> getNutrientGram() {
+        return NutrientGram;
+    }
+
+    public void setNutrientName(ArrayList<String> NutrientName) {
+        this.NutrientName.addAll(NutrientName);
+    }
+    public void setNutrientGram(ArrayList<String> NutrientGram) {
+        this.NutrientGram.addAll(NutrientGram);
     }
 
     //여따가 서버연결 코드

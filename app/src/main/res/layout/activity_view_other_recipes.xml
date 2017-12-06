@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/NFCActivity"
-    tools:context=".activity.NFCActivity">
+    android:id="@+id/viewOtherRecipeActivity"
+    tools:context="com.fooding.userapp.activity.ViewOtherRecipes">
 
     <TextView
         android:id="@+id/title"
@@ -17,35 +17,39 @@
         android:textColor="#111"
         android:textAllCaps="true"
         android:textSize="30dp"
-        android:text="fooding" />
+        android:text="company name" />
 
     <View
         android:id="@+id/title_bar"
         style="@style/title_bar" />
 
-    <ImageView
-        android:id="@+id/nfc"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/otherRecipes"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_bar"
-        android:layout_above="@id/menu_bar"
+        android:layout_above="@id/back"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/noun_58069_cc" />
+        android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/color_button"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/menu_bar"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="180dp"
+        android:textColor="@color/yellowAccent"
+        android:text="되 돌 아 가 기"/>
 
     <View
         android:id="@+id/menu_bar"
         style="@style/menu_bar" />
-
-    <TextView
-        android:id="@+id/msg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="#111"
-        android:textSize="15dp"
-        android:layout_above="@id/menu_bar"
-        android:layout_marginBottom="67dp"
-        android:text="스마트폰 뒷면에\nNFC 태그를 터치해 주세요." />
 
     <LinearLayout
         android:id="@+id/menu"
@@ -80,6 +84,7 @@
             android:layout_height="@dimen/menu_icon_size"
             android:id="@+id/recentlyViewed"
             android:src="@mipmap/list" />
+
     </LinearLayout>
 
 </RelativeLayout>

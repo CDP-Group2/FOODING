@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,9 @@ import com.fooding.userapp.R;
 import com.fooding.userapp.data.Filter;
 import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.model.Ingredient;
+import com.fooding.userapp.data.model.Nutrient;
 import com.fooding.userapp.data.model.Recipe;
+import com.fooding.userapp.data.model.SikdangReview;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,13 +59,33 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ViewRecipeActivity extends AppCompatActivity {
 //    @BindView(R.id.sendout) Button sendoutbutton;
     @BindView(R.id.title) TextView title;
-    @BindView(R.id.otherRecipesTitle) TextView otherRecipesTitle;
-    @BindView(R.id.otherRecipes) ListView viewOtherRecipe;
+    /*@BindView(R.id.otherRecipesTitle) TextView otherRecipesTitle;
+    @BindView(R.id.otherRecipes) ListView viewOtherRecipe;*/
     @BindView(R.id.ingredients) ListView ingredientList;
     @BindView(R.id.filter) ImageButton filterBtn;
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.setting) ImageButton settingBtn;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+//    @BindView(R.id.viewNutrient) Button viewNutrient;
+    @BindView(R.id.calorieText) TextView calorieText;
+    @BindView(R.id.calorieValue) TextView calorieValue;
+    @BindView(R.id.text1_1) TextView text1_1;
+    @BindView(R.id.text1_2) TextView text1_2;
+    @BindView(R.id.text2_1) TextView text2_1;
+    @BindView(R.id.text2_2) TextView text2_2;
+    @BindView(R.id.text3_1) TextView text3_1;
+    @BindView(R.id.text3_2) TextView text3_2;
+    @BindView(R.id.text4_1) TextView text4_1;
+    @BindView(R.id.text4_2) TextView text4_2;
+    @BindView(R.id.text5_1) TextView text5_1;
+    @BindView(R.id.text5_2) TextView text5_2;
+    @BindView(R.id.text6_1) TextView text6_1;
+    @BindView(R.id.text6_2) TextView text6_2;
+    @BindView(R.id.text7_1) TextView text7_1;
+    @BindView(R.id.text7_2) TextView text7_2;
+    @BindView(R.id.text8_1) TextView text8_1;
+    @BindView(R.id.text8_2) TextView text8_2;
+    @BindView(R.id.viewOtherRecipeBtn) Button viewOtherRecipeBtn;
 
     public ArrayList<String> results;
     public ArrayAdapter adapterI;
@@ -83,8 +107,34 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         final String pathT = fontSP.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        final String pathTK = fontSP.getString("titleFontk", "none");
+        final Typeface fontTK = Typeface.createFromAsset(getAssets(), pathTK);
         title.setTypeface(font);
-        otherRecipesTitle.setTypeface(font);
+
+        final String pathK = fontSP.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        final String pathKB = fontSP.getString("boldKoreanFont", "none");
+        Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
+        calorieText.setTypeface(fontKB);
+        calorieValue.setTypeface(fontKB);
+        text1_1.setTypeface(fontK);
+        text1_2.setTypeface(fontK);
+        text2_1.setTypeface(fontK);
+        text2_2.setTypeface(fontK);
+        text3_1.setTypeface(fontK);
+        text3_2.setTypeface(fontK);
+        text4_1.setTypeface(fontK);
+        text4_2.setTypeface(fontK);
+        text5_1.setTypeface(fontK);
+        text5_2.setTypeface(fontK);
+        text6_1.setTypeface(fontK);
+        text6_2.setTypeface(fontK);
+        text7_1.setTypeface(fontK);
+        text7_2.setTypeface(fontK);
+        text8_1.setTypeface(fontK);
+        text8_2.setTypeface(fontK);
+        viewOtherRecipeBtn.setTypeface(fontKB);
+//        otherRecipesTitle.setTypeface(font);
         /*************************************************************************************************************/
 
         /*************************************************************************************************************/
@@ -97,7 +147,28 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
             // change text color
             title.setTextColor(Color.parseColor("#ffffff"));
-            otherRecipesTitle.setTextColor(Color.parseColor("#ffffff"));
+//            otherRecipesTitle.setTextColor(Color.parseColor("#ffffff"));
+
+            ((LinearLayout)findViewById(R.id.nutrientInfo))
+                    .setBackground(getResources().getDrawable(R.drawable.border_white_rectangle));
+            calorieText.setTextColor(getResources().getColor(R.color.myWhite));
+            calorieValue.setTextColor(getResources().getColor(R.color.myWhite));
+            text1_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text1_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text2_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text2_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text3_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text3_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text4_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text4_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text5_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text5_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text6_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text6_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text7_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text7_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text8_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text8_2.setTextColor(getResources().getColor(R.color.myWhite));
 
             // change buttons
             filterBtn.setImageResource(R.mipmap.filter_white);
@@ -110,14 +181,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
             tmp.setBackgroundColor(Color.parseColor("#ffffff"));
             tmp = findViewById(R.id.menu_bar);
             tmp.setBackgroundColor(Color.parseColor("#ffffff"));
-            tmp = findViewById(R.id.divide);
-            tmp.setBackgroundColor(Color.parseColor("#ececec"));
-
-            // listview divider/separator
-            /*viewOtherRecipe.setDivider(new ColorDrawable(0xF0ECECEC));
-            viewOtherRecipe.setDividerHeight(1);
-            ingredientList.setDivider(new ColorDrawable(0xF0ECECEC));
-            ingredientList.setDividerHeight(1);*/
         }
         /*************************************************************************************************************/
 
@@ -141,6 +204,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextColor(getResources().getColor(R.color.myBlack));
 
                 final FoodingApplication app = FoodingApplication.getInstance();
                 SharedPreferences myPref = app.getMyPref();
@@ -172,6 +237,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
+                textView.setTextColor(getResources().getColor(R.color.myBlack));
+
                 final FoodingApplication app = FoodingApplication.getInstance();
                 SharedPreferences myPref = app.getMyPref();
 
@@ -190,7 +257,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         };
         ingredientList.setAdapter(adapterI);
-        viewOtherRecipe.setAdapter(adapterO);
+//        viewOtherRecipe.setAdapter(adapterO);
         /*Food food = app.getCurrentFood();
         serialNumber = food.getSerialNumber();*/
 
@@ -213,7 +280,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         }
 
         // 레시피 이름 서버로부터 받아오기
-        Log.i("serialNumber", serialNumber);
         Call<Recipe> comment_title = apiService.getRecipeInfo(serialNumber);
         comment_title.enqueue(new Callback<Recipe>() {
             @Override
@@ -221,6 +287,13 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     String recipeName = response.body().getName();
                     title.setText(recipeName);
+                    Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+                    boolean hasSpecialChar = p.matcher(recipeName).find();
+                    if(hasSpecialChar) {
+                        Log.i("title korean", "true");
+                        title.setTypeface(fontTK);
+                    }
+                    food.setIdOfRecipe(response.body().getId());
 
                     SharedPreferences recentlyViewed = getSharedPreferences("recentlyViewed", MODE_PRIVATE);
                     ArrayList<String> recipe = new ArrayList<String>();
@@ -336,7 +409,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                         resultsO_map.put(temp.getName(),temp.getId());
                     }
 
-                    viewOtherRecipe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    /*viewOtherRecipe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             final String chosenName = resultsO.get(position);
@@ -346,7 +419,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
-                    });
+                    });*/
                     if(response.body().size()!=0) adapterO.notifyDataSetChanged();
                 } else {
                     Log.i("Get Recipe", "Fail");
@@ -358,13 +431,110 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
+        //////////// get nutrient here ///////////////
+        //we will recieve nutrient info as {담백질, 몇gram}, the last one {calorie, 몇}
+        final ArrayList<String> NutrientName = new ArrayList<String>();
+        NutrientName.add(0, "Calorie"); //calorie
+        NutrientName.add(1, "Carbohydrate"); //carb
+        NutrientName.add(2, "Protein"); //
+        NutrientName.add(3, "Fat"); //
+        NutrientName.add(4, "Sugar"); //
+        NutrientName.add(5, "Na"); //
+        NutrientName.add(6,"Cholesterol" );
+        NutrientName.add(7, "FattyAcid");
+        NutrientName.add(8, "TransFattyAcid");
+        food.setNutrientName(NutrientName);
+
+
+        final ArrayList<String> NutrientGram = new ArrayList<String>();
+        Call<List<Nutrient>> comment2 = apiService.getNutrient(serialNumber);
+        comment2.enqueue(new Callback<List<Nutrient>>() {
+            @Override
+            public void onResponse(Call<List<Nutrient>> call, Response<List<Nutrient>> response) {
+                if(response.isSuccessful()) {
+                    NutrientGram.clear();
+                    NutrientName.clear();
+
+                    if(response.body().get(0).getCal() != null ) {
+                        NutrientGram.add(0, response.body().get(0).getCal() + " kcal");
+                        NutrientGram.add(1, response.body().get(0).getCarb() + " g");
+                        NutrientGram.add(2, response.body().get(0).getProtein() + " g");
+                        NutrientGram.add(3, response.body().get(0).getFat() + " g");
+                        NutrientGram.add(4, response.body().get(0).getSugar() + " g");
+                        NutrientGram.add(5, response.body().get(0).getNa() + " mg");
+                        NutrientGram.add(6, response.body().get(0).getCholesterol() + "mg");
+                        NutrientGram.add(7, response.body().get(0).getFattyAcide() + " g");
+                        NutrientGram.add(8, response.body().get(0).getTransFattyAcide() + " g");
+                    }
+                    else{
+                        for(int i = 0; i<9;i++){
+                            NutrientGram.add(i,"0");
+                        }
+                    }
+                    food.setNutrientGram(NutrientGram);
+
+                    calorieValue.setText(NutrientGram.get(0));
+                    text1_2.setText(NutrientGram.get(1));
+                    text2_2.setText(NutrientGram.get(2));
+                    text3_2.setText(NutrientGram.get(3));
+                    text4_2.setText(NutrientGram.get(4));
+                    text5_2.setText(NutrientGram.get(5));
+                    text6_2.setText(NutrientGram.get(6));
+                    text7_2.setText(NutrientGram.get(7));
+                    text8_2.setText(NutrientGram.get(8));
+
+                } else {
+                    Log.i("Get Nutrient", "Fail");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Nutrient>> call, Throwable t) {
+                Log.i("Get Nutrient", "Fail");
+                t.printStackTrace();
+            }
+        });
+
+        /////////////////////////////////////////////
+
+        /*
+        //////////////////get review////////////////////////
+        final ArrayList<String> Review = new ArrayList<String>();
+        Call<List<SikdangReview>> comment3 = apiService.getReview(food.getIdOfRecipe());
+        comment3.enqueue(new Callback<List<SikdangReview>>() {
+            @Override
+            public void onResponse(Call<List<SikdangReview>> call, Response<List<SikdangReview>> response) {
+                if(response.isSuccessful()) {
+                    //clear all array list here
+
+                    for(int i = 0; i < response.body().size(); i++) {
+                        //add nutrient here
+                        Review.add(response.body().get(i).getName());
+                    }
+
+                } else {
+                    Log.i("Get review", "Fail");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<SikdangReview>> call, Throwable t) {
+                Log.i("Get review", "Fail");
+                t.printStackTrace();
+            }
+        });
+        ////////////////////////////////////////////////////
+        */
+
+
+
         /*sendoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewRecipeActivity.this, SendOutQRActivity.class));
                 finish();
             }
-        });*/
+        });
+        */
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -394,6 +564,16 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewRecipeActivity.this, SettingsActivity.class));
+                finish();
+            }
+        });
+
+        viewOtherRecipeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewRecipeActivity.this, ViewOtherRecipes.class);
+                intent.putExtra("code", serialNumber);
+                startActivity(intent);
                 finish();
             }
         });
