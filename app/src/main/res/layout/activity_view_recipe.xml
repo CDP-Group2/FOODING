@@ -87,9 +87,9 @@
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="12dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/title_bar"
+        android:layout_below="@+id/nutrientInfo"
         android:scrollbars="vertical" />
 
     <!--<View
@@ -126,31 +126,257 @@
         android:text="Other Recipes / Menus" />-->
 
     <LinearLayout
+        android:id="@+id/nutrientInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="23dp"
+        android:padding="10dp"
+        android:layout_below="@id/title_bar"
+        android:background="@drawable/boder_black_rectangle"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/nutrient"
+                android:id="@+id/calorieText"
+                android:textSize="15dp"
+                android:paddingBottom="4dp"
+                android:text="칼로리"/>
+
+            <TextView
+                style="@style/nutrient.info"
+                android:id="@+id/calorieValue"
+                android:paddingBottom="4dp"
+                android:textSize="15dp"
+                android:text="kcal"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:text="칼로리"/>
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/nutrient"
+                        android:id="@+id/text1_1"
+                        android:text="나트륨"/>
+
+                    <TextView
+                        style="@style/nutrient.info"
+                        android:id="@+id/text1_2"
+                        android:text="kcal"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/nutrient"
+                        android:id="@+id/text2_1"
+                        android:text="탄수화물"/>
+
+                    <TextView
+                        style="@style/nutrient.info"
+                        android:id="@+id/text2_2"
+                        android:text="kcal"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/nutrient"
+                        android:id="@+id/text3_1"
+                        android:text="   당류"/>
+
+                    <TextView
+                        style="@style/nutrient.info"
+                        android:id="@+id/text3_2"
+                        android:text="kcal"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/nutrient"
+                        android:id="@+id/text8_1"
+                        android:text="단백질"/>
+
+                    <TextView
+                        style="@style/nutrient.info"
+                        android:id="@+id/text8_2"
+                        android:text="kcal"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.8"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/nutrient"
+                        android:id="@+id/text4_1"
+                        android:text="지방"/>
+
+                    <TextView
+                        style="@style/nutrient.info"
+                        android:id="@+id/text4_2"
+                        android:text="kcal"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/nutrient"
+                        android:id="@+id/text5_1"
+                        android:text="   트랜스지방"/>
+
+                    <TextView
+                        style="@style/nutrient.info"
+                        android:id="@+id/text5_2"
+                        android:text="kcal"/>
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/nutrient"
+                        android:id="@+id/text6_1"
+                        android:text="   포화지방"/>
+
+                    <TextView
+                        style="@style/nutrient.info"
+                        android:id="@+id/text6_2"
+                        android:text="kcal"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/nutrient"
+                        android:id="@+id/text7_1"
+                        android:text="콜레스테롤"/>
+
+                    <TextView
+                        style="@style/nutrient.info"
+                        android:id="@+id/text7_2"
+                        android:text="kcal"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/viewOtherRecipeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/color_button"
+        android:layout_below="@id/ingredients"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/yellowAccent"
+        android:text="다른 레시피 보기"/>
+
+    <!--<Button
         android:id="@+id/viewNutrient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/title"
         android:layout_alignParentStart="true"
-        android:text="nutrient" />
+        android:text="nutrient" />-->
 
 </RelativeLayout>
