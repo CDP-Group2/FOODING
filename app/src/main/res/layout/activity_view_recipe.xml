@@ -92,7 +92,7 @@
         android:layout_below="@+id/title_bar"
         android:scrollbars="vertical" />
 
-    <View
+    <!--<View
         android:id="@+id/divide"
         android:layout_width="match_parent"
         android:layout_below="@id/ingredients"
@@ -123,7 +123,27 @@
         android:textColor="#111"
         android:layout_marginTop="27dp"
         android:layout_marginBottom="6dp"
-        android:text="Other Recipes / Menus" />
+        android:text="Other Recipes / Menus" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="칼로리"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/viewNutrient"
