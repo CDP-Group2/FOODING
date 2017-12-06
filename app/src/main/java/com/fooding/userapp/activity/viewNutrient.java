@@ -101,7 +101,10 @@ public class viewNutrient extends AppCompatActivity{
         viewRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(viewNutrient.this, ViewRecipeActivity.class));
+                Intent intent = new Intent(viewNutrient.this,ViewRecipeActivity.class);
+                String serialNum = getIntent().getStringExtra("code");
+                intent.putExtra("code",serialNum);
+                startActivity(intent);
                 finish();
             }
         });

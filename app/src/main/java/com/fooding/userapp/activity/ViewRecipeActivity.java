@@ -216,7 +216,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         }
 
         // 레시피 이름 서버로부터 받아오기
-        Log.i("serialNumber", serialNumber);
         Call<Recipe> comment_title = apiService.getRecipeInfo(serialNumber);
         comment_title.enqueue(new Callback<Recipe>() {
             @Override
@@ -396,6 +395,20 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     NutrientGram.add(7,response.body().get(0).getFat());
                     NutrientGram.add(8,response.body().get(0).getTransFattyAcide());
                     food.setNutrientGram(NutrientGram);
+
+                    viewNutrient.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(ViewRecipeActivity.this,viewNutrient.class);
+                            intent.putStringArrayListExtra("gram", food.getNutrientGram());
+                            intent.putStringArrayListExtra("Nutrientname", food.getNutrientName());
+                            intent.putExtra("recipeName", title.getText().toString());
+                            intent.putExtra("code",serialNumber);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    
                 } else {
                     Log.i("Get Nutrient", "Fail");
                 }
@@ -407,17 +420,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         });
 
-        viewNutrient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ViewRecipeActivity.this,viewNutrient.class);
-                intent.putStringArrayListExtra("gram", food.getNutrientGram());
-                intent.putStringArrayListExtra("Nutrientname", food.getNutrientName());
-                intent.putExtra("recipeName", title.getText().toString());
-                startActivity(intent);
-                finish();
-            }
-        });
         /////////////////////////////////////////////
 
         /*
