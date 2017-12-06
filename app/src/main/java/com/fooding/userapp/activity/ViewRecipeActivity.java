@@ -410,7 +410,12 @@ public class ViewRecipeActivity extends AppCompatActivity {
         viewNutrient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //put activity here
+                Intent intent = new Intent(ViewRecipeActivity.this,viewNutrient.class);
+                intent.putStringArrayListExtra("gram", food.getNutrientGram());
+                intent.putStringArrayListExtra("Nutrientname", food.getNutrientName());
+                intent.putExtra("recipeName", title.getText().toString());
+                startActivity(intent);
+                finish();
             }
         });
         /////////////////////////////////////////////

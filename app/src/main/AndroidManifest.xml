@@ -61,6 +61,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.viewNutrient"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
