@@ -49,14 +49,14 @@ public class viewNutrient extends AppCompatActivity{
         ArrayList<String> nutrientName = getIntent().getStringArrayListExtra("Nutrientname");
 
         ArrayList<String> outputNutrient = new ArrayList<>();
-        outputNutrient.add(nutrientName.get(1) + ": " + nutrientInfo.get(1));
-        outputNutrient.add(nutrientName.get(2) + ": " +  nutrientInfo.get(2));
-        outputNutrient.add(nutrientName.get(3) + ": " +  nutrientInfo.get(3));
-        outputNutrient.add(nutrientName.get(4) + ": " +  nutrientInfo.get(4));
-        outputNutrient.add(nutrientName.get(5) + ": " +  nutrientInfo.get(5));
-        outputNutrient.add(nutrientName.get(6) + ": " +  nutrientInfo.get(6));
-        outputNutrient.add(nutrientName.get(7) + ": " +  nutrientInfo.get(7));
-        outputNutrient.add(nutrientName.get(8) + ": " +  nutrientInfo.get(8));
+        outputNutrient.add(nutrientName.get(1) + ": " + nutrientInfo.get(1)+ "g");
+        outputNutrient.add(nutrientName.get(2) + ": " +  nutrientInfo.get(2)+ "g");
+        outputNutrient.add(nutrientName.get(3) + ": " +  nutrientInfo.get(3)+ "g");
+        outputNutrient.add(nutrientName.get(4) + ": " +  nutrientInfo.get(4)+ "g");
+        outputNutrient.add(nutrientName.get(5) + ": " +  nutrientInfo.get(5)+ "g");
+        outputNutrient.add(nutrientName.get(6) + ": " +  nutrientInfo.get(6)+ "g");
+        outputNutrient.add(nutrientName.get(7) + ": " +  nutrientInfo.get(7)+ "g");
+        outputNutrient.add(nutrientName.get(8) + ": " +  nutrientInfo.get(8)+ "g");
 
         nutrientAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, outputNutrient);
         ingredientList.setAdapter(nutrientAdapter);

@@ -385,16 +385,25 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     NutrientGram.clear();
                     NutrientName.clear();
-                    NutrientGram.add(0,response.body().get(0).getCal());
-                    NutrientGram.add(1,response.body().get(0).getCarb());
-                    NutrientGram.add(2,response.body().get(0).getProtein());
-                    NutrientGram.add(3,response.body().get(0).getFat());
-                    NutrientGram.add(4,response.body().get(0).getSugar());
-                    NutrientGram.add(5,response.body().get(0).getNa());
-                    NutrientGram.add(6,response.body().get(0).getCholesterol());
-                    NutrientGram.add(7,response.body().get(0).getFat());
-                    NutrientGram.add(8,response.body().get(0).getTransFattyAcide());
-                    food.setNutrientGram(NutrientGram);
+
+                    if(response.body().get(0).getCal() != null ) {
+                        NutrientGram.add(0, response.body().get(0).getCal());
+                        NutrientGram.add(1, response.body().get(0).getCarb());
+                        NutrientGram.add(2, response.body().get(0).getProtein());
+                        NutrientGram.add(3, response.body().get(0).getFat());
+                        NutrientGram.add(4, response.body().get(0).getSugar());
+                        NutrientGram.add(5, response.body().get(0).getNa());
+                        NutrientGram.add(6, response.body().get(0).getCholesterol());
+                        NutrientGram.add(7, response.body().get(0).getFat());
+                        NutrientGram.add(8, response.body().get(0).getTransFattyAcide());
+                        food.setNutrientGram(NutrientGram);
+                    }
+                    else{
+                        for(int i = 0; i<9;i++){
+                            NutrientGram.add(i,"0");
+                        }
+                        food.setNutrientGram(NutrientGram);
+                    }
 
                     viewNutrient.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -408,7 +417,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                             finish();
                         }
                     });
-                    
+
                 } else {
                     Log.i("Get Nutrient", "Fail");
                 }
