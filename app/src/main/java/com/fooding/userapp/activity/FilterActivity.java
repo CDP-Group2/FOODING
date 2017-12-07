@@ -44,6 +44,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -212,9 +213,8 @@ public class FilterActivity extends AppCompatActivity {
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
                 apiService = retrofit.create(APIService.class);
 
-                final String text = searchText.getText().toString();
-                final Call<List<Ingredient>> comment = apiService.searchIngredient(text,fontSP.getBoolean("translate",false));
-
+                final String text = searchText.getText().toString().toLowerCase();
+                final Call<List<Ingredient>> comment = apiService.searchIngredient(text,Boolean.toString(fontSP.getBoolean("translation",false)));
                 resultListView.clearChoices();
 
                 comment.enqueue(new Callback<List<Ingredient>>() {
@@ -232,7 +232,7 @@ public class FilterActivity extends AppCompatActivity {
 
                             for(int i=0;i<response.body().size();i++){
                                 IngridientId.add(response.body().get(i).getId()); //get id list of ingridient
-                                IngridientName.add(fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name():response.body().get(i).getName()); //get name list of the ingridient
+                                IngridientName.add(fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name().toLowerCase():response.body().get(i).getName().toLowerCase(Locale.KOREA)); //get name list of the ingridient
                                 String id = response.body().get(i).getId();
                                 //Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
                                 String name = fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name().toString():response.body().get(i).getName().toString();
@@ -246,6 +246,7 @@ public class FilterActivity extends AppCompatActivity {
                                 //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
                                 if(temp.contains(text)){
 //                                    searchText.setTextColor(getResources().getColor(R.color.Red));
+                                    resultListView.setVisibility(View.VISIBLE);
                                     debuggingView.setVisibility(View.INVISIBLE);
                                 }
                                 else{

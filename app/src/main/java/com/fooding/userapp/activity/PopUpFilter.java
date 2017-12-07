@@ -200,7 +200,7 @@ public class PopUpFilter extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 int selectedCount = 0;
                 SparseBooleanArray sparse = userList.getCheckedItemPositions();
-                final int length = filter.getUserListName().size();
+                final int length = sparse.size();
 
                 for(int j = 0; j < length; j++) {
                     if(sparse.valueAt(j)) {
@@ -209,7 +209,6 @@ public class PopUpFilter extends AppCompatActivity {
                         selectedCount++;
                     }
                 }
-
                 Log.i("# of Selected Items", Integer.toString(selectedCount));
 
                 adapter.notifyDataSetChanged();
