@@ -62,7 +62,354 @@
             android:src="@mipmap/list" />
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/title_bar"
+        android:layout_above="@id/menu_bar"
+        android:fillViewport="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="25dp">
+
+        <LinearLayout
+            android:id="@+id/settingMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/title_bar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textBoldnessTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#111"
+                    android:textAllCaps="true"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="20dp"
+                    android:text="글자 두께"/>
+
+                <com.github.channguyen.rsv.RangeSliderView
+                    android:id="@+id/textBoldness"
+                    android:layout_width="match_parent"
+                    app:rangeCount="4"
+                    app:slotRadiusPercent="0.2"
+                    android:layout_height="50dp"
+                    app:filledColor="#f2b035" />
+
+                <LinearLayout
+                    android:id="@+id/textBoldnessCaption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="light"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="regular"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="extra\nbold"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/tmp1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="#3111" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textSizeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#111"
+                    android:textAllCaps="true"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="20dp"
+                    android:text="글자 크기"/>
+
+                <com.github.channguyen.rsv.RangeSliderView
+                    android:id="@+id/textSize"
+                    android:layout_width="match_parent"
+                    app:rangeCount="5"
+                    app:slotRadiusPercent="0.2"
+                    android:layout_height="50dp"
+                    app:filledColor="#f2b035" />
+
+                <LinearLayout
+                    android:id="@+id/textSizeCaption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="very\nsmall"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="small"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="normal"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="big"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="13dp"
+                        android:text="very\nbig"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/tmp2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="#3111" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calorieText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:textAlignment="textStart"
+                    android:layout_weight="0.5"
+                    android:textColor="@color/myBlack"
+                    android:text="지정 칼로리"
+                    tools:ignore="RtlCompat" />
+
+                <EditText
+                    android:id="@+id/calorieValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:textAlignment="textEnd"
+                    android:hint="0"
+                    android:textColorHint="@color/gray"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textSize="15dp"
+                    android:paddingRight="10dp"
+                    android:background="@drawable/color_button"/>
+
+                <TextView
+                    android:id="@+id/kcal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textAlignment="textStart"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/myBlack"
+                    android:text="kcal"
+                    tools:ignore="RtlCompat" />
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/tmp3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="#3111" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/etcTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:text="기타"
+                    android:textAllCaps="true"
+                    android:textColor="#111"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/translationCaption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:text="english translation"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="15dp" />
+
+                    <!--<Switch-->
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/translationSwitch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.2"
+                        app:theme="@style/switchCompatStyle" />
+                    <!--android:track="@drawable/switch_track_selector"
+                        android:thumb="@drawable/switch_thumb"/>-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/themeCaption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:text="어두운 테마"
+                        android:textAllCaps="true"
+                        android:textColor="#111"
+                        android:textSize="15dp" />
+
+                    <!--<Switch-->
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/themeSwitch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.2"
+                        app:theme="@style/switchCompatStyle" />
+                    <!--android:track="@drawable/switch_track_selector"
+                        android:thumb="@drawable/switch_thumb"/>-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--<LinearLayout
         android:id="@+id/settingMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -257,6 +604,63 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/calorieText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp"
+                android:textAlignment="textStart"
+                android:layout_weight="0.5"
+                android:textColor="@color/myBlack"
+                android:text="지정 칼로리"
+                tools:ignore="RtlCompat" />
+
+            <EditText
+                android:id="@+id/calorieValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:textAlignment="textEnd"
+                android:hint="0"
+                android:textColorHint="@color/gray"
+                android:inputType="number"
+                android:padding="8dp"
+                android:textSize="15dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/color_button"/>
+
+            <TextView
+                android:id="@+id/kcal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAlignment="textStart"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:textColor="@color/myBlack"
+                android:text="kcal"
+                tools:ignore="RtlCompat" />
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/tmp3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="#3111" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:orientation="vertical">
@@ -290,7 +694,7 @@
                     android:textColor="#111"
                     android:textSize="15dp" />
 
-                <!--<Switch-->
+                &lt;!&ndash;<Switch&ndash;&gt;
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/translationSwitch"
                     android:layout_width="0dp"
@@ -298,8 +702,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1.2"
                     app:theme="@style/switchCompatStyle" />
-                <!--android:track="@drawable/switch_track_selector"
-                    android:thumb="@drawable/switch_thumb"/>-->
+                &lt;!&ndash;android:track="@drawable/switch_track_selector"
+                    android:thumb="@drawable/switch_thumb"/>&ndash;&gt;
 
             </LinearLayout>
 
@@ -321,7 +725,7 @@
                     android:textColor="#111"
                     android:textSize="15dp" />
 
-                <!--<Switch-->
+                &lt;!&ndash;<Switch&ndash;&gt;
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/themeSwitch"
                     android:layout_width="0dp"
@@ -329,13 +733,13 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1.2"
                     app:theme="@style/switchCompatStyle" />
-                <!--android:track="@drawable/switch_track_selector"
-                    android:thumb="@drawable/switch_thumb"/>-->
+                &lt;!&ndash;android:track="@drawable/switch_track_selector"
+                    android:thumb="@drawable/switch_thumb"/>&ndash;&gt;
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </RelativeLayout>

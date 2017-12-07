@@ -103,7 +103,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         /*************************************************************************************************************/
         // font setting
         final FoodingApplication app = FoodingApplication.getInstance();
-        SharedPreferences fontSP = app.getMyPref();
+        final SharedPreferences fontSP = app.getMyPref();
 
         final String pathT = fontSP.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
@@ -452,29 +452,40 @@ public class ViewRecipeActivity extends AppCompatActivity {
         comment2.enqueue(new Callback<List<Nutrient>>() {
             @Override
             public void onResponse(Call<List<Nutrient>> call, Response<List<Nutrient>> response) {
+                String calorie = new String();
+
                 if(response.isSuccessful()) {
                     NutrientGram.clear();
                     NutrientName.clear();
 
                     if(response.body().get(0).getCal() != null ) {
-                        NutrientGram.add(0, response.body().get(0).getCal() + " kcal");
+                        calorie = response.body().get(0).getCal();
+                        NutrientGram.add(0,  calorie + " kcal");
                         NutrientGram.add(1, response.body().get(0).getCarb() + " g");
                         NutrientGram.add(2, response.body().get(0).getProtein() + " g");
                         NutrientGram.add(3, response.body().get(0).getFat() + " g");
                         NutrientGram.add(4, response.body().get(0).getSugar() + " g");
                         NutrientGram.add(5, response.body().get(0).getNa() + " mg");
-                        NutrientGram.add(6, response.body().get(0).getCholesterol() + "mg");
+                        NutrientGram.add(6, response.body().get(0).getCholesterol() + " mg");
                         NutrientGram.add(7, response.body().get(0).getFattyAcide() + " g");
                         NutrientGram.add(8, response.body().get(0).getTransFattyAcide() + " g");
                     }
                     else{
+                        String str[]={" kcal", " g", " g", " g", " g", " mg", " mg", " g", " g"};
                         for(int i = 0; i<9;i++){
-                            NutrientGram.add(i,"0");
+                            NutrientGram.add(i,"0"+str[i]);
                         }
+                        calorie = "0";
                     }
                     food.setNutrientGram(NutrientGram);
 
                     calorieValue.setText(NutrientGram.get(0));
+                    // check calorie
+                    if(fontSP.getString("myCalorie", null) != null) {
+                        if(Integer.parseInt(fontSP.getString("myCalorie", null)) < Integer.parseInt(calorie))
+                            calorieValue.setTextColor(getResources().getColor(R.color.Red));
+                    }
+
                     text1_2.setText(NutrientGram.get(1));
                     text2_2.setText(NutrientGram.get(2));
                     text3_2.setText(NutrientGram.get(3));
@@ -523,17 +534,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         });
         ////////////////////////////////////////////////////
-        */
-
-
-
-        /*sendoutbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ViewRecipeActivity.this, SendOutQRActivity.class));
-                finish();
-            }
-        });
         */
 
         filterBtn.setOnClickListener(new View.OnClickListener() {

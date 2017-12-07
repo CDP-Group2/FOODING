@@ -1,5 +1,6 @@
 package com.fooding.userapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -14,9 +15,12 @@ import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.util.Range;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -48,6 +52,9 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.filter) ImageButton filterBtn;
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.calorieText) TextView calorieText;
+    @BindView(R.id.calorieValue) EditText calorieValue;
+    @BindView(R.id.kcal) TextView kcal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +95,15 @@ public class SettingsActivity extends AppCompatActivity {
         }
         translationCaption.setTypeface(fontK);
         themeCaption.setTypeface(fontK);
+        kcal.setTypeface(fontK);
 
         final String pathKB = myPref.getString("boldKoreanFont", "none");
         Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
         textBoldnessTitle.setTypeface(fontKB);
         textSizeTitle.setTypeface(fontKB);
         etcTitle.setTypeface(fontKB);
+        calorieText.setTypeface(fontKB);
+        calorieValue.setTypeface(fontKB);
         /*************************************************************************************************************/
 
         /*************************************************************************************************************/
@@ -125,6 +135,9 @@ public class SettingsActivity extends AppCompatActivity {
             textBoldnessTitle.setTextColor(Color.parseColor("#ffffff"));
             textSizeTitle.setTextColor(Color.parseColor("#ffffff"));
             etcTitle.setTextColor(Color.parseColor("#ffffff"));
+            calorieText.setTextColor(getResources().getColor(R.color.myWhite));
+            calorieValue.setTextColor(getResources().getColor(R.color.myWhite));
+            kcal.setTextColor(getResources().getColor(R.color.myWhite));
 
             // change buttons
             filterBtn.setImageResource(R.mipmap.filter_white);
@@ -140,8 +153,14 @@ public class SettingsActivity extends AppCompatActivity {
             tmp.setBackgroundColor(Color.parseColor("#ececec"));
             tmp = findViewById(R.id.tmp2);
             tmp.setBackgroundColor(Color.parseColor("#ececec"));
+            tmp = findViewById(R.id.tmp3);
+            tmp.setBackgroundColor(Color.parseColor("#ececec"));
         }
         /*************************************************************************************************************/
+
+        if(myPref.getString("myCalorie", null) != null) {
+            calorieValue.setText(myPref.getString("myCalorie", null));
+        }
 
         textBoldness = (RangeSliderView)findViewById(R.id.textBoldness);
         final int userBoldness = myPref.getInt("fontBoldness", 1);
@@ -234,6 +253,23 @@ public class SettingsActivity extends AppCompatActivity {
 
                 editor.putBoolean("translation", b);
                 editor.apply();
+            }
+        });
+
+        calorieValue.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                calorieValue.clearFocus();
+                InputMethodManager mInputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                Log.i("my Calorie", calorieValue.getText().toString());
+
+                SharedPreferences.Editor editor = myPref.edit();
+                editor.putString("myCalorie", calorieValue.getText().toString());
+                editor.apply();
+
+                mInputMethodManager.hideSoftInputFromWindow(calorieValue.getWindowToken(), 0);
+                return false;
             }
         });
 
