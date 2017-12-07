@@ -71,11 +71,13 @@ public class FilterActivity extends AppCompatActivity {
 
     public ArrayList<String> IngridientId; //id list of ingridient
     public ArrayList<String> IngridientName; //list of ingridient name on user filter list .. user preferences
+    public ArrayList<String> IngridientEnName;
     public ArrayList<String> resultList; //list of ingridient name on user filter list .. user preferences
     public ArrayAdapter<String> adapter;
 
     Filter filter = new Filter(); //user filter
     private Map<String, String> dbIngridient = new LinkedHashMap<String, String>();
+    private Map<String, String> dbIngridientEn = new LinkedHashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,9 +136,10 @@ public class FilterActivity extends AppCompatActivity {
 
         IngridientId = new ArrayList<String>(); //initialization of ingridient id list
         IngridientName = new ArrayList<String>(); //initialization of ingridient name list
+        IngridientEnName = new ArrayList<String>(); //initialization of ingridient name list
         resultList =  new ArrayList<String>(); //result list to show in listview
 
-        resultList.addAll(dbIngridient.values());
+        resultList.addAll(fontSP.getBoolean("translation",false)?dbIngridientEn.values():dbIngridient.values());
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_single_choice, resultList) {
             @NonNull
             @Override
@@ -225,6 +228,7 @@ public class FilterActivity extends AppCompatActivity {
                             IngridientId.clear();
                             IngridientName.clear();
                             dbIngridient.clear();
+                            dbIngridientEn.clear();
                             resultList.clear();
                             ///////////////
                             resultListView.setVisibility(View.VISIBLE);
@@ -232,17 +236,20 @@ public class FilterActivity extends AppCompatActivity {
 
                             for(int i=0;i<response.body().size();i++){
                                 IngridientId.add(response.body().get(i).getId()); //get id list of ingridient
-                                IngridientName.add(fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name().toLowerCase():response.body().get(i).getName().toLowerCase(Locale.KOREA)); //get name list of the ingridient
+                                IngridientName.add(response.body().get(i).getName().toLowerCase(Locale.KOREA)); //get name list of the ingridient
+                                IngridientEnName.add(response.body().get(i).getEn_name().toLowerCase());
                                 String id = response.body().get(i).getId();
                                 //Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
-                                String name = fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name().toString():response.body().get(i).getName().toString();
+                                String name = response.body().get(i).getName().toString();
+                                String Enname = response.body().get(i).getEn_name().toString();
                                 dbIngridient.put(name,id); //adding all to map
+                                dbIngridientEn.put(Enname,id);
                             }
 
-                            resultList.addAll(dbIngridient.keySet());
+                            resultList.addAll(fontSP.getBoolean("translation",false)?dbIngridientEn.keySet():dbIngridient.keySet());
 
                             for (int counter = 0; counter < IngridientName.size(); counter++) {
-                                String temp = IngridientName.get(counter);
+                                String temp = fontSP.getBoolean("translation",false)?IngridientEnName.get(counter):IngridientName.get(counter);
                                 //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
                                 if(temp.contains(text)){
 //                                    searchText.setTextColor(getResources().getColor(R.color.Red));
@@ -328,20 +335,25 @@ public class FilterActivity extends AppCompatActivity {
                     checked = resultListView.getCheckedItemPosition();
 
                     if(checked > -1 && checked < count) {
-                        final String Name = resultList.get(checked).toString();
+                        final String Name = IngridientName.get(checked).toString();
+                        final String EnName = IngridientEnName.get(checked).toString();
                         final String ID = dbIngridient.get(Name);
 
                         filter.addItem2UserListName(Name);
+                        filter.addItem2UserListEnName(EnName);
                         filter.addItem2UserListId(ID);
 
                         SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
                         SharedPreferences.Editor editor = myPref.edit();
                         ArrayList<String> temp1 = new ArrayList<String>(filter.getUserListName());
                         ArrayList<String> temp2 = new ArrayList<String>(filter.getUserListId());
+                        ArrayList<String> temp3 = new ArrayList<String>(filter.getUserListEnName());
                         Set<String> set1 = new HashSet<String>(temp1);
                         Set<String> set2 = new HashSet<String>(temp2);
+                        Set<String> set3 = new HashSet<String>(temp3);
                         editor.putStringSet("userList",set1);
                         editor.putStringSet("userListkey",set2);
+                        editor.putStringSet("userListEn",set3);
                         editor.apply();
 
                         startActivity(new Intent(FilterActivity.this, PopUpFilter.class));

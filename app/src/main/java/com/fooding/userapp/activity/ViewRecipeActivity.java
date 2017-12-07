@@ -271,14 +271,20 @@ public class ViewRecipeActivity extends AppCompatActivity {
         final SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
         ArrayList<String> idSet = new ArrayList<String>();
         final ArrayList<String> nameSet = new ArrayList<String>();
+        final ArrayList<String> EnnameSet = new ArrayList<String>();
         if(myPref.getStringSet("userListkey", null) != null) {
             idSet.addAll(myPref.getStringSet("userListkey",null));
         }
         if(myPref.getStringSet("userList", null) != null) {
             nameSet.addAll(myPref.getStringSet("userList",null));
         }
+        if(myPref.getStringSet("userListEn", null) != null) {
+            EnnameSet.addAll(myPref.getStringSet("userListEn",null));
+        }
         final Map<String, String> userfilterMap = new LinkedHashMap<String, String>();
+        final Map<String, String> userfilterMapEn = new LinkedHashMap<String, String>();
         for(int i = 0; i< idSet.size();i++){
+            userfilterMapEn.put(idSet.get(i),EnnameSet.get(i));
             userfilterMap.put(idSet.get(i),nameSet.get(i));
         }
 

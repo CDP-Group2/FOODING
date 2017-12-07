@@ -25,6 +25,7 @@ public class Filter {
     /////for arraylist of id and name//////////////
     private static ArrayList<String> userListName = new ArrayList<String>();
     private static ArrayList<String> userListId = new ArrayList<String>();
+    private static ArrayList<String> userListEnName = new ArrayList<String>();
 
     /////ingredient array list name functions//////////////////
     public void setUserListName(ArrayList<String> userListName) {
@@ -40,10 +41,29 @@ public class Filter {
             userListName.add(temp);
         }
     }
-
     public void removeItemOnUserListName(String temp){
         userListName.remove(temp);
     }
+    /////////////////////////////////////////
+    /////ingredient array list eng name functions//////////////////
+    public void setUserListEnName(ArrayList<String> userListEnName) {
+        Filter.userListEnName = userListEnName;
+    }
+
+    public ArrayList<String> getUserListEnName() {
+        return userListEnName;
+    }
+
+    public void addItem2UserListEnName(String temp){
+        if(userListEnName.contains(temp)!=true){
+            userListEnName.add(temp);
+        }
+    }
+    public void removeItemOnUserListEnName(String temp){
+        userListEnName.remove(temp);
+    }
+
+
 
     ///////ingredient array list id functions//////////////////////
     public void setUserListId(ArrayList<String> userListId) {
