@@ -85,7 +85,7 @@ public class FilterActivity extends AppCompatActivity {
         /*************************************************************************************************************/
         // font setting
         final FoodingApplication app = FoodingApplication.getInstance();
-        SharedPreferences fontSP = app.getMyPref();
+        final SharedPreferences fontSP = app.getMyPref();
 
         final String pathT = fontSP.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
@@ -213,7 +213,7 @@ public class FilterActivity extends AppCompatActivity {
                 apiService = retrofit.create(APIService.class);
 
                 final String text = searchText.getText().toString();
-                final Call<List<Ingredient>> comment = apiService.searchIngredient(text);
+                final Call<List<Ingredient>> comment = apiService.searchIngredient(text,fontSP.getBoolean("translate",false));
 
                 resultListView.clearChoices();
 
@@ -232,10 +232,10 @@ public class FilterActivity extends AppCompatActivity {
 
                             for(int i=0;i<response.body().size();i++){
                                 IngridientId.add(response.body().get(i).getId()); //get id list of ingridient
-                                IngridientName.add(response.body().get(i).getName()); //get name list of the ingridient
+                                IngridientName.add(fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name():response.body().get(i).getName()); //get name list of the ingridient
                                 String id = response.body().get(i).getId();
                                 //Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
-                                String name = response.body().get(i).getName().toString();
+                                String name = fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name().toString():response.body().get(i).getName().toString();
                                 dbIngridient.put(name,id); //adding all to map
                             }
 

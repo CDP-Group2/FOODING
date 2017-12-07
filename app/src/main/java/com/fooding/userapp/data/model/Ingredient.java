@@ -11,6 +11,9 @@ public class Ingredient {
     @SerializedName("NAME")
     @Expose
     private String name;
+    @SerializedName("English_NAME")
+    @Expose
+    private String en_name;
 
     public String getId() { return id;}
 
@@ -26,4 +29,11 @@ public class Ingredient {
         this.name = name;
     }
 
+    public String getEn_name() {
+        return en_name;
+    }
+
+    public void setEn_name(String en_name) {
+        this.en_name = en_name;
+    }
 }

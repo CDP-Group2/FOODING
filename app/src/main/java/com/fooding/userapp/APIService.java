@@ -40,7 +40,7 @@ public interface APIService {
 
     //auto complete search
     @GET("searchIngredient.php")
-    Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText);
+    Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText, @Query("translate") boolean translate );
 
     //필터와 레시피아이디로 해당 사업자 음식중 먹을 수 있는것 가져오기
     @GET("getRecipeEatable.php")
@@ -52,5 +52,5 @@ public interface APIService {
 
     ///get review of the recipe from server
     @GET("getRecipeReview.php")
-    Call<List<SikdangReview>>getReview(@Query("searchText") String searchText);
+    Call<List<SikdangReview>>getReview(@Query("searchText") String searchText );
 }

@@ -1,5 +1,6 @@
 package com.fooding.userapp.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -11,6 +12,8 @@ import com.fooding.userapp.data.Food;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
+
+import static android.support.v4.media.session.MediaButtonReceiver.handleIntent;
 
 public class MyPageActivity extends AppCompatActivity {
 

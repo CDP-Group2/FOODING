@@ -133,6 +133,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
         text7_2.setTypeface(fontK);
         text8_1.setTypeface(fontK);
         text8_2.setTypeface(fontK);
+
+
+
         viewOtherRecipeBtn.setTypeface(fontKB);
 //        otherRecipesTitle.setTypeface(font);
         /*************************************************************************************************************/
@@ -340,10 +343,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     ingredients.clear();
 
                     for(int i = 0; i < response.body().size(); i++) {
-                        String temp = response.body().get(i).getName();
+                        String temp;
+                        if(fontSP.getBoolean("translation",false))
+                            temp = response.body().get(i).getEn_name();
+                        else
+                            temp = response.body().get(i).getName();
                         Log.i("oname", temp);
                         results.add(temp);
-                        ingredients.put(response.body().get(i).getId(), response.body().get(i).getName());
+                        ingredients.put(response.body().get(i).getId(), fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name():response.body().get(i).getName());
                     }
 
                     if(response.body().size()!=0) adapterI.notifyDataSetChanged();
@@ -446,6 +453,18 @@ public class ViewRecipeActivity extends AppCompatActivity {
         NutrientName.add(8, "Cholesterol");
         food.setNutrientName(NutrientName);
 
+        if(fontSP.getBoolean("translation",false))
+        {
+            calorieText.setText(NutrientName.get(0));
+            text1_1.setText(NutrientName.get(1));
+            text2_1.setText(NutrientName.get(2));
+            text3_1.setText(NutrientName.get(3));
+            text4_1.setText(NutrientName.get(4));
+            text5_1.setText(NutrientName.get(5));
+            text6_1.setText(NutrientName.get(6));
+            text7_1.setText(NutrientName.get(7));
+            text8_1.setText(NutrientName.get(8));
+        }
 
         final ArrayList<String> NutrientGram = new ArrayList<String>();
         Call<List<Nutrient>> comment2 = apiService.getNutrient(serialNumber);
