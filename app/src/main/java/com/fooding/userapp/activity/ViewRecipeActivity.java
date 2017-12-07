@@ -436,14 +436,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
         //we will recieve nutrient info as {담백질, 몇gram}, the last one {calorie, 몇}
         final ArrayList<String> NutrientName = new ArrayList<String>();
         NutrientName.add(0, "Calorie"); //calorie
-        NutrientName.add(1, "Carbohydrate"); //carb
-        NutrientName.add(2, "Protein"); //
-        NutrientName.add(3, "Fat"); //
-        NutrientName.add(4, "Sugar"); //
-        NutrientName.add(5, "Na"); //
-        NutrientName.add(6,"Cholesterol" );
+        NutrientName.add(1, "Na"); //carb
+        NutrientName.add(2, "Carbohydrate"); //
+        NutrientName.add(3, "Sugar"); //
+        NutrientName.add(4, "Protein"); //
+        NutrientName.add(5, "Fat"); //
+        NutrientName.add(6,"TransFattyAcid" );
         NutrientName.add(7, "FattyAcid");
-        NutrientName.add(8, "TransFattyAcid");
+        NutrientName.add(8, "Cholesterol");
         food.setNutrientName(NutrientName);
 
 
@@ -461,17 +461,20 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     if(response.body().get(0).getCal() != null ) {
                         calorie = response.body().get(0).getCal();
                         NutrientGram.add(0,  calorie + " kcal");
-                        NutrientGram.add(1, response.body().get(0).getCarb() + " g");
-                        NutrientGram.add(2, response.body().get(0).getProtein() + " g");
-                        NutrientGram.add(3, response.body().get(0).getFat() + " g");
-                        NutrientGram.add(4, response.body().get(0).getSugar() + " g");
-                        NutrientGram.add(5, response.body().get(0).getNa() + " mg");
-                        NutrientGram.add(6, response.body().get(0).getCholesterol() + " mg");
-                        NutrientGram.add(7, response.body().get(0).getFattyAcide() + " g");
-                        NutrientGram.add(8, response.body().get(0).getTransFattyAcide() + " g");
+                        NutrientGram.add(1, response.body().get(0).getNa() + " mg");
+                        NutrientGram.add(2, response.body().get(0).getCarb() + " g");
+                        NutrientGram.add(3, response.body().get(0).getSugar() + " g");
+                        NutrientGram.add(4, response.body().get(0).getProtein() + " g");
+                        NutrientGram.add(5, response.body().get(0).getFat() + " g");
+                        NutrientGram.add(6, response.body().get(0).getTransFattyAcid() + " mg");
+                        NutrientGram.add(7, response.body().get(0).getFattyAcid() + " mg");
+                        //NutrientGram.add(8, response.body().get(0).getCholesterol() + " mg");
+                        String test = response.body().get(0).getCholesterol();
+                        Log.d("col", test);
+                        NutrientGram.add(8, test+ " mg");
                     }
                     else{
-                        String str[]={" kcal", " g", " g", " g", " g", " mg", " mg", " g", " g"};
+                        String str[]={" kcal", " mg", " g", " g", " g", " g", " mg", " mg", " mg"};
                         for(int i = 0; i<9;i++){
                             NutrientGram.add(i,"0"+str[i]);
                         }

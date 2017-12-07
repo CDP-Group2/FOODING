@@ -32,12 +32,12 @@ public class Nutrient {
     @SerializedName("Cholesterol")
     @Expose
     private String cholesterol;
-    @SerializedName("FattyAcide")
+    @SerializedName("FattyAcid")
     @Expose
-    private String fattyAcide;
+    private String fattyAcid;
     @SerializedName("TransFattyAcid")
     @Expose
-    private String transFattyAcide;
+    private String transFattyAcid;
 
 
     public String getCal() { return cal;}
@@ -47,8 +47,8 @@ public class Nutrient {
     public String getSugar() { return sugar;}
     public String getNa() { return na;}
     public String getCholesterol() { return cholesterol;}
-    public String getFattyAcide() { return fattyAcide;}
-    public String getTransFattyAcide() { return transFattyAcide;}
+    public String getFattyAcid() { return fattyAcid;}
+    public String getTransFattyAcid() { return transFattyAcid;}
 
     public void setCal(String cal) {
         this.cal = cal;
@@ -71,10 +71,10 @@ public class Nutrient {
     public void setCholesterol(String cholesterol) {
         this.cholesterol = cholesterol;
     }
-    public void setFattyAcide(String fattyAcide) {
-        this.fattyAcide = fattyAcide;
+    public void setFattyAcide(String fattyAcid) {
+        this.fattyAcid = fattyAcid;
     }
-    public void setTransFattyAcide(String transFattyAcide) {
-        this.transFattyAcide = transFattyAcide;
+    public void setTransFattyAcid(String transFattyAcid) {
+        this.transFattyAcid = transFattyAcid;
     }
 }
