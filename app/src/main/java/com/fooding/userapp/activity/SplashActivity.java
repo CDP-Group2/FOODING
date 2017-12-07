@@ -44,6 +44,7 @@ public class SplashActivity extends Activity {
             editor.putInt("fontSize", 16);
             editor.putBoolean("theme", false);
             editor.putBoolean("translation", false);
+            editor.putBoolean("calorie", false);
             editor.putString("myCalorie", null);
             editor.apply();
 

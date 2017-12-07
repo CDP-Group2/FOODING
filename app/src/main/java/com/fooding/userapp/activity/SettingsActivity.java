@@ -158,9 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         /*************************************************************************************************************/
 
-        if(myPref.getString("myCalorie", null) != null) {
-            calorieValue.setText(myPref.getString("myCalorie", null));
-        }
+        calorieValue.setText(myPref.getString("myCalorie", null));
 
         textBoldness = (RangeSliderView)findViewById(R.id.textBoldness);
         final int userBoldness = myPref.getInt("fontBoldness", 1);
@@ -252,6 +250,26 @@ public class SettingsActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = myPref.edit();
 
                 editor.putBoolean("translation", b);
+                editor.apply();
+            }
+        });
+
+        final SwitchCompat calorieSwitch = (SwitchCompat) findViewById(R.id.calorieSwitch);
+        calorieSwitch.setChecked(myPref.getBoolean("calorie", false));
+        calorieSwitch.setTrackTintList(new ColorStateList(states, trackColors));
+
+        calorieSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putBoolean("calorie", b);
+
+                if(!b) {
+                    calorieValue.setText(null);
+                    editor.putString("myCalorie", null);
+                }
+
                 editor.apply();
             }
         });

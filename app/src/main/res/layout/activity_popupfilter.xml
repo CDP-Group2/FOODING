@@ -46,11 +46,32 @@
         android:layout_above="@id/menu_bar"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/filter_menu_icon_size"
-            android:id="@+id/Searchagain"
-            android:src="@mipmap/search" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/Searchagain"
+                style="@style/icons"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/search" />
+
+            <Button
+                android:id="@+id/searchCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-15dp"
+                android:background="@null"
+                android:text="추가하기"
+                android:textColor="@color/myBlack" />
+
+        </LinearLayout>
+
 
         <!--<ImageButton
             style="@style/icons"
@@ -58,11 +79,32 @@
             android:id="@+id/addBtn"
             android:src="@mipmap/plus" />-->
 
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/filter_menu_icon_size"
-            android:id="@+id/removeBtn"
-            android:src="@mipmap/dustbin2"  />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ImageButton
+                style="@style/icons"
+                android:layout_height="40dp"
+                android:id="@+id/removeBtn"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/dustbin2"  />
+
+            <Button
+                android:id="@+id/removeCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-15dp"
+                android:background="@null"
+                android:text="지우기"
+                android:textColor="@color/myBlack" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <View

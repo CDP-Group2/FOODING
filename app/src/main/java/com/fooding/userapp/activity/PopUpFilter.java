@@ -45,6 +45,8 @@ public class PopUpFilter extends AppCompatActivity {
     @BindView(R.id.setting) ImageButton settingBtn;
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.removeCaption) TextView removeCaption;
+    @BindView(R.id.searchCaption) TextView searchCaption;
 
     public ArrayAdapter adapter; //adapter intialize
     public Set<String> set; //set for preference
@@ -65,6 +67,10 @@ public class PopUpFilter extends AppCompatActivity {
         final String pathT = fontSP.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         title.setTypeface(font);
+        final String pathK = fontSP.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        removeCaption.setTypeface(fontK);
+        searchCaption.setTypeface(fontK);
         /*************************************************************************************************************/
 
         /*************************************************************************************************************/
@@ -77,6 +83,8 @@ public class PopUpFilter extends AppCompatActivity {
 
             // change text color
             title.setTextColor(Color.parseColor("#ffffff"));
+            removeCaption.setTextColor(getResources().getColor(R.color.myWhite));
+            searchCaption.setTextColor(getResources().getColor(R.color.myWhite));
 
             // change buttons
             cameraBtn.setImageResource(R.mipmap.camera_white);
@@ -236,7 +244,7 @@ public class PopUpFilter extends AppCompatActivity {
                 }
 
                 if(selectedCount == 0)
-                    Toast.makeText(PopUpFilter.this, "0 Items Selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopUpFilter.this, "지울 항목을 선택해주세요.", Toast.LENGTH_SHORT).show();
 
                 Set<String> set1 = new HashSet<String>(filter.getUserListName());
                 Set<String> set2 = new HashSet<String>(filter.getUserListId());
@@ -299,6 +307,20 @@ public class PopUpFilter extends AppCompatActivity {
             }
         };
         Searchagain.setOnClickListener(Listen2Btn1);
+
+        searchCaption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Searchagain.performClick();
+            }
+        });
+
+        removeCaption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeBtn.performClick();
+            }
+        });
     }
 
     /*@Override
