@@ -51,6 +51,7 @@ public class PopUpFilter extends AppCompatActivity {
     public ArrayAdapter adapter; //adapter intialize
     public Set<String> set; //set for preference
     Map<String, String> Filtermap = new HashMap<String, String>();
+    Map<String, String> FiltermapEn = new HashMap<String, String>();
 
     Filter filter = new Filter(); //calling filter class
 
@@ -62,7 +63,7 @@ public class PopUpFilter extends AppCompatActivity {
         /*************************************************************************************************************/
         // font setting
         final FoodingApplication app = FoodingApplication.getInstance();
-        SharedPreferences fontSP = app.getMyPref();
+        final SharedPreferences fontSP = app.getMyPref();
 
         final String pathT = fontSP.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
@@ -108,6 +109,8 @@ public class PopUpFilter extends AppCompatActivity {
         SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
         ArrayList<String> idSet;
         ArrayList<String> nameSet;
+        ArrayList<String> EnnameSet;
+
         if(myPref.getStringSet("userListkey",null) != null) {
             idSet = new ArrayList<>(myPref.getStringSet("userListkey", null));
             filter.setUserListId(idSet);
@@ -116,9 +119,13 @@ public class PopUpFilter extends AppCompatActivity {
             nameSet = new ArrayList<>(myPref.getStringSet("userList", null));
             filter.setUserListName(nameSet);
         }
+        if(myPref.getStringSet("userListEn",null) != null) {
+            EnnameSet = new ArrayList<>(myPref.getStringSet("userListEn", null));
+            filter.setUserListEnName(EnnameSet);
+        }
 
 //        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, filter.getUserListName()) ;
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, filter.getUserListName()) {
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, fontSP.getBoolean("translation",false)?filter.getUserListEnName():filter.getUserListName()) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -157,6 +164,7 @@ public class PopUpFilter extends AppCompatActivity {
 
         for(int i = 0; i< filter.getUserListId().size();i++){
             Filtermap.put(filter.getUserListName().get(i),filter.getUserListId().get(i));
+            FiltermapEn.put(filter.getUserListEnName().get(i),filter.getUserListId().get(i));
         }
         //Toast.makeText(getApplicationContext(),"You selected "+Filtermap.toString(),Toast.LENGTH_SHORT).show();
 
@@ -226,10 +234,16 @@ public class PopUpFilter extends AppCompatActivity {
                 for(int i = count - 1; i >= 0; i--) {
                     if(checkedItems.get(i)) {
                         String removeName = userList.getItemAtPosition(i).toString();
-                        String removeID = Filtermap.get(removeName);
+                        String removeID = fontSP.getBoolean("translation",false)?FiltermapEn.get(removeName):Filtermap.get(removeName);
+                        int index = filter.getUserListId().indexOf(removeID);
                         filter.removeItemOnUserListId(removeID);
-                        filter.removeItemOnUserListName(removeName);
+                        String removeEnName = filter.getUserListEnName().get(index);
+                        removeName = filter.getUserListName().get(index);
+                        filter.removeItemOnUserListNamebyIndex(index);
+                        filter.removeItemOnUserListEnNamebyIndex(index);
                         Filtermap.remove(removeName);
+                        FiltermapEn.remove(removeEnName);
+
                         /*Set<String> set1 = new HashSet<String>(filter.getUserListName());
                         Set<String> set2 = new HashSet<String>(filter.getUserListId());
                         SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
@@ -247,10 +261,12 @@ public class PopUpFilter extends AppCompatActivity {
 
                 Set<String> set1 = new HashSet<String>(filter.getUserListName());
                 Set<String> set2 = new HashSet<String>(filter.getUserListId());
+                Set<String> set3 = new HashSet<String>(filter.getUserListEnName());
                 SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();
                 editor.putStringSet("userList", set1);
                 editor.putStringSet("userListkey", set2);
+                editor.putStringSet("userListEn", set3);
                 editor.apply();
 
                 userList.clearChoices();

@@ -44,6 +44,7 @@ public class Filter {
     public void removeItemOnUserListName(String temp){
         userListName.remove(temp);
     }
+    public void removeItemOnUserListNamebyIndex(int i) {userListName.remove(i);}
     /////////////////////////////////////////
     /////ingredient array list eng name functions//////////////////
     public void setUserListEnName(ArrayList<String> userListEnName) {
@@ -62,7 +63,7 @@ public class Filter {
     public void removeItemOnUserListEnName(String temp){
         userListEnName.remove(temp);
     }
-
+    public void removeItemOnUserListEnNamebyIndex(int i) {userListEnName.remove(i);}
 
 
     ///////ingredient array list id functions//////////////////////

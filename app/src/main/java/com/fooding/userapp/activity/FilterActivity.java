@@ -227,9 +227,11 @@ public class FilterActivity extends AppCompatActivity {
                             ///reset list///
                             IngridientId.clear();
                             IngridientName.clear();
+                            IngridientEnName.clear();
                             dbIngridient.clear();
                             dbIngridientEn.clear();
                             resultList.clear();
+
                             ///////////////
                             resultListView.setVisibility(View.VISIBLE);
 

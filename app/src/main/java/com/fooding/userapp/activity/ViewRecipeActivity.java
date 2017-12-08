@@ -349,10 +349,10 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     ingredients.clear();
 
                     for(int i = 0; i < response.body().size(); i++) {
-                        String temp;
+                        String temp=null;
                         if(fontSP.getBoolean("translation",false))
                             temp = response.body().get(i).getEn_name();
-                        else
+                        else if(temp==null)
                             temp = response.body().get(i).getName();
                         Log.i("oname", temp);
                         results.add(temp);
@@ -454,7 +454,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         NutrientName.add(3, "Sugar"); //
         NutrientName.add(4, "Protein"); //
         NutrientName.add(5, "Fat"); //
-        NutrientName.add(6,"TransFattyAcid" );
+        NutrientName.add(6,"TransFat" );
         NutrientName.add(7, "FattyAcid");
         NutrientName.add(8, "Cholesterol");
         food.setNutrientName(NutrientName);

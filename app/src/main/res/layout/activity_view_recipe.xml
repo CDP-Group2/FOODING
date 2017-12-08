@@ -208,6 +208,7 @@
                     <TextView
                         style="@style/nutrient"
                         android:id="@+id/text2_1"
+                        android:paddingRight="-5dp"
                         android:text="탄수화물"/>
 
                     <TextView
