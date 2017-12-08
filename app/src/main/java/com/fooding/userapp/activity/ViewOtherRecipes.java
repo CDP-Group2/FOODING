@@ -25,11 +25,13 @@ import com.fooding.userapp.FoodingApplication;
 import com.fooding.userapp.R;
 import com.fooding.userapp.data.Food;
 import com.fooding.userapp.data.model.Recipe;
+import com.google.zxing.common.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +53,7 @@ public class ViewOtherRecipes extends AppCompatActivity {
     public ArrayList<String> resultsO;
     public ArrayAdapter adapterO;
     public String serialNumber;
+    public String companyName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +175,15 @@ public class ViewOtherRecipes extends AppCompatActivity {
                         Recipe temp = response.body().get(i);
                         resultsO.add(temp.getName());
                         resultsO_map.put(temp.getName(),temp.getId());
+                        companyName = temp.getC_name();
+                    }
+
+                    title.setText(companyName);
+                    Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+                    boolean hasSpecialChar = p.matcher(companyName).find();
+                    if(hasSpecialChar) {
+                        Log.i("title korean", "true");
+                        title.setTypeface(fontTK);
                     }
 
                     otherRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
