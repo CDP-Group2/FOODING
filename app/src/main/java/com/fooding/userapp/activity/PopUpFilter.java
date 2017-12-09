@@ -47,6 +47,7 @@ public class PopUpFilter extends AppCompatActivity {
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
     @BindView(R.id.removeCaption) TextView removeCaption;
     @BindView(R.id.searchCaption) TextView searchCaption;
+    @BindView(R.id.clearBtn) Button clearBtn;
 
     public ArrayAdapter adapter; //adapter intialize
     public Set<String> set; //set for preference
@@ -269,6 +270,14 @@ public class PopUpFilter extends AppCompatActivity {
                 editor.putStringSet("userListEn", set3);
                 editor.apply();
 
+                userList.clearChoices();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 userList.clearChoices();
                 adapter.notifyDataSetChanged();
             }

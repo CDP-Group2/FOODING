@@ -24,17 +24,38 @@
         android:id="@+id/title_bar"
         style="@style/title_bar" />
 
-    <ListView
-        android:id="@+id/userListview"
-        android:choiceMode="multipleChoice"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_below="@id/title_bar"
-        android:layout_above="@id/filterMenu"
+        android:orientation="vertical"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="25dp"
-        android:layout_marginTop="30dp" />
+        android:layout_below="@id/title_bar"
+        android:layout_above="@id/filterMenu">
+
+        <Button
+            android:id="@+id/clearBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_marginTop="-15dp"
+            android:layout_marginBottom="-5dp"
+            android:layout_marginRight="-18dp"
+            android:textSize="12dp"
+            android:textColor="#5c5c5c"
+            android:textAllCaps="true"
+            android:layout_gravity="end"
+            android:text="clear" />
+
+        <ListView
+            android:id="@+id/userListview"
+            android:choiceMode="multipleChoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/filterMenu"
