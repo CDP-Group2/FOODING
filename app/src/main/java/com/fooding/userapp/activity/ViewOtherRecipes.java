@@ -175,6 +175,7 @@ public class ViewOtherRecipes extends AppCompatActivity {
                         Recipe temp = response.body().get(i);
                         resultsO.add(temp.getName());
                         resultsO_map.put(temp.getName(),temp.getId());
+                        Log.i("results0_map", temp.getName() + " @ " + temp.getId());
                         companyName = temp.getC_name();
                     }
 
@@ -192,7 +193,8 @@ public class ViewOtherRecipes extends AppCompatActivity {
                             final String chosenName = resultsO.get(position);
                             //Toast.makeText(getApplicationContext(),chosenName,Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ViewOtherRecipes.this,ViewRecipeActivity.class);
-                            intent.putExtra("code", resultsO_map.get(chosenName));
+                            intent.putExtra("code", "R"+resultsO_map.get(chosenName));
+                            Log.i("viewother", resultsO_map.get(chosenName));
                             startActivity(intent);
                             finish();
                         }
@@ -246,6 +248,7 @@ public class ViewOtherRecipes extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewOtherRecipes.this,ViewRecipeActivity.class);
+                Log.i("serialNumber(backBtn)", serialNumber);
                 intent.putExtra("code", serialNumber);
                 startActivity(intent);
                 finish();

@@ -286,7 +286,7 @@
                         android:layout_marginLeft="5dp"
                         android:textAlignment="textStart"
                         android:textColor="@color/myBlack"
-                        android:text="지정 칼로리"
+                        android:text="칼로리 필터"
                         tools:ignore="RtlCompat" />
 
                     <android.support.v7.widget.SwitchCompat
@@ -294,7 +294,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1.2"
+                        android:layout_weight="0.5"
                         android:layout_marginRight="20dp"
                         app:theme="@style/switchCompatStyle" />
 

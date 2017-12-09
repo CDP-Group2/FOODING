@@ -158,6 +158,14 @@ public class SettingsActivity extends AppCompatActivity {
         }
         /*************************************************************************************************************/
 
+        if(myPref.getBoolean("translation",false)) {
+            themeCaption.setText("Dark Theme");
+            calorieText.setText("My Calorie Filter");
+            textBoldnessTitle.setText("Text Boldness");
+            textSizeTitle.setText("Text Size");
+            etcTitle.setText("Other Settings");
+        }
+
         calorieValue.setText(myPref.getString("myCalorie", null));
 
         textBoldness = (RangeSliderView)findViewById(R.id.textBoldness);
@@ -251,6 +259,11 @@ public class SettingsActivity extends AppCompatActivity {
 
                 editor.putBoolean("translation", b);
                 editor.apply();
+
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
             }
         });
 

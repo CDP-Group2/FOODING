@@ -107,6 +107,11 @@ public class PopUpFilter extends AppCompatActivity {
         }
         /*************************************************************************************************************/
 
+        if(fontSP.getBoolean("translation",false)) {
+            searchCaption.setText("ADD");
+            removeCaption.setText("DELETE");
+        }
+
         SharedPreferences myPref = getSharedPreferences("Mypref", MODE_PRIVATE);
         ArrayList<String> idSet;
         ArrayList<String> nameSet;

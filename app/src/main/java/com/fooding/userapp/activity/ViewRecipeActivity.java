@@ -187,6 +187,10 @@ public class ViewRecipeActivity extends AppCompatActivity {
         }
         /*************************************************************************************************************/
 
+        if(fontSP.getBoolean("translation",false)) {
+            viewOtherRecipeBtn.setText("View Other Recipes");
+        }
+
         Retrofit retrofit;
         APIService apiService;
 
@@ -354,7 +358,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                             temp = response.body().get(i).getEn_name();
                         else if(temp==null)
                             temp = response.body().get(i).getName();
-                        Log.i("oname", temp);
+//                        Log.i("oname", temp);
                         results.add(temp);
                         ingredients.put(response.body().get(i).getId(), fontSP.getBoolean("translation",false)?response.body().get(i).getEn_name():response.body().get(i).getName());
                     }

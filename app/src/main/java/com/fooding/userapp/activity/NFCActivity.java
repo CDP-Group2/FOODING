@@ -98,6 +98,9 @@ public class NFCActivity extends AppCompatActivity {
         }
         /*************************************************************************************************************/
 
+        if(fontSP.getBoolean("translation",false)) {
+            msg.setText("PLEASE TOUCH THE NFC TAG\nON THE BACK OF YOUR DEVICE.");
+        }
 
         final ImageView nfc_iv = (ImageView) findViewById(R.id.nfc);
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha_anim);
