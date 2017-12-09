@@ -130,7 +130,7 @@ public class NFCActivity extends AppCompatActivity {
         filterbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NFCActivity.this, FilterActivity.class));
+                startActivity(new Intent(NFCActivity.this, PopUpFilter.class));
                 finish();
             }
         });
