@@ -116,7 +116,7 @@ public class CameraActivity extends AppCompatActivity {
                 }
 
                 lastText = result.getText();
-                barcodeView.setStatusText(result.getText());
+//                barcodeView.setStatusText(result.getText());
 
                 // QR코드에 담긴 일련번호 ViewRecipeActivity로 보내줘야 함
                 Intent intent = new Intent(CameraActivity.this,ViewRecipeActivity.class);
@@ -133,7 +133,7 @@ public class CameraActivity extends AppCompatActivity {
         //camera 찍어서 아래처럼 Food 저장 data-Food dir 참고
 
 //        FoodingApplication app = FoodingApplication.getInstance();
-        Food food=new Food();
+        /*Food food=new Food();
         String temp="오뚜기 케챱";
         food.setName(temp);
         Map<String, String> ttt=new LinkedHashMap<String, String>();
@@ -141,7 +141,7 @@ public class CameraActivity extends AppCompatActivity {
         ttt.put("b123","ketchap2");
         ttt.put("c123","ketchap3");
         food.setIngredient(ttt);
-        app.setCurrentFood(food);
+        app.setCurrentFood(food);*/
 
         //위처럼 food 정보 저장한다음 서버로 ㄲ 하는 작업 시
         //Food food = FoodingApplication.getInstance().getCurrentFood();

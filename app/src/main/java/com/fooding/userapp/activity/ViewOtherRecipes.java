@@ -162,7 +162,7 @@ public class ViewOtherRecipes extends AppCompatActivity {
         //server call for other recipes
         Call<List<Recipe>> comment1 = apiService.getRecipeEatable(idSet,serialNumber);
         if(!(idSet.isEmpty())){
-            Log.i("idset", idSet.get(0));
+//            Log.i("idset", idSet.get(0));
         }
         comment1.enqueue(new Callback<List<Recipe>>() {
             @Override
