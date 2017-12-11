@@ -468,15 +468,15 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         if(fontSP.getBoolean("translation",false))
         {
-            calorieText.setText(NutrientName.get(0));
-            text1_1.setText(NutrientName.get(1));
-            text2_1.setText(NutrientName.get(2));
-            text3_1.setText(NutrientName.get(3));
-            text4_1.setText(NutrientName.get(4));
-            text5_1.setText(NutrientName.get(5));
-            text6_1.setText(NutrientName.get(6));
-            text7_1.setText(NutrientName.get(7));
-            text8_1.setText(NutrientName.get(8));
+            calorieText.setText(NutrientName.get(0).substring(0,NutrientName.get(0).indexOf(".")+2));
+            text1_1.setText(NutrientName.get(1).substring(0,NutrientName.get(1).indexOf(".")+2));
+            text2_1.setText(NutrientName.get(2).substring(0,NutrientName.get(2).indexOf(".")+2));
+            text3_1.setText(NutrientName.get(3).substring(0,NutrientName.get(3).indexOf(".")+2));
+            text4_1.setText(NutrientName.get(4).substring(0,NutrientName.get(4).indexOf(".")+2));
+            text5_1.setText(NutrientName.get(5).substring(0,NutrientName.get(5).indexOf(".")+2));
+            text6_1.setText(NutrientName.get(6).substring(0,NutrientName.get(6).indexOf(".")+2));
+            text7_1.setText(NutrientName.get(7).substring(0,NutrientName.get(7).indexOf(".")+2));
+            text8_1.setText(NutrientName.get(8).substring(0,NutrientName.get(8).indexOf(".")+2));
         }
 
         final ArrayList<String> NutrientGram = new ArrayList<String>();
@@ -495,7 +495,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
                         calorie = response.body().get(0).getCal();
                         Log.i("calorie", calorie);
                         try {
-                            calorieCompare = Integer.parseInt(calorie);
+                            calorieCompare = Integer.parseInt(calorie.substring(0,1));
+
+                            Log.i("calorie parse:",Integer.toString(calorieCompare));
                         } catch (Exception e) {
                             ;
                         }
@@ -504,18 +506,33 @@ public class ViewRecipeActivity extends AppCompatActivity {
                             noNutrientInfo.setVisibility(View.VISIBLE);
                             nutrientInfo.setVisibility(View.INVISIBLE);
                         }
-                        NutrientGram.add(0,  calorie + " kcal");
-                        NutrientGram.add(1, response.body().get(0).getNa() + " mg");
-                        NutrientGram.add(2, response.body().get(0).getCarb() + " g");
-                        NutrientGram.add(3, response.body().get(0).getSugar() + " g");
-                        NutrientGram.add(4, response.body().get(0).getProtein() + " g");
-                        NutrientGram.add(5, response.body().get(0).getFat() + " g");
-                        NutrientGram.add(6, response.body().get(0).getTransFattyAcid() + " mg");
-                        NutrientGram.add(7, response.body().get(0).getFattyAcid() + " mg");
+                        NutrientGram.add(0,  calorie);
+                        NutrientGram.set(0,NutrientGram.get(0).substring(0,NutrientGram.get(0).indexOf(".")+2)+" kcal");
+
+                        NutrientGram.add(1, response.body().get(0).getNa());
+                        NutrientGram.set(1,NutrientGram.get(1).substring(0,NutrientGram.get(1).indexOf(".")+2)+" mg");
+
+                        NutrientGram.add(2, response.body().get(0).getCarb());
+                        NutrientGram.set(2,NutrientGram.get(2).substring(0,NutrientGram.get(2).indexOf(".")+2)+" g");
+
+                        NutrientGram.add(3, response.body().get(0).getSugar());
+                        NutrientGram.set(3,NutrientGram.get(3).substring(0,NutrientGram.get(3).indexOf(".")+2)+" g");
+
+                        NutrientGram.add(4, response.body().get(0).getProtein());
+                        NutrientGram.set(4,NutrientGram.get(4).substring(0,NutrientGram.get(4).indexOf(".")+2)+" g");
+
+                        NutrientGram.add(5, response.body().get(0).getFat());
+                        NutrientGram.set(5,NutrientGram.get(5).substring(0,NutrientGram.get(5).indexOf(".")+2)+" g");
+
+                        NutrientGram.add(6, response.body().get(0).getTransFattyAcid());
+                        NutrientGram.set(6,NutrientGram.get(6).substring(0,NutrientGram.get(6).indexOf(".")+2)+" mg");
+
+                        NutrientGram.add(7, response.body().get(0).getFattyAcid());
+                        NutrientGram.set(7,NutrientGram.get(7).substring(0,NutrientGram.get(7).indexOf(".")+2)+" mg");
                         //NutrientGram.add(8, response.body().get(0).getCholesterol() + " mg");
                         String test = response.body().get(0).getCholesterol();
                         Log.d("col", test);
-                        NutrientGram.add(8, test+ " mg");
+                        NutrientGram.add(8, test.substring(0,test.indexOf(".")+2)+ " mg");
                     }
                     else{
                         String str[]={" kcal", " mg", " g", " g", " g", " g", " mg", " mg", " mg"};
