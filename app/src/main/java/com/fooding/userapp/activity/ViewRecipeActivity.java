@@ -302,6 +302,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     String recipeName = response.body().getName();
                     title.setText(recipeName);
+                    title.setSelected(true);
                     Pattern p = Pattern.compile("[^a-zA-Z0-9]");
                     boolean hasSpecialChar = p.matcher(recipeName).find();
                     if(hasSpecialChar) {

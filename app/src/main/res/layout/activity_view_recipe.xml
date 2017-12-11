@@ -36,6 +36,8 @@
         android:textColor="#111"
         android:textAllCaps="true"
         android:textSize="30dp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
         android:text="recipe name" />
 
     <View
