@@ -86,6 +86,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
     @BindView(R.id.text8_1) TextView text8_1;
     @BindView(R.id.text8_2) TextView text8_2;
     @BindView(R.id.viewOtherRecipeBtn) Button viewOtherRecipeBtn;
+    @BindView(R.id.noNutrientInfo) TextView noNutrientInfo;
+    @BindView(R.id.nutrientInfo) LinearLayout nutrientInfo;
 
     public ArrayList<String> results;
     public ArrayAdapter adapterI;
@@ -133,7 +135,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         text7_2.setTypeface(fontK);
         text8_1.setTypeface(fontK);
         text8_2.setTypeface(fontK);
-
+        noNutrientInfo.setTypeface(fontKB);
 
 
         viewOtherRecipeBtn.setTypeface(fontKB);
@@ -482,6 +484,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Nutrient>> call, Response<List<Nutrient>> response) {
                 String calorie = new String();
+                int calorieCompare = -1;
 
                 if(response.isSuccessful()) {
                     NutrientGram.clear();
@@ -489,6 +492,17 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
                     if(response.body().get(0).getCal() != null ) {
                         calorie = response.body().get(0).getCal();
+                        Log.i("calorie", calorie);
+                        try {
+                            calorieCompare = Integer.parseInt(calorie);
+                        } catch (Exception e) {
+                            ;
+                        }
+                        if(calorieCompare == 0) {
+                            Log.i("0 cal", "true!!!");
+                            noNutrientInfo.setVisibility(View.VISIBLE);
+                            nutrientInfo.setVisibility(View.INVISIBLE);
+                        }
                         NutrientGram.add(0,  calorie + " kcal");
                         NutrientGram.add(1, response.body().get(0).getNa() + " mg");
                         NutrientGram.add(2, response.body().get(0).getCarb() + " g");

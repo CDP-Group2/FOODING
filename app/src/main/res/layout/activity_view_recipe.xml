@@ -127,6 +127,21 @@
         android:layout_marginBottom="6dp"
         android:text="Other Recipes / Menus" />-->
 
+    <TextView
+        android:id="@+id/noNutrientInfo"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="23dp"
+        android:layout_below="@id/title_bar"
+        android:background="@drawable/border_yellow_rectangle"
+        android:gravity="center"
+        android:textColor="@color/yellowAccent"
+        android:textSize="25dp"
+        android:visibility="invisible"
+        android:text="영양정보가 등록되지\n않았습니다."/>
+
     <LinearLayout
         android:id="@+id/nutrientInfo"
         android:layout_width="match_parent"
