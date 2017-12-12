@@ -546,7 +546,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                     calorieValue.setText(NutrientGram.get(0));
                     // check calorie
                     if(fontSP.getBoolean("calorie", false) && fontSP.getString("myCalorie", null) != null) {
-                        if(Integer.parseInt(fontSP.getString("myCalorie", null)) < Integer.parseInt(calorie))
+                        if(Integer.parseInt(fontSP.getString("myCalorie", null)) < Float.parseFloat(calorie))
                             calorieValue.setTextColor(getResources().getColor(R.color.Red));
                         else
                             calorieValue.setTextColor(getResources().getColor(R.color.myGreen));
