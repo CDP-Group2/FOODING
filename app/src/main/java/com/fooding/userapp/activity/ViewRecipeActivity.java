@@ -468,15 +468,15 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         if(fontSP.getBoolean("translation",false))
         {
-            calorieText.setText(NutrientName.get(0).substring(0,NutrientName.get(0).indexOf(".")+2));
-            text1_1.setText(NutrientName.get(1).substring(0,NutrientName.get(1).indexOf(".")+2));
-            text2_1.setText(NutrientName.get(2).substring(0,NutrientName.get(2).indexOf(".")+2));
-            text3_1.setText(NutrientName.get(3).substring(0,NutrientName.get(3).indexOf(".")+2));
-            text4_1.setText(NutrientName.get(4).substring(0,NutrientName.get(4).indexOf(".")+2));
-            text5_1.setText(NutrientName.get(5).substring(0,NutrientName.get(5).indexOf(".")+2));
-            text6_1.setText(NutrientName.get(6).substring(0,NutrientName.get(6).indexOf(".")+2));
-            text7_1.setText(NutrientName.get(7).substring(0,NutrientName.get(7).indexOf(".")+2));
-            text8_1.setText(NutrientName.get(8).substring(0,NutrientName.get(8).indexOf(".")+2));
+            calorieText.setText(NutrientName.get(0));
+            text1_1.setText(NutrientName.get(1));
+            text2_1.setText(NutrientName.get(2));
+            text3_1.setText(NutrientName.get(3));
+            text4_1.setText(NutrientName.get(4));
+            text5_1.setText(NutrientName.get(5));
+            text6_1.setText(NutrientName.get(6));
+            text7_1.setText(NutrientName.get(7));
+            text8_1.setText(NutrientName.get(8));
         }
 
         final ArrayList<String> NutrientGram = new ArrayList<String>();
