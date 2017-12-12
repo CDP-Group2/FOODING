@@ -104,6 +104,10 @@ public class ViewOtherRecipes extends AppCompatActivity {
         }
         /*************************************************************************************************************/
 
+        if(fontSP.getBoolean("translation",false)) {
+            backBtn.setText("GO BACK");
+        }
+
         Retrofit retrofit;
         APIService apiService;
 
