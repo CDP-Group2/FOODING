@@ -193,21 +193,21 @@ public class NFCActivity extends AppCompatActivity {
             mNfc.disableForegroundDispatch(this);
     }
 
-        @Override
-        protected void onNewIntent(Intent intent) {
-            super.onNewIntent(intent);
-            if (intent == null)
-                return;
-            Parcelable msg[] = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            if (msg != null) {
-                String dMsg = setReadTagData((NdefMessage) msg[0]);
-                Toast.makeText(this, dMsg, Toast.LENGTH_SHORT).show();
-                Intent rintent = new Intent(NFCActivity.this,ViewRecipeActivity.class);
-                rintent.putExtra("code", dMsg);
-                startActivity(rintent);
-                finish();
-            }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent == null)
+            return;
+        Parcelable msg[] = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        if (msg != null) {
+            String dMsg = setReadTagData((NdefMessage) msg[0]);
+//            Toast.makeText(this, dMsg, Toast.LENGTH_SHORT).show();
+            Intent rintent = new Intent(NFCActivity.this,ViewRecipeActivity.class);
+            rintent.putExtra("code", dMsg);
+            startActivity(rintent);
+            finish();
         }
+    }
 
         public String setReadTagData(NdefMessage ndefmsg) {
             String strRec =null;
